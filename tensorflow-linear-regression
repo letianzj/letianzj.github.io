@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="">
+<html class="theme-next gemini use-motion" lang="en">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -84,9 +84,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensorflow Linear Regression">
 <meta property="og:url" content="https://letianzj.github.io/tensorflow-linear-regression">
-<meta property="og:site_name" content="Letian Wang">
+<meta property="og:site_name" content="Quant Trading and Portfolio Management">
 <meta property="og:description" content="IntroductionAfter four posts on linear regression, we are finally at the door of deep learning. Today we will build a simple feed-forward neural network (but not deep) with the help of Tensorflow to s">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://letianzj.github.io/tensorflow-linear-regression/tensorboard.png">
 <meta property="og:updated_time" content="2018-10-16T00:31:23.106Z">
 <meta name="twitter:card" content="summary">
@@ -128,7 +128,7 @@
 
 
 
-  <title>Tensorflow Linear Regression | TensorFlow,Machine Learning,Deep Learning,Linear Regression | Letian Wang</title>
+  <title>Tensorflow Linear Regression | TensorFlow,Machine Learning,Deep Learning,Linear Regression | Quant Trading and Portfolio Management</title>
   
 
 
@@ -149,7 +149,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -167,12 +167,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Letian Wang</span>
+        <span class="site-title">Quant Trading and Portfolio Management</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+        <h1 class="site-subtitle" itemprop="description">Statistics, Time Series, Strategies, Machine Learning, Deep Learning</h1>
       
   </div>
 
@@ -267,13 +267,13 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/tensorflow-linear-regression">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Letian">
+      <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="name" content="Quant Trading and Portfolio Management">
     </span>
 
     
@@ -410,7 +410,7 @@
         <ul class="post-copyright">
   <li class="post-copyright-author">
     <strong>Post author:</strong>
-    Letian
+    Letian Wang
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
@@ -534,9 +534,9 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/avatar.png"
-                alt="Letian" />
+                alt="Letian Wang" />
             
-              <p class="site-author-name" itemprop="name">Letian</p>
+              <p class="site-author-name" itemprop="name">Letian Wang</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -648,7 +648,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Letian</span>
+  <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 
   
 </div>
