@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://letianzj.github.io/bak/stats_models.html</loc>
-    <lastmod>2020-06-26T15:15:37.366Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/bak/deep-learning-notes.html</loc>
-    <lastmod>2020-06-14T14:46:45.221Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/bak/fx-correlation-swap/fx-correlation-swap.html</loc>
-    <lastmod>2019-02-02T00:41:44.297Z</lastmod>
-  </url>  <url>
     <loc>https://letianzj.github.io/welcome.html</loc>
     <lastmod>2019-01-07T02:23:44.364Z</lastmod>
   </url>  <url>
@@ -18,12 +9,6 @@
   </url>  <url>
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
     <lastmod>2019-01-06T01:32:27.962Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/bak/fx-correlation-swap.html</loc>
-    <lastmod>2019-01-06T01:32:27.962Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/bak/carry-and-roll-down.html</loc>
-    <lastmod>2018-10-18T00:53:56.423Z</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
     <lastmod>2018-10-16T23:04:18.042Z</lastmod>
@@ -69,11 +54,5 @@
   </url>  <url>
     <loc>https://letianzj.github.io/cloud-service-three.html</loc>
     <lastmod>2018-10-12T02:58:13.852Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/bak/cloud-based-dashboard.html</loc>
-    <lastmod>2018-09-23T12:41:06.663Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/bak/elitequant-live-trading.html</loc>
-    <lastmod>2018-09-20T07:37:26.548Z</lastmod>
   </url>
 </urlset>
