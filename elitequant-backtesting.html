@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="EliteQuant,Backtest,Trading Ssytem,Quantitative Trading" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IntroductionElitequant is an open source low latency event driven trading system. This post goes over the structure of its historical backtesting module. I’ll use Elitequant Python as example but the">
+<meta name="keywords" content="EliteQuant,Backtest,Trading Ssytem,Quantitative Trading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elitequant Backtesting">
+<meta property="og:url" content="https://letianzj.github.io/elitequant-backtesting.html">
+<meta property="og:site_name" content="Systematic Investment">
+<meta property="og:description" content="IntroductionElitequant is an open source low latency event driven trading system. This post goes over the structure of its historical backtesting module. I’ll use Elitequant Python as example but the">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://letianzj.github.io/elitequant-backtesting/backtest_structure.png">
+<meta property="og:image" content="https://letianzj.github.io/elitequant-backtesting/moving_average_cross.png">
+<meta property="og:updated_time" content="2018-10-16T00:22:31.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elitequant Backtesting">
+<meta name="twitter:description" content="IntroductionElitequant is an open source low latency event driven trading system. This post goes over the structure of its historical backtesting module. I’ll use Elitequant Python as example but the">
+<meta name="twitter:image" content="https://letianzj.github.io/elitequant-backtesting/backtest_structure.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://letianzj.github.io/elitequant-backtesting.html"/>
+
+
+
+
+
+  <title>Elitequant Backtesting | EliteQuant,Backtest,Trading Ssytem,Quantitative Trading | Systematic Investment</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-109341958-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Systematic Investment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/elitequant-backtesting.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Systematic Investment">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Elitequant Backtesting</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-28T19:20:00-05:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Systematic-Investment/" itemprop="url" rel="index">
+                    <span itemprop="name">Systematic Investment</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Systematic-Investment/Trading-Ssytem/" itemprop="url" rel="index">
+                    <span itemprop="name">Trading Ssytem</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/elitequant-backtesting.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="elitequant-backtesting.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://github.com/EliteQuant" target="_blank" rel="noopener">Elitequant</a> is an open source low latency event driven trading system. This post goes over the structure of its historical backtesting module. I’ll use <a href="https://github.com/EliteQuant/EliteQuant_Python" target="_blank" rel="noopener">Elitequant Python</a> as example but the code structure is shared literally with other lanaguages such as <a href="https://github.com/EliteQuant/EliteQuant_R" target="_blank" rel="noopener">Elitequant R</a> and <a href="https://github.com/EliteQuant/EliteQuant_Matlab" target="_blank" rel="noopener">Elitequant Matlab</a>.</p>
+<p>This post serves as preparation stage for future works in backtesting quantitative systematic strategies. Nevertheless, you can safely skip it without jeopardizing the ability of following future posts if you have already your own backtesting system. Even if you haven’t yet, there are other backtest platforms available such as <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a> in Python, <a href="https://www.quantconnect.com/" target="_blank" rel="noopener">QuantConnect</a> in C#, or <a href="https://www.rdocumentation.org/packages/quantstrat/versions/0.14.6" target="_blank" rel="noopener">QuantStrat</a> in R. But they all share one feature in common – event driven mechanism.</p>
+<a id="more"></a>
+<p>Event driven system treats every market quotes, every tranactions, every tweeter tweets as an event, and your trading strategy is expected to react to these event streams. <a href="https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I" target="_blank" rel="noopener">QuantStart</a> gives a good summary about the advantages of event-driven system over traditional vectorised approach, so I’ll just add two comments.</p>
+<ol>
+<li>This code structure is natural to traders in how they react to market prices and news, and how they interact with risk managers, performance managers, and order execution brokers.</li>
+<li>The code can be easily extended to live trading environment. In fact, <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a> allows you turn-key switch on to live trading. In my opinion, this is the key advantage because writing your strategy again for live trading will introduce more bugs. You are able to unit test all corner cases and fix bugs to eliminate surprises before playing with real money. You can also replay yesterday’s market by feed yesterday’s tick data stream into the system and further observe the strategy’s reaction.</li>
+</ol>
+<h2 id="Backtest-Structure"><a href="#Backtest-Structure" class="headerlink" title="Backtest Structure"></a>Backtest Structure</h2><p>Below is the structure of Elitequant backtesting module. I neglected those files for live trading.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">+-- brokerage</span><br><span class="line">|   +-- backtest_brokerage.py</span><br><span class="line">+-- data</span><br><span class="line">|   +-- backtest_data_feed_local_single_symbol.py</span><br><span class="line">|   +-- bar_event.py</span><br><span class="line">|   +-- data_board.py</span><br><span class="line">|   +-- tick_event.py</span><br><span class="line">+-- event</span><br><span class="line">|   +-- backtest_event_engine.py</span><br><span class="line">|   +-- event.py</span><br><span class="line">+-- order</span><br><span class="line">|   +-- fill_event.py</span><br><span class="line">|   +-- order_event.py</span><br><span class="line">|   +-- order_manager.py</span><br><span class="line">|   +-- order_event.py</span><br><span class="line">|   +-- order_status.py</span><br><span class="line">|   +-- order_type.py</span><br><span class="line">+-- performance</span><br><span class="line">|   +-- performace_manager.py</span><br><span class="line">+-- position</span><br><span class="line">|   +-- portfolio_manager.py</span><br><span class="line">|   +-- position.py</span><br><span class="line">+-- strategy</span><br><span class="line">|   +-- __init__.py</span><br><span class="line">|   +-- mystrategy</span><br><span class="line">|   +-- strategy_manager.py</span><br><span class="line">+-- backtest_engine.py</span><br><span class="line">+-- backtest_optimization_engine.py</span><br><span class="line">+-- config_backtest.yml</span><br></pre></td></tr></table></figure>
+<!--<img src="backtest_structure.png" align="center" width="80%" height="80%">-->
+<img src="/elitequant-backtesting/backtest_structure.png" title="Backtest Structure">
+<p>In the graph event engine is put as the driving force of the system; and traders or your strategies are supported (surrounded) by people such as order managers and performance managers. all these components are wired up in the file backtest_engine.py. </p>
+<h3 id="Data-Feed"><a href="#Data-Feed" class="headerlink" title="Data Feed"></a>Data Feed</h3><p>Data feed feeds the data into the system. An example of data is historical price OHLC bars retrieved from local file in BacktestDataFeedLocalSingleSymbol.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">subscribe_market_data</span><span class="params">(self, symbols)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> symbols <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">for</span> sym <span class="keyword">in</span> symbols:</span><br><span class="line">            self._retrieve_historical_data(sym)       <span class="comment"># retrieve historical data</span></span><br></pre></td></tr></table></figure>
+<h3 id="Event"><a href="#Event" class="headerlink" title="Event"></a>Event</h3><p>The Event, representing information, is fundamental base class in event-driven system. Example of its child classes are BarEvent, TickEvent, and OrderEvent that dispatched by EventEngine and handled by other EventHandlers.</p>
+<h3 id="Event-Engine"><a href="#Event-Engine" class="headerlink" title="Event Engine"></a>Event Engine</h3><p>EventEngine is located at the center of Backtest engine. It has a while loop to dispatch event information to subscribed event handlers based on event types.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    run backtest</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    print(<span class="string">"Running Backtest..."</span>)</span><br><span class="line">    <span class="keyword">while</span> (self._active):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            event = self._queue.get(<span class="keyword">False</span>)</span><br><span class="line">        <span class="keyword">except</span> Empty:   <span class="comment"># throw good exception</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                event = self._datafeed.stream_next()</span><br><span class="line">                self._queue.put(event)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="comment"># stop if not able to retrieve next event</span></span><br><span class="line">                self._active = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">else</span>:  <span class="comment"># not empty</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># call event handlers</span></span><br><span class="line">                <span class="keyword">if</span> event.event_type <span class="keyword">in</span> self._handlers:</span><br><span class="line">                    [handler(event) <span class="keyword">for</span> handler <span class="keyword">in</span> self._handlers[event.event_type]]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> self._generalHandlers:</span><br><span class="line">                    [handler(event) <span class="keyword">for</span> handler <span class="keyword">in</span> self._generalHandlers]</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(<span class="string">"Error &#123;0&#125;"</span>.format(str(e.args[<span class="number">0</span>])).encode(<span class="string">"utf-8"</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="Backtest-Brokerage"><a href="#Backtest-Brokerage" class="headerlink" title="Backtest Brokerage"></a>Backtest Brokerage</h3><p>BacktestBrokerage simulates order-execution brokers in real world, for example <a href="https://www.interactivebrokers.com/" target="_blank" rel="noopener">Interactive Brokers</a> or <a href="https://us.etrade.com/a/home3" target="_blank" rel="noopener">ETrade</a> in retail space. </p>
+<p>Currently the brokerage receives an order and fills it with market order immediately for free. If you add an order book, it will support more order types such as limit orders and stop orders. If you want to add transaction costs, slippage, commissions, this is also the place.</p>
+<h3 id="Portfolio-Manager"><a href="#Portfolio-Manager" class="headerlink" title="Portfolio Manager"></a>Portfolio Manager</h3><p>PortfolioManager class helps you maintain the book and mark-to-market (MTM). </p>
+<h3 id="Performance-Manager"><a href="#Performance-Manager" class="headerlink" title="Performance Manager"></a>Performance Manager</h3><p>PerformanceManager keeps daily trades and evaluates the performances. In the end it creates a <a href="https://quantopian.github.io/pyfolio/" target="_blank" rel="noopener">tearsheet</a> and saves trades and daily positions to <strong>out_dir</strong> for closer examination.</p>
+<p>I have also placed a RiskManager but she currently just gives green light to every trade with no risk control.</p>
+<h3 id="Order-Manager"><a href="#Order-Manager" class="headerlink" title="Order Manager"></a>Order Manager</h3><p>OrderManager is the core class of so-called <a href="https://en.wikipedia.org/wiki/Order_management_system" target="_blank" rel="noopener">Order Management System (OMS)</a>. it keeps and traces your ordes placed, filed, or cancelled.</p>
+<h3 id="Data-Board"><a href="#Data-Board" class="headerlink" title="Data Board"></a>Data Board</h3><p>DataBoard is a help class that record most recent price and volume for all symbols.</p>
+<h3 id="Strategy-Manager"><a href="#Strategy-Manager" class="headerlink" title="Strategy Manager"></a>Strategy Manager</h3><p>StrategyManger manages all strategies that are derived from StrategyBase class, such as their market subscription and order fills. She knows about them with the help from the codes in mystrategy/<strong>init</strong>.py, which picks up all strategy classes in that folder.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># loop over all the files in the path</span></span><br><span class="line"><span class="keyword">for</span> root, subdirs, files <span class="keyword">in</span> os.walk(path):</span><br><span class="line">    <span class="keyword">for</span> name <span class="keyword">in</span> files:</span><br><span class="line">        <span class="comment"># by default, all strategies should end with the word 'strategy'</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">'strategy'</span> <span class="keyword">in</span> name <span class="keyword">and</span> <span class="string">'.pyc'</span> <span class="keyword">not</span> <span class="keyword">in</span> name:</span><br><span class="line">            <span class="comment"># add module prefix</span></span><br><span class="line">            moduleName = <span class="string">'source.strategy.mystrategy.'</span> + name.replace(<span class="string">'.py'</span>, <span class="string">''</span>)</span><br><span class="line">            <span class="comment"># import module</span></span><br><span class="line">            module = importlib.import_module(moduleName)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># loop through all the objects in the module and look for the one with 'Strategy' keyword</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> dir(module):</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">'Strategy'</span> <span class="keyword">in</span> k) <span class="keyword">and</span> (<span class="string">'Abstract'</span> <span class="keyword">not</span> <span class="keyword">in</span> k):</span><br><span class="line">                    v = module.__getattribute__(k)</span><br><span class="line">                    strategy_list[k] = v</span><br></pre></td></tr></table></figure>
+<h2 id="Backtest-Practice"><a href="#Backtest-Practice" class="headerlink" title="Backtest Practice"></a>Backtest Practice</h2><p>With all the components in place, <strong>all you need to do</strong> is to write your own strategy class. An example is <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/strategy/mystrategy/moving_average_cross_strategy.py" target="_blank" rel="noopener">moving_average_cross_strategy.py</a>. This simple strategy buys on <a href="https://www.investopedia.com/terms/g/goldencross.asp" target="_blank" rel="noopener">golden cross</a> when short-term moving average crosses long-term moving average from below, and sells on <a href="https://www.investopedia.com/terms/d/deathcross.asp" target="_blank" rel="noopener">death cross</a> when the former crosses the later from above.</p>
+<p><strong>To backtest</strong> it, set up the <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/config_backtest.yaml" target="_blank" rel="noopener">config_backtest.yaml</a> file and run <a href="">backtest_engine.py</a>. BacktestEngine is the class where all components are wired up together.</p>
+<p><strong>To optimize</strong> for example the short-term and long-term parameters, set up the candidate parameters in <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/config_backtest.yaml" target="_blank" rel="noopener">config_backtest.yaml</a> or directly in <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/backtest_optimization_engine.py" target="_blank" rel="noopener">backtest_optimization_engine.py</a>. BacktestOptimizationEngine takes a grid search approach to loop through all candidate parameters and uses multi-threading to speed up the process. In addition, the <strong>tear_sheet</strong> option is turned off during batch optimization.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">optimize</span><span class="params">(config, target_name)</span>:</span></span><br><span class="line">    backtest = BacktestEngine(config)</span><br><span class="line">    results = backtest.run(tear_sheet=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        target_value = results.loc[target_name][<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">except</span> KeyError:</span><br><span class="line">        target_value = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> (config, target_value, results)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> param <span class="keyword">in</span> params_list:</span><br><span class="line">	config_local = config.copy()</span><br><span class="line">	config_local[<span class="string">'params'</span>] = param</span><br><span class="line">	config_local[<span class="string">'batch_tag'</span>] = str(batch_token)</span><br><span class="line">	res_list.append(pool.apply_async(optimize, (config_local, target_name)))</span><br><span class="line">	batch_token = batch_token + <span class="number">1</span></span><br><span class="line">pool.close()</span><br><span class="line">pool.join()</span><br></pre></td></tr></table></figure>
+<p>You can conveniently set any variable(s) in your strategy as parameter(s) to be optimized. The trick resides in <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/strategy/strategy_base.py" target="_blank" rel="noopener">StraegyBase</a> class where it accesses all metadata from your strategy. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrategyBase</span><span class="params">(metaclass=ABCMeta)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">on_init</span><span class="params">(self, params_dict=None)</span>:</span></span><br><span class="line">		self.initialized = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">		<span class="comment"># set params</span></span><br><span class="line">		<span class="keyword">if</span> params_dict <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">			<span class="keyword">for</span> key, value <span class="keyword">in</span> params_dict.items():</span><br><span class="line">				<span class="keyword">try</span>:</span><br><span class="line">					self.__setattr__(key, value)</span><br><span class="line">				<span class="keyword">except</span>:</span><br><span class="line">					<span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>In <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/backtest_optimization_engine.py" target="_blank" rel="noopener">backtest_optimization_engine</a>, it demos either reading paramater list from config.yaml or setting it directly in code. The advantage of the latter is to allow you construct parameter grids in a loop. The results are sorted by target performance measure. Each backtest is assigned an ID called batch token, which is used to identify its result files in <strong>out_dir</strong> folder.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Params：&#123;'short_window': 50, 'long_window': 100&#125;，Sharpe ratio：0.7771284386050981</span><br><span class="line">Params：&#123;'short_window': 10, 'long_window': 20&#125;，Sharpe ratio：0.7374670421689613</span><br><span class="line">Params：&#123;'short_window': 20, 'long_window': 40&#125;，Sharpe ratio：0.5593737983561646</span><br></pre></td></tr></table></figure>
+<p>To take a closer look, below is the details from one particular parameter.</p>
+<!--<img src="moving_average_cross.png" align="center" width="80%" height="80%">-->
+<img src="/elitequant-backtesting/moving_average_cross.png" title="Backtest Results">
+<p>Happy trading!</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Letian Wang
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://letianzj.github.io/elitequant-backtesting.html" title="Elitequant Backtesting">https://letianzj.github.io/elitequant-backtesting.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Systematic-Investment/" rel="tag"># Systematic Investment</a>
+          
+            <a href="/tags/Trading-Ssytem/" rel="tag"># Trading Ssytem</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tensorflow-linear-regression.html" rel="next" title="Tensorflow Linear Regression">
+                <i class="fa fa-chevron-left"></i> Tensorflow Linear Regression
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/elitequant-excel.html" rel="prev" title="EliteQuant Excel">
+                EliteQuant Excel <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Letian Wang" />
+            
+              <p class="site-author-name" itemprop="name">Letian Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backtest-Structure"><span class="nav-number">2.</span> <span class="nav-text">Backtest Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Feed"><span class="nav-number">2.1.</span> <span class="nav-text">Data Feed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event"><span class="nav-number">2.2.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event-Engine"><span class="nav-number">2.3.</span> <span class="nav-text">Event Engine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backtest-Brokerage"><span class="nav-number">2.4.</span> <span class="nav-text">Backtest Brokerage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Portfolio-Manager"><span class="nav-number">2.5.</span> <span class="nav-text">Portfolio Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance-Manager"><span class="nav-number">2.6.</span> <span class="nav-text">Performance Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Order-Manager"><span class="nav-number">2.7.</span> <span class="nav-text">Order Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Board"><span class="nav-number">2.8.</span> <span class="nav-text">Data Board</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strategy-Manager"><span class="nav-number">2.9.</span> <span class="nav-text">Strategy Manager</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backtest-Practice"><span class="nav-number">3.</span> <span class="nav-text">Backtest Practice</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian Wang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://letianzj.github.io/elitequant-backtesting.html';
+          this.page.identifier = 'elitequant-backtesting.html';
+          this.page.title = 'Elitequant Backtesting';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

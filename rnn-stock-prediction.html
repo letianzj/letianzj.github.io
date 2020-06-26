@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="TensorFlow,Machine Learning,Deep Learning" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IntroductionFinanical time series are time stamped sequential data where traditional feed-forward neural network doesn’t handle well. Recurrent neural network (RNN) solves this issue by feeding output">
+<meta name="keywords" content="TensorFlow,Machine Learning,Deep Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN Stock Prediction">
+<meta property="og:url" content="https://letianzj.github.io/rnn-stock-prediction.html">
+<meta property="og:site_name" content="Systematic Investment">
+<meta property="og:description" content="IntroductionFinanical time series are time stamped sequential data where traditional feed-forward neural network doesn’t handle well. Recurrent neural network (RNN) solves this issue by feeding output">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-01-07T00:26:47.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RNN Stock Prediction">
+<meta name="twitter:description" content="IntroductionFinanical time series are time stamped sequential data where traditional feed-forward neural network doesn’t handle well. Recurrent neural network (RNN) solves this issue by feeding output">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://letianzj.github.io/rnn-stock-prediction.html"/>
+
+
+
+
+
+  <title>RNN Stock Prediction | TensorFlow,Machine Learning,Deep Learning | Systematic Investment</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-109341958-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Systematic Investment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/rnn-stock-prediction.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Systematic Investment">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RNN Stock Prediction</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-24T22:30:00-05:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/rnn-stock-prediction.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="rnn-stock-prediction.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Finanical time series are time stamped sequential data where traditional <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network" target="_blank" rel="noopener">feed-forward neural network</a> doesn’t handle well. <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" target="_blank" rel="noopener">Recurrent neural network (RNN)</a> solves this issue by feeding output neurons back into the input to provide memories of previous states. This turns out to be a huge success, especially in Natural Language Processing. Later on, <a href="https://en.wikipedia.org/wiki/Long_short-term_memory" target="_blank" rel="noopener">Long short-term memory (LSTM)</a> and <a href="https://en.wikipedia.org/wiki/Gated_recurrent_unit" target="_blank" rel="noopener">Gated Recurrent Unit(GRU)</a> are designed to alleviate the so-called vanishing/exploding gradients issues in the back-propagation phase of RNNs. </p>
+<p>In this post, I will build an RNN model with LSTM or GRU cell to predict the prices of S&amp;P 500. To be specific, a <a href="https://en.wikipedia.org/wiki/Supervised_learning" target="_blank" rel="noopener">supervised machine learning</a> model will be calibrated to predict tomorrow’s S&amp;P 500 close price based on the prices from the previous 20 business days. This is a regression problem; yet the codes can be easily adapted to handle classification problem such as simply predicting tomorrow’s market direction. The code is located on <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">Github</a>.</p>
+<a id="more"></a>
+<h2 id="Data-Processing"><a href="#Data-Processing" class="headerlink" title="Data Processing"></a>Data Processing</h2><p>The index data is uploaded <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/hist/SPX%20Index.csv" target="_blank" rel="noopener">here</a>. It contains daily Open, High, Low, Close, and Volume information since year 2006. I use three of them, namely High, Low, and Close, believing that <a href="https://en.wikipedia.org/wiki/Average_true_range" target="_blank" rel="noopener">Average True Range</a> containing relevant information about current market conditions. The data is firstly grouped into sliding window of 20 business days, and then splitted 90%/10% into train/test data sets.</p>
+<p>An important step in using the stock price data is to normalize the data. Some people use sklearn.preprocessing.MinMaxScaler. To me a natural choice is yesterday’s close, which will give us the (intraday high/low) returns seen on newspaper.  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">n_window_size = <span class="number">20</span>            <span class="comment"># 20 business days; use first 19 to predict the 20th</span></span><br><span class="line"><span class="comment"># split between train and test, 90%/10%</span></span><br><span class="line">n_total_size = spx_ret.shape[<span class="number">0</span>] - n_window_size + <span class="number">1</span>             <span class="comment"># 3040</span></span><br><span class="line">n_train_set_size = int(np.round(n_total_size*<span class="number">0.9</span>))          <span class="comment"># 2736</span></span><br><span class="line">n_test_set_size = n_total_size - n_train_set_size           <span class="comment"># 304</span></span><br><span class="line"></span><br><span class="line">x_train = np.zeros((n_train_set_size, n_window_size<span class="number">-1</span>, <span class="number">3</span>))          <span class="comment"># shape = (2736, 19, 3)</span></span><br><span class="line">y_train = np.zeros((n_train_set_size, <span class="number">1</span>))                           <span class="comment"># shape = (2736, 1)</span></span><br><span class="line">x_test = np.zeros((n_test_set_size, n_window_size<span class="number">-1</span>, <span class="number">3</span>))            <span class="comment"># shape = (304, 19, 3)</span></span><br><span class="line">y_test = np.zeros((n_test_set_size, <span class="number">1</span>))                             <span class="comment"># shape = (304, 1)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n_train_set_size):</span><br><span class="line">    x_train[i, :, :] = spx_ret.iloc[i:i+n_window_size<span class="number">-1</span>].values</span><br><span class="line">    y_train[i, <span class="number">0</span>] = spx_ret.iloc[i + n_window_size - <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n_train_set_size, n_total_size):</span><br><span class="line">    x_test[i-n_train_set_size, :, :] = spx_ret.iloc[i:i+n_window_size<span class="number">-1</span>].values</span><br><span class="line">    y_test[i-n_train_set_size, <span class="number">0</span>] = spx_ret.iloc[i + n_window_size - <span class="number">1</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p>To feed batches into tensorflow, it needs a help function called get_next_batch, which I literally adapted from [3].</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># generate next batch; randomly shuffle test set; and then draw without replacement batch_size samples</span></span><br><span class="line"><span class="comment"># after running out of samples, randomly shuffle again</span></span><br><span class="line">index_in_epoch = <span class="number">0</span></span><br><span class="line">perm_array = np.arange(x_train.shape[<span class="number">0</span>])            <span class="comment"># (2736,)</span></span><br><span class="line">np.random.shuffle(perm_array)</span><br><span class="line"></span><br><span class="line"><span class="comment"># function to get the next batch; randomly draw batch_size(50) 20d-windows</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_next_batch</span><span class="params">(batch_size)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> index_in_epoch, x_train, perm_array</span><br><span class="line">    start = index_in_epoch</span><br><span class="line">    index_in_epoch += batch_size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> index_in_epoch &gt; x_train.shape[<span class="number">0</span>]:</span><br><span class="line">        np.random.shuffle(perm_array)  <span class="comment"># shuffle permutation array</span></span><br><span class="line">        start = <span class="number">0</span>  <span class="comment"># start next epoch</span></span><br><span class="line">        index_in_epoch = batch_size</span><br><span class="line"></span><br><span class="line">    end = index_in_epoch</span><br><span class="line">    <span class="keyword">return</span> x_train[perm_array[start:end]], y_train[perm_array[start:end]]</span><br></pre></td></tr></table></figure>
+<h2 id="Building-Graph"><a href="#Building-Graph" class="headerlink" title="Building Graph"></a>Building Graph</h2><p>I prefer using <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">tensorflow</a> directly to gain full control over graphs. An alternative is to use Keras [<a href="https://en.wikipedia.org/wiki/Keras]" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Keras]</a>. Since we use 19 business days to predict the next business day, the step is 19. Also input is three because every day we use High, Low, and Close prices. Tensorflow already provides layer structure for basic RNN cells, as below.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">n_steps = n_window_size - <span class="number">1</span>                 <span class="comment"># 20 business days, X has 19 days</span></span><br><span class="line">n_inputs = <span class="number">3</span>                                <span class="comment"># HLC</span></span><br><span class="line">n_outputs = <span class="number">1</span>                               <span class="comment"># C(t=20)</span></span><br><span class="line">n_neurons = <span class="number">200</span>                             <span class="comment"># number of neurons in a layer</span></span><br><span class="line">n_layers = <span class="number">2</span>                                <span class="comment"># number of layers</span></span><br><span class="line">learning_rate = <span class="number">0.001</span>                       <span class="comment"># learning rate</span></span><br><span class="line">batch_size = <span class="number">50</span>                             <span class="comment"># batch size</span></span><br><span class="line">n_epochs = <span class="number">100</span>                              <span class="comment"># number of epochs</span></span><br><span class="line"></span><br><span class="line">tf.reset_default_graph()</span><br><span class="line">X = tf.placeholder(tf.float32, [<span class="keyword">None</span>, n_steps, n_inputs])                   <span class="comment"># (?, 19, 3)</span></span><br><span class="line">y = tf.placeholder(tf.float32, [<span class="keyword">None</span>, n_outputs])                           <span class="comment"># (?, 1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Bonus: Multi-Layer Perceptron (MLP)</span></span><br><span class="line"><span class="comment"># X_MLP = tf.placeholder(tf.float32, [None, n_steps * n_inputs])              # (?, 57)</span></span><br><span class="line"><span class="comment"># hidden1 = tf.contrib.layers.fully_connected(X_MLP, n_neurons, activation_fn=tf.nn.elu)      # (?, 200)</span></span><br><span class="line"><span class="comment"># hidden2 = tf.contrib.layers.fully_connected(hidden1, n_neurons, activation_fn=tf.nn.elu)      # (?, 200)</span></span><br><span class="line"><span class="comment"># y_pred_MLP = tf.contrib.layers.fully_connected(hidden2, n_outputs, activation_fn=tf.nn.elu)     # (?, 1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Basic RNN Cell</span></span><br><span class="line">layers = [tf.contrib.rnn.BasicRNNCell(num_units=n_neurons, activation=tf.nn.elu) <span class="keyword">for</span> layer <span class="keyword">in</span> range(n_layers)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Basic LSTM Cell</span></span><br><span class="line"><span class="comment"># layers = [tf.nn.rnn_cell.LSTMCell(name='basic_lstm_cell', num_units=n_neurons, activation=tf.nn.elu) for layer in range(n_layers)]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># LSTM Cell with peephole connections</span></span><br><span class="line"><span class="comment"># layers = [tf.contrib.rnn.LSTMCell(num_units=n_neurons, activation=tf.nn.leaky_relu, use_peepholes = True) for layer in range(n_layers)]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GRU cell</span></span><br><span class="line"><span class="comment"># layers = [tf.contrib.rnn.GRUCell(num_units=n_neurons, activation=tf.nn.leaky_relu) for layer in range(n_layers)]</span></span><br><span class="line"></span><br><span class="line">multi_layer_cell = tf.contrib.rnn.MultiRNNCell(layers)</span><br><span class="line"></span><br><span class="line"><span class="comment"># rnn_outputs contains the output tensors for each time step (?, 19, 200)</span></span><br><span class="line"><span class="comment"># states contains the final states of the network, (?, 200)x(2 layers)</span></span><br><span class="line">rnn_outputs, states = tf.nn.dynamic_rnn(multi_layer_cell, X, dtype=tf.float32)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add a densely-connected layer between final state and y</span></span><br><span class="line">y_pred = tf.layers.dense(states[<span class="number">-1</span>], n_outputs)                 <span class="comment"># (?, 1)</span></span><br><span class="line"></span><br><span class="line">loss = tf.reduce_mean(tf.square(y_pred - y))          <span class="comment"># loss function is mean squared error</span></span><br><span class="line">optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)</span><br><span class="line">training_op = optimizer.minimize(loss)</span><br><span class="line">model_saver = tf.train.Saver()</span><br></pre></td></tr></table></figure>
+<h2 id="Running-Graph"><a href="#Running-Graph" class="headerlink" title="Running Graph"></a>Running Graph</h2><p>To run the graph, initiate a tensorflow session and feed in batches. The trained model is also saved for later use.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    sess.run(tf.global_variables_initializer())</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> range(n_epochs):</span><br><span class="line">        <span class="keyword">for</span> iteration <span class="keyword">in</span> range(n_train_set_size // batch_size):</span><br><span class="line">            x_batch, y_batch = get_next_batch(batch_size) <span class="comment"># fetch the next training batch</span></span><br><span class="line">            <span class="comment">#[a1, a2, a3, a4] = sess.run([rnn_outputs, states, y_pred, training_op], feed_dict=&#123;X: x_batch, y: y_batch&#125;)</span></span><br><span class="line">            sess.run(training_op, feed_dict=&#123;X: x_batch, y: y_batch&#125;)</span><br><span class="line"></span><br><span class="line">        mse_train = loss.eval(feed_dict=&#123;X: x_train, y: y_train&#125;)</span><br><span class="line">        mse_test = loss.eval(feed_dict=&#123;X: x_test, y: y_test&#125;)</span><br><span class="line">        print(epoch, <span class="string">"Train accuracy:"</span>, mse_train, <span class="string">"Test accuracy:"</span>, mse_test)</span><br><span class="line"></span><br><span class="line">    y_train_pred = sess.run(y_pred, feed_dict=&#123;X: x_train&#125;)                 <span class="comment"># (2736, 1)</span></span><br><span class="line">    y_test_pred = sess.run(y_pred, feed_dict=&#123;X: x_test&#125;)                   <span class="comment"># (304, 1)</span></span><br><span class="line">    save_path = model_saver.save(sess, <span class="string">"./rnn_model_final.ckpt"</span>)        <span class="comment"># checkpoint</span></span><br></pre></td></tr></table></figure>
+<p>Since we are predicting next day prices, the returns need to be converted back to prices and compare with actual closes.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">y_train_actual = spx[<span class="string">'Close'</span>].iloc[n_window_size:n_train_set_size+n_window_size]             <span class="comment"># (2736,)</span></span><br><span class="line">y_test_actual = spx[<span class="string">'Close'</span>].iloc[n_train_set_size+n_window_size:]                           <span class="comment"># (304, )</span></span><br><span class="line"></span><br><span class="line">y_train_pred_price = pd.DataFrame(y_train_pred, index=y_train_actual.index)</span><br><span class="line">y_train_pred_price.columns = [<span class="string">'Close'</span>]</span><br><span class="line">y_train_pred_price = spx[[<span class="string">'Close'</span>]].shift(<span class="number">1</span>).iloc[n_window_size:n_train_set_size+n_window_size] * (y_train_pred_price/<span class="number">100.0</span> + <span class="number">1.0</span>)</span><br><span class="line">y_test_pred_price = pd.DataFrame(y_test_pred, index=y_test_actual.index)</span><br><span class="line">y_test_pred_price.columns = [<span class="string">'Close'</span>]</span><br><span class="line">y_test_pred_price = spx[[<span class="string">'Close'</span>]].shift(<span class="number">1</span>).iloc[n_train_set_size+n_window_size:] * (y_test_pred_price/<span class="number">100.0</span> + <span class="number">1.0</span>)</span><br></pre></td></tr></table></figure>
+<p>By now the RNN model is trained and ready to predict. The next step would be to put this forecasting signal into backtesting. Stay tuned.</p>
+<p><strong>Reference</strong></p>
+<ul>
+<li>Géron, Aurélien. Hands-on machine learning with Scikit-Learn and TensorFlow: concepts, tools, and techniques to build intelligent systems. “ O’Reilly Media, Inc.”, 2017.</li>
+<li>Lilian Weng, <a href="https://lilianweng.github.io/lil-log/2017/07/08/predict-stock-prices-using-RNN-part-1.html" target="_blank" rel="noopener">Predict Stock Prices Using RNN</a></li>
+<li>Raoul Malm, <a href="https://www.kaggle.com/raoulma/ny-stock-price-prediction-rnn-lstm-gru/notebook" target="_blank" rel="noopener">NY Stock Price Prediction RNN LSTM GRU</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Letian Wang
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://letianzj.github.io/rnn-stock-prediction.html" title="RNN Stock Prediction">https://letianzj.github.io/rnn-stock-prediction.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hidden-markov-chain.html" rel="next" title="Hidden Markov Chain">
+                <i class="fa fa-chevron-left"></i> Hidden Markov Chain
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Letian Wang" />
+            
+              <p class="site-author-name" itemprop="name">Letian Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Processing"><span class="nav-number">2.</span> <span class="nav-text">Data Processing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Building-Graph"><span class="nav-number">3.</span> <span class="nav-text">Building Graph</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Running-Graph"><span class="nav-number">4.</span> <span class="nav-text">Running Graph</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian Wang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://letianzj.github.io/rnn-stock-prediction.html';
+          this.page.identifier = 'rnn-stock-prediction.html';
+          this.page.title = 'RNN Stock Prediction';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Bayesian Inference,Linear Regression,Conjugate Prior,Machine Learning" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IntroductionIn last post we reviewed the classical linear regression and now let’s look from Bayesian perspective. There is well-known philosophical difference between frequentist and Bayesian. Intere">
+<meta name="keywords" content="Bayesian Inference,Linear Regression,Conjugate Prior,Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bayesian Linear Regression">
+<meta property="og:url" content="https://letianzj.github.io/bayesian-linear-regression.html">
+<meta property="og:site_name" content="Systematic Investment">
+<meta property="og:description" content="IntroductionIn last post we reviewed the classical linear regression and now let’s look from Bayesian perspective. There is well-known philosophical difference between frequentist and Bayesian. Intere">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://letianzj.github.io/bayesian-linear-regression/bayesian_dynamics.png">
+<meta property="og:updated_time" content="2018-10-16T03:15:03.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bayesian Linear Regression">
+<meta name="twitter:description" content="IntroductionIn last post we reviewed the classical linear regression and now let’s look from Bayesian perspective. There is well-known philosophical difference between frequentist and Bayesian. Intere">
+<meta name="twitter:image" content="https://letianzj.github.io/bayesian-linear-regression/bayesian_dynamics.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://letianzj.github.io/bayesian-linear-regression.html"/>
+
+
+
+
+
+  <title>Bayesian Linear Regression | Bayesian Inference,Linear Regression,Conjugate Prior,Machine Learning | Systematic Investment</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-109341958-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Systematic Investment</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/bayesian-linear-regression.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Systematic Investment">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Bayesian Linear Regression</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T22:35:00-05:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/bayesian-linear-regression.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="bayesian-linear-regression.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/classical-linear-regression" title="last post">last post</a> we reviewed the classical linear regression and now let’s look from Bayesian perspective. There is well-known philosophical difference between <a href="https://en.wikipedia.org/wiki/Frequentist_inference" target="_blank" rel="noopener">frequentist</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_inference" target="_blank" rel="noopener">Bayesian</a>. Interested readers can read further this debate online such as <a href="https://en.wikipedia.org/wiki/Probability_interpretations" target="_blank" rel="noopener">this one on Wiki</a>. In my opinion, one advantage of Bayesian is its ability to perform <a href="https://en.wikipedia.org/wiki/Recursive_Bayesian_estimation" target="_blank" rel="noopener">online machine learning</a> recursivelly as new information comes along incrementally. </p>
+<p>In terms of the linear regression, <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Bayes’s Theorem</a> can be written as</p>
+<p>$$<br>f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}<br>\tag{1.1}<br>$$</p>
+<p>where $f(\beta|X)$ is the <strong>prior</strong> belief of parameter $\beta$; $f(y|\beta,X)$ is the <strong>likelihood</strong> of observing $y$ given our <strong>prior</strong>; and $f(y|X)$ is called <strong>evidence</strong>. Finally, $f(\beta|y,X)$ is the <strong>posterior</strong> belief of pararmeter $\beta$ once the evidence $y$ has been taken into account. This posterior then becomes new prior and the circle continues recursively.</p>
+<p>In this post we will bring the example from <a href="/classical-linear-regression" title="last post">last post</a> into Bayesian world.</p>
+<p>If you have difficulty viewing the formulas, right click on it and select Math Settings Math Renderer to switch to another format.</p>
+<a id="more"></a>
+<h2 id="Conjugate-Bayesian-Simple-Regression"><a href="#Conjugate-Bayesian-Simple-Regression" class="headerlink" title="Conjugate Bayesian Simple Regression"></a>Conjugate Bayesian Simple Regression</h2><p>Let’s continue to use the example from <a href="/classical-linear-regression" title="last post">last post</a> but re-phrase it in Bayesian way as follows</p>
+<p>$$<br>y \sim N(X\beta, \sigma_eI) \\<br>\beta \sim N(\beta_0, \Sigma_{\beta,0})<br>\tag{2.1}<br>$$</p>
+<p>where the second formula claims that the <strong>prior</strong> distribution of parameter $\beta$ is normal distribution with hyper-parameters $\beta_0$ and $\Sigma_{\beta,0}$; and the first formula says that the <strong>likelihood</strong> also follows a normal distribution. As you can see, the key step is to find the missing <strong>posterior</strong> distribution determined by Bayes Theorem.</p>
+<p>To achieve this, we exploit a critical property known as <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">conjugate prior</a> in the <a href="https://en.wikipedia.org/wiki/Normal-inverse-gamma_distribution" target="_blank" rel="noopener">Normal Inverse Gamma family</a>. It mathematically proves that a normally distributed <strong>prior</strong> conjugates with normally distributed <strong>likelihood</strong> to produce a normally distributed <strong>posterior</strong> as </p>
+<p>$$<br>\beta \sim N(\beta_1, \Sigma_{\beta,1})<br>\tag{2.2}<br>$$</p>
+<p>Now the question becomes to find new hyper-parameter $\beta_1$ and its standard deviation $\Sigma_{\beta,1}$. </p>
+<p>Specifically in our previous example of simple linear regression,</p>
+<p>$$<br>y=X\beta+\epsilon=a+bx+\epsilon<br>\tag{2.3}<br>$$</p>
+<p>where $a$ and $b$ are intercept and slope, respectively. The hyper-parameters of prior are defined as</p>
+<p> $$<br> \begin{matrix}<br>\beta_0 &amp;=&amp; \begin{bmatrix} a_0 \\ b_0 \end{bmatrix} \\<br>\Sigma_{\beta,0} &amp;=&amp; \begin{bmatrix} \sigma_{a,0}^2 &amp; 0 \\ 0 &amp; \sigma_{b,0}^2 \end{bmatrix}<br>\end{matrix}<br>\tag{2.4}<br> $$</p>
+<p> if we observe two points $(x_1,y_1)$ and $(x_2, y_2)$ (it takes two points to determine a line), by using the <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">Multivariate normal with known covariance matrix $\Sigma$</a> (in our case two-points means bi-variate), the posterior is given as</p>
+<p>$$<br>\begin{matrix}<br>\beta_1 &amp;=&amp; \Sigma_{\beta,1}(\Sigma_{\beta,0}^{-1}\beta_0+\Sigma_y^{-1}\mu_y)\\<br>\Sigma_{\beta,1} &amp;=&amp; (\Sigma_{\beta,0}^{-1} + \Sigma_{y}^{-1})^{-1}\\<br>\mu_y &amp;=&amp; \begin{bmatrix} \frac{x_1y_2-x_2y_1}{x_1-x_2} &amp; \frac{y_1-y_2}{x_1-x_2} \end{bmatrix}^T    \\<br>\Sigma_{y} &amp;=&amp; \begin{bmatrix} [(\frac{x_1}{x_1-x_2})^2+(\frac{x_2}{x_1-x_2})^2]\sigma_e^2 &amp; 0 \\ 0 &amp; 2(\frac{1}{x_1-x_2})^2\sigma_e^2 \end{bmatrix}<br>\end{matrix}<br>\tag{2.5}<br>$$</p>
+<p>After that, $\beta_1$, $\Sigma_{\beta,1}$ become $\beta_0$, $\Sigma_{\beta,0}$ and the iteration continues.</p>
+<p>The formula seems complicated but conceptually it is very simple. Here is how it works. Imagine that in the beginning you believe the regression line should be horizontal. But then the first two points turn out to be vertical. So you think you might be wrong and you might not be so sure about things therefore you curved and tilt yourself toward the observed vertical line to somewhere 45 degrees. This is essentially what the above formulas do.</p>
+<p> Then you continue to run another 249 time (because we have 500 points or 250 pairs). Everytime you adjust your previous belief by next two points you observe. It is easy to see that the longer you go, the less important it is where original starting belief is. Furthermore, there is nothing stopping you from reusing them again after you finish all the 500 points. It will make the estimation less and less dependent on the starting point and converges closer and closer to the true value.</p>
+<p> As usual, here is the code implementation.</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># don't forget to generate the 500 random samples as in the previous post</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># initial belief</span></span><br><span class="line">sigma_e = <span class="number">3.0</span>            <span class="comment"># make it known to avoid inverse gamma complexity</span></span><br><span class="line">a_0 = <span class="number">0.5</span></span><br><span class="line">b_0 = <span class="number">0.5</span></span><br><span class="line">sigma_a_0 = <span class="number">0.5</span></span><br><span class="line">sigma_b_0 = <span class="number">0.5</span></span><br><span class="line">beta_0 = np.array([[a_0], [b_0]])</span><br><span class="line">sigma_beta_0 = np.array([[sigma_a_0*sigma_a_0, <span class="number">0</span>], [<span class="number">0</span>, sigma_b_0*sigma_b_0]])</span><br><span class="line"></span><br><span class="line">beta_recorder = []           <span class="comment"># record parameter beta</span></span><br><span class="line">beta_recorder.append(beta_0)</span><br><span class="line"><span class="keyword">for</span> pair <span class="keyword">in</span> range(<span class="number">250</span>):       <span class="comment"># 500 points means 250 pairs</span></span><br><span class="line">    x1 = x[pair*<span class="number">2</span>]</span><br><span class="line">    x2 = x[pair*<span class="number">2</span>+<span class="number">1</span>]</span><br><span class="line">    y1 = y[pair*<span class="number">2</span>]</span><br><span class="line">    y2 = y[pair*<span class="number">2</span>+<span class="number">1</span>]</span><br><span class="line">    mu_y = np.array([[(x1*y2-x2*y1)/(x1-x2)], [(y1-y2)/(x1-x2)]])</span><br><span class="line">    sigma_y = np.array([[(np.square(x1/(x1-x2))+np.square(x2/(x1-x2)))*np.square(sigma_e),<span class="number">0</span>],</span><br><span class="line">                             [<span class="number">0</span>,<span class="number">2</span>*np.square(sigma_e/(x1-x2))]])</span><br><span class="line">    sigma_beta_1 = np.linalg.inv(np.linalg.inv(sigma_beta_0)+np.linalg.inv(sigma_y))</span><br><span class="line">    beta_1 = sigma_beta_1.dot(np.linalg.inv(sigma_beta_0).dot(beta_0) + np.linalg.inv(sigma_y).dot(mu_y))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># assign beta_1 to beta_0</span></span><br><span class="line">    beta_0 = beta_1</span><br><span class="line">    sigma_beta_0 = sigma_beta_1</span><br><span class="line">    beta_recorder.append(beta_0)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'pamameters: %.7f, %.7f'</span> %(beta_0[<span class="number">0</span>], beta_0[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># plot the Beyesian dynamics</span></span><br><span class="line">xfit = np.linspace(<span class="number">0</span>, <span class="number">10</span>, sample_size)</span><br><span class="line">ytrue = <span class="number">2.0</span> * xfit + <span class="number">1.0</span>       <span class="comment"># we know the true value of slope and intercept</span></span><br><span class="line">plt.plot(xfit, ytrue, label=<span class="string">'true line'</span>, linewidth=<span class="number">3</span>)</span><br><span class="line">y0 = beta_recorder[<span class="number">0</span>][<span class="number">1</span>] * xfit + beta_recorder[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">plt.plot(xfit, y0, label=<span class="string">'initial belief'</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">y1 = beta_recorder[<span class="number">1</span>][<span class="number">1</span>] * xfit + beta_recorder[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">plt.plot(xfit, y1, label=<span class="string">'1st update'</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">y10 = beta_recorder[<span class="number">10</span>][<span class="number">1</span>] * xfit + beta_recorder[<span class="number">10</span>][<span class="number">0</span>]</span><br><span class="line">plt.plot(xfit, y10, label=<span class="string">'10th update'</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">y100 = beta_recorder[<span class="number">100</span>][<span class="number">1</span>] * xfit + beta_recorder[<span class="number">100</span>][<span class="number">0</span>]</span><br><span class="line">plt.plot(xfit, y100, label=<span class="string">'100th update'</span>, linewidth=<span class="number">1</span>)</span><br><span class="line">plt.legend()</span><br></pre></td></tr></table></figure>
+<p>The intercept and slope parameter estimations are 0.6549224 and 2.0135760, pretty close to the results from <a href="/classical-linear-regression" title="last post">last post</a>. The following graph illustrates how Bayesian updates get to the true value from initial belief.</p>
+<!--<img src="bayesian-linear-regression/bayesian_dynamics.png" align="left" width="100%" height="100%">-->
+<img src="/bayesian-linear-regression/bayesian_dynamics.png" title="Bayesian Dynamics">
+<p>That’s all about Bayesian Linear regression. Nowadays we can import packages such as PyMC3 to solve it numerically without knowing the closed form details. But I still think it is useful to grasp the concepts by a simple example. Thanks for reading.</p>
+<p> <strong>Reference</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Bayes Theorem, Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">Conjugate Prior, Wikipedia</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Letian Wang
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://letianzj.github.io/bayesian-linear-regression.html" title="Bayesian Linear Regression">https://letianzj.github.io/bayesian-linear-regression.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/classical-linear-regression.html" rel="next" title="Classical Linear Regression">
+                <i class="fa fa-chevron-left"></i> Classical Linear Regression
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/mcmc-linear-regression.html" rel="prev" title="MCMC Linear Regression">
+                MCMC Linear Regression <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Letian Wang" />
+            
+              <p class="site-author-name" itemprop="name">Letian Wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conjugate-Bayesian-Simple-Regression"><span class="nav-number">2.</span> <span class="nav-text">Conjugate Bayesian Simple Regression</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian Wang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://letianzj.github.io/bayesian-linear-regression.html';
+          this.page.identifier = 'bayesian-linear-regression.html';
+          this.page.title = 'Bayesian Linear Regression';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
