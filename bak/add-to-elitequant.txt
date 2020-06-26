@@ -1,0 +1,15 @@
+
+data
+https://www.globalfinancialdata.com/
+http://investexcel.net/financial-web-services-kb/
+https://www.premiumdata.net/
+http://www.histdata.com/
+
+
+trading system
+- http://www.deltixlab.com/
+- https://www.quanthouse.com/
+https://qoppac.blogspot.com/p/pysystemtrade.html
+
+http://aaaquants.com/category/blog/
+https://github.com/bskapital/AlgoRepo/tree/master/EChanBook2

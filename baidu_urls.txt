@@ -1,0 +1,3 @@
+https://letianzj.github.io/rnn-stock-prediction
+https://letianzj.github.io/hidden-markov-chain
+https://letianzj.github.io/welcome

@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MCMC,Machine Learning,Linear Regression,Markov Chain Monte Carlo,Bayesian Inference" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IntroductionIn last post we examined the Bayesian approach for linear regression. It relies on the conjugate prior assumption, which nicely sets posterior to Gaussian distribution. In reality, most ti">
+<meta name="keywords" content="MCMC,Machine Learning,Linear Regression,Markov Chain Monte Carlo,Bayesian Inference">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MCMC Linear Regression">
+<meta property="og:url" content="https://letianzj.github.io/mcmc-linear-regression">
+<meta property="og:site_name" content="Letian Wang">
+<meta property="og:description" content="IntroductionIn last post we examined the Bayesian approach for linear regression. It relies on the conjugate prior assumption, which nicely sets posterior to Gaussian distribution. In reality, most ti">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://letianzj.github.io/mcmc-linear-regression/posterior_distribution.png">
+<meta property="og:updated_time" content="2018-10-16T00:27:16.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MCMC Linear Regression">
+<meta name="twitter:description" content="IntroductionIn last post we examined the Bayesian approach for linear regression. It relies on the conjugate prior assumption, which nicely sets posterior to Gaussian distribution. In reality, most ti">
+<meta name="twitter:image" content="https://letianzj.github.io/mcmc-linear-regression/posterior_distribution.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://letianzj.github.io/mcmc-linear-regression"/>
+
+
+
+
+
+  <title>MCMC Linear Regression | MCMC,Machine Learning,Linear Regression,Markov Chain Monte Carlo,Bayesian Inference | Letian Wang</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-109341958-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Letian Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/mcmc-linear-regression">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Letian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Letian Wang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">MCMC Linear Regression</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-30T21:30:00-05:00">
+                2017-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mcmc-linear-regression#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="mcmc-linear-regression" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/bayesian-linear-regression" title="last post">last post</a> we examined the Bayesian approach for linear regression. It relies on the <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">conjugate prior</a> assumption, which nicely sets posterior to Gaussian distribution. In reality, most times we don’t have this luxury, so we rely instead on a technique called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo" target="_blank" rel="noopener">Markov Chain Monte Carlo (MCMC)</a>. One popular algorithm in this family is <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis–Hastings</a> and this is what we are looking at today. Before we proceed, I want to point out that this post is inpsired by <a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">this article in R</a>.</p>
+<p>MCMC answers to this question: if we don’t know what the posterior distribution looks like, and we don’t have the closed form solution as given in equation (2.5) of <a href="/bayesian-linear-regression" title="last post">last post</a> for $\beta_1$ and $\Sigma_{\beta,1}$, how do we obtain the posterior distrubtion of $\beta$? Can we at least approximate it? Metropolis–Hastings provides a numerical Monte Carlo simulation method to magically draw a sample out of the posterior distribution. The magic is to construct a Markov Chain that converges to the given distribution as its stationary equilibrium distribution. Hence the name Markov Chain Monte Carlo (MCMC).</p>
+<a id="more"></a>
+<h2 id="MCMC-Simple-Linear-Regression"><a href="#MCMC-Simple-Linear-Regression" class="headerlink" title="MCMC Simple Linear Regression"></a>MCMC Simple Linear Regression</h2><p>Back to our simple linear regression example, firstly let’s repeat the Bayesian Theorem from <a href="/bayesian-linear-regression" title="last post">last post</a>.</p>
+<p>$$<br>f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}<br>\tag{2.1}<br>$$</p>
+<p>where $\beta$ is regression parameter; y and X each have 500 observations.</p>
+<p>The distribution of interest is our posterior distribution of $\beta$ denoted as $f(\beta|y,X)$. This time we technically only do one Bayesian iteration (remember we updated our belief 250 times in the last post?) because the purpose is to show how to draw a MCMC sample distribution from the first posterior iteration. We include all the 500 points in the Bayesian so the result is expected to reflect full information dataset and converge to the true value.</p>
+<p>The Metropolis-Hastings algorithm works as follows.</p>
+<ol>
+<li>Start with a random parameter value $\beta_0$</li>
+<li>Choose a new $\beta’$ based on some proposal function $g(\beta’|\beta_0)$. As pointed out <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">here</a>, $g$ must be symmetric, usually just Gaussian.</li>
+<li>Calculate the acceptance ratio</li>
+</ol>
+<p>$$<br>\alpha=\frac{f(y|\beta’)f(\beta’)}{f(y|\beta_0)f(\beta_0)}  \tag{2.2}<br>$$</p>
+<ol start="4">
+<li>Draw a random number $u \in [0,1]$. Jump from $\beta_0$ to $\beta’$ if $u &lt;= \alpha$, and denote it as $\beta_1$; otherwise stay with the old point.</li>
+<li>Repeat step 2, 3, 4, and collect $\beta_0$, $\beta_1$,…,etc.</li>
+</ol>
+<p>In the end, throw away some initial $\beta$ values in the beginning based on burn-in hyper-parameter, and Metropolis-Hastings claims that the remaining $\beta$ series comes from the distribution of posterior $f(\beta|y,X)$.</p>
+<p>Now let’s interpret this process by code. There are Python packages such as <a href="https://docs.pymc.io/" target="_blank" rel="noopener">PyMC3</a> to use out-of-box but sometimes it helps to look into the black box.</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy.stats</span><br><span class="line"><span class="comment"># don't forget to generate the 500 random samples as in the previous post</span></span><br><span class="line">sigma_e = <span class="number">3.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Similar to last post, let's initially believe that a, b follow Normal distribution with mean 0.5 and stadndard deviation 0.5</span></span><br><span class="line"><span class="comment"># it returns the probability of seeing beta under this belief</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prior_probability</span><span class="params">(beta)</span>:</span></span><br><span class="line">    a = beta[<span class="number">0</span>]     <span class="comment"># intercept</span></span><br><span class="line">    b = beta[<span class="number">1</span>]     <span class="comment"># slope</span></span><br><span class="line">    a_prior = scipy.stats.norm(<span class="number">0.5</span>, <span class="number">0.5</span>).pdf(a)</span><br><span class="line">    b_prior = scipy.stats.norm(<span class="number">0.5</span>, <span class="number">0.5</span>).pdf(b)</span><br><span class="line">    <span class="comment"># log probability transforms multiplication to summation</span></span><br><span class="line">    <span class="keyword">return</span> np.log(a) + np.log(b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Given beta, the likehood of seeing x and y</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">likelihood_probability</span><span class="params">(beta)</span>:</span></span><br><span class="line">    a = beta[<span class="number">0</span>]     <span class="comment"># intercept</span></span><br><span class="line">    b = beta[<span class="number">1</span>]     <span class="comment"># slope</span></span><br><span class="line">    y_predict = a  + b * x</span><br><span class="line">    single_likelihoods = scipy.stats.norm(y_predict, sigma_e).pdf(y)        <span class="comment"># we know sigma_e is 3.0</span></span><br><span class="line">    <span class="keyword">return</span> np.sum(np.log(single_likelihoods))</span><br><span class="line"></span><br><span class="line"><span class="comment"># We don't need to know the denominator of support f(y)</span></span><br><span class="line"><span class="comment"># as it will be canceled out in the acceptance ratio</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">posterior_probability</span><span class="params">(beta)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> likelihood_probability(beta) + prior_probability(beta)</span><br><span class="line"></span><br><span class="line"><span class="comment"># jump from beta to new beta</span></span><br><span class="line"><span class="comment"># proposal function is Gaussian centered at beta</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">proposal_function</span><span class="params">(beta)</span>:</span></span><br><span class="line">    a = beta[<span class="number">0</span>]</span><br><span class="line">    b = beta[<span class="number">1</span>]</span><br><span class="line">    a_new = np.random.normal(a, <span class="number">0.5</span>)</span><br><span class="line">    b_new = np.random.normal(b, <span class="number">0.5</span>)</span><br><span class="line">    beta_new = [a_new, b_new]</span><br><span class="line">    <span class="keyword">return</span> beta_new</span><br><span class="line"></span><br><span class="line"><span class="comment"># run the Monte Carlo</span></span><br><span class="line">beta_0 = [<span class="number">0.5</span>, <span class="number">0.5</span>]        <span class="comment"># start value</span></span><br><span class="line">results = np.zeros([<span class="number">50000</span>,<span class="number">2</span>])            <span class="comment"># record the results</span></span><br><span class="line">results[<span class="number">0</span>,<span class="number">0</span>] = beta_0[<span class="number">0</span>]</span><br><span class="line">results[<span class="number">0</span>, <span class="number">1</span>] = beta_0[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">50000</span>):               <span class="comment"># loop 50,000 times</span></span><br><span class="line">    print(<span class="string">'step: &#123;&#125;'</span>.format(step))</span><br><span class="line"></span><br><span class="line">    beta_old = results[step<span class="number">-1</span>, :]</span><br><span class="line">    beta_proposal = proposal_function(beta_old)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Use np.exp to restore from log numbers</span></span><br><span class="line">    prob = np.exp(posterior_probability(beta_proposal) - posterior_probability(beta_old))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> np.random.uniform(<span class="number">0</span>,<span class="number">1</span>) &lt; prob:</span><br><span class="line">        results[step, :] = beta_proposal    <span class="comment"># jump</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        results[step, :] = beta_old         <span class="comment"># stay</span></span><br><span class="line"></span><br><span class="line">burn_in = <span class="number">10000</span></span><br><span class="line">beta_posterior = results[burn_in:, :]</span><br><span class="line">print(beta_posterior.mean(axis=<span class="number">0</span>))        <span class="comment"># use average as point estimates</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># present the results</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>)</span><br><span class="line">ax1.hist(beta_posterior[:,<span class="number">0</span>], bins=<span class="number">20</span>, color=<span class="string">'blue'</span>)</span><br><span class="line">ax1.axvline(beta_posterior.mean(axis=<span class="number">0</span>)[<span class="number">0</span>], color=<span class="string">'red'</span>, linestyle=<span class="string">'dashed'</span>, linewidth=<span class="number">2</span>)</span><br><span class="line">ax1.title.set_text(<span class="string">'Posterior -- Intercept'</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">ax2.hist(beta_posterior[:,<span class="number">1</span>], bins=<span class="number">20</span>, color=<span class="string">'blue'</span>)</span><br><span class="line">ax2.axvline(beta_posterior.mean(axis=<span class="number">0</span>)[<span class="number">1</span>], color=<span class="string">'red'</span>, linestyle=<span class="string">'dashed'</span>, linewidth=<span class="number">2</span>)</span><br><span class="line">ax2.title.set_text(<span class="string">'Posterior -- Slope'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Here is the posterior distribution of $\beta$. The intercept converges to 0.75 (linear regress gives 0.6565181) and the slope converges to 2 (linear regression gives 2.0086851). MCMC does the job.</p>
+<!--<img src="posterior_distribution.png" align="left" width="100%" height="100%">-->
+<img src="/mcmc-linear-regression/posterior_distribution.png" title="Posterior Distribution">
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">Metropolis Hastings MCMC in R, 2010</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis Hastings Algorithm, Wikipedia</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Letian
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://letianzj.github.io/mcmc-linear-regression" title="MCMC Linear Regression">https://letianzj.github.io/mcmc-linear-regression</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/bayesian-linear-regression" rel="next" title="Bayesian Linear Regression">
+                <i class="fa fa-chevron-left"></i> Bayesian Linear Regression
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/kalman-filter-linear-regression" rel="prev" title="Kalman Filter Linear Regression">
+                Kalman Filter Linear Regression <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Letian" />
+            
+              <p class="site-author-name" itemprop="name">Letian</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MCMC-Simple-Linear-Regression"><span class="nav-number">2.</span> <span class="nav-text">MCMC Simple Linear Regression</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://letianzj.github.io/mcmc-linear-regression';
+          this.page.identifier = 'mcmc-linear-regression';
+          this.page.title = 'MCMC Linear Regression';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

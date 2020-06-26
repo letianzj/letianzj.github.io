@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Kalman Filter,Machine Learning,Linear Regression,Pairs Trading,State Space Model" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IntroductionKalman Filter is a state space model that assumes the system state evolves by some hidden and unobservable pattern. Instead we can only observe some measurable features from the system, ba">
+<meta name="keywords" content="Kalman Filter,Machine Learning,Linear Regression,Pairs Trading,State Space Model">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kalman Filter Linear Regression">
+<meta property="og:url" content="https://letianzj.github.io/bak/fx-correlation-swap.html">
+<meta property="og:site_name" content="Letian Wang">
+<meta property="og:description" content="IntroductionKalman Filter is a state space model that assumes the system state evolves by some hidden and unobservable pattern. Instead we can only observe some measurable features from the system, ba">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-06T01:32:27.962Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kalman Filter Linear Regression">
+<meta name="twitter:description" content="IntroductionKalman Filter is a state space model that assumes the system state evolves by some hidden and unobservable pattern. Instead we can only observe some measurable features from the system, ba">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://letianzj.github.io/bak/fx-correlation-swap.html"/>
+
+
+
+
+
+  <title>Kalman Filter Linear Regression | Kalman Filter,Machine Learning,Linear Regression,Pairs Trading,State Space Model | Letian Wang</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-109341958-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Letian Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h2 class="post-title" itemprop="name headline">Kalman Filter Linear Regression</h2>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Kalman_filter" target="_blank" rel="noopener">Kalman Filter</a> is a <a href="https://en.wikipedia.org/wiki/State-space_representation" target="_blank" rel="noopener">state space model</a> that assumes the system state evolves by some hidden and unobservable pattern. Instead we can only observe some measurable features from the system, based on which we try to guess the current state of the system. An example would be without openning Bloomberg terminal, you try to guess stock market movement every day from the trader’s mood.  The graphical narrative can be found <a href="/hidden-markov-chain" title="in this post">in this post</a>.</p>
+<p><a href="https://www.amazon.com/Pairs-Trading-Quantitative-Methods-Analysis/dp/047146067" target="_blank" rel="noopener">This book</a> provides a simple random walk example where the hidden state is the true equilibrium stock price in some time interval while stock close price of that interval serves as an observation with errors. Then it proves that the true equilibrium price is the weighted average of close prices with the weights being Fibonacci sequence. <a href="https://www.amazon.com/Algorithmic-Trading-Winning-Strategies-Rationale/dp/1118460146" target="_blank" rel="noopener">Dr Chan</a> makes Kalman Filter popular to the online quantitative trading community with his EWA-EWC ETF pairs trading strategy.</p>
+<p>In this post we will continue with our simple linear regression example from <a href="/mcmc-linear-regression" title="last post">last post</a>, and follow the plain Kalman Filter logic without the help of Python packages such as <a href="https://pykalman.github.io/" target="_blank" rel="noopener">PyKalman</a>.</p>
+<a id="more"></a>
+<h2 id="Kalman-Fitler-Regression-System"><a href="#Kalman-Fitler-Regression-System" class="headerlink" title="Kalman Fitler Regression System"></a>Kalman Fitler Regression System</h2><p>Kalman Filter as presented in the appendix is very mechanical. The hard part is to design a system that reflects the reality, and after that it’s just a matter of following the steps. </p>
+<p>In our simple linear example the state variable $\theta$ contains intercept and slope and is assumed to follow a transition equation of random walk with Gaussian innovations:</p>
+<p>$$<br>\theta_k = \begin{bmatrix} a_k \\ b_k \end{bmatrix} =\theta_{k-1} + w_t<br>\tag{2.1}<br>$$</p>
+<p>where $a_k$ and $b_k$ are intercept and slope, respectively. This corresponds to equation $(A.1)$. </p>
+<p>Comparing with <a href="/mcmc-linear-regression" title="last post">last post</a> where the posterior distribution is static, here the state evolves dynamically over time with linear transition conditions, hence the name Dynamic Linear Model (DLM).</p>
+<p>After the state is transited, it’s time to observe the system. Because it takes two points to determine a line, it is assumed to observe two points $(x_{1,t}, y_{1,t})$ and $(x_{2,t}, y_{2,t})$. The measurement equation $(A.2)$ can be re-written as,</p>
+<p> $$<br>y_t =\begin{bmatrix} y_{1,t} \\ y_{2,t} \end{bmatrix}=\begin{bmatrix} 1 &amp; x_{1,t} \\ 1 &amp; x_{2,t}\end{bmatrix}  \begin{bmatrix} a_t \\ b_t \end{bmatrix} + v_t<br>\tag{2.2}<br> $$</p>
+<p>The last thing we need to start the system is the initial value $\theta_{0|0}$ and $P_{0|0}$</p>
+<p>After we’ve designed the system dynamics as above, the rest is to just follow the steps $(A.3)$ through $(A.9)$, which is done in the code as follows.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># don't forget to generate the 500 random samples as in the previous post</span></span><br><span class="line">sigma_e = <span class="number">3.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># initial value</span></span><br><span class="line">theta_0_0 = np.array([[<span class="number">0.5</span>], [<span class="number">0.5</span>]])         <span class="comment"># 2x1 array</span></span><br><span class="line">W = np.array([[<span class="number">0.5</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0.5</span>]])          <span class="comment"># 2x2 array</span></span><br><span class="line">P_0_0 = W</span><br><span class="line"></span><br><span class="line">results = np.zeros([<span class="number">250</span>, <span class="number">2</span>])</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">250</span>):          <span class="comment"># 250 pairs</span></span><br><span class="line">    print(<span class="string">'step &#123;&#125;'</span>.format(k))</span><br><span class="line">    <span class="comment"># A-Priori prediction</span></span><br><span class="line">    <span class="comment"># first step, let k = 1</span></span><br><span class="line">    theta_1_0 = theta_0_0</span><br><span class="line">    P_1_0 = P_0_0 + W</span><br><span class="line"></span><br><span class="line">    <span class="comment"># After observing two points (x1, y1) and (x2, y2)</span></span><br><span class="line">    x1 = x[<span class="number">2</span>*k+<span class="number">0</span>]</span><br><span class="line">    x2 = x[<span class="number">2</span>*k+<span class="number">1</span>]</span><br><span class="line">    y1 = y[<span class="number">2</span>*k+<span class="number">0</span>]</span><br><span class="line">    y2 = y[<span class="number">2</span>*k+<span class="number">1</span>]</span><br><span class="line">    y_1 = np.array([y1, y2]).reshape(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">    F_1 = np.array([[<span class="number">1</span>, x1], [<span class="number">1</span>, x2]])</span><br><span class="line">    y_1_tilde = y_1 - np.dot(F_1, theta_1_0)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># residual covariance</span></span><br><span class="line">    V_1 = np.array([[sigma_e, <span class="number">0</span>], [<span class="number">0</span>, sigma_e]])</span><br><span class="line">    S_1 = np.dot(np.dot(F_1, P_1_0), np.transpose(F_1)) + V_1</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Kalman Gain</span></span><br><span class="line">    K_1 = np.dot(np.dot(P_1_0, np.transpose(F_1)), np.linalg.inv(S_1))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Posterior</span></span><br><span class="line">    theta_1_1 = theta_1_0 + np.dot(K_1, y_1_tilde)</span><br><span class="line">    P_1_1 = np.eye(<span class="number">2</span>) - np.dot(np.dot(K_1, F_1), P_1_0)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># assign for next iteration</span></span><br><span class="line">    results[k, :] = theta_1_1.reshape(<span class="number">2</span>,)</span><br><span class="line">    theta_0_0 = theta_1_1</span><br><span class="line">    P_0_0 = P_1_1</span><br><span class="line"></span><br><span class="line">print(results.mean(axis=<span class="number">0</span>))     <span class="comment"># intercept: 0.6694;   slope: 1.9926</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># present the results</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>)</span><br><span class="line">ax1.plot(np.linspace(<span class="number">1</span>, <span class="number">250</span>, num=<span class="number">250</span>), results[:, <span class="number">0</span>])</span><br><span class="line">ax1.title.set_text(<span class="string">'Hidden State Evolution -- Intercept'</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">plt.plot(np.linspace(<span class="number">1</span>, <span class="number">250</span>, num=<span class="number">250</span>), results[:, <span class="number">1</span>])</span><br><span class="line">ax2.title.set_text(<span class="string">'Hidden State Evolution -- Slope'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>The results show average states are 0.6694 for intercept and 1.9926 for slope, pretty close to the linear regression results. The graph gives the evolution of states over the 250 observations.</p>
+<!--<img src="hidden_state_evolution.png" align="left" width="100%" height="100%">-->
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://www.springer.com/us/book/9780387772370" target="_blank" rel="noopener">Petris, Giovanni, Sonia Petrone, and Patrizia Campagnoli. Dynamic Linear Models with R. Springer Science &amp; Business Media, 2009.</a></li>
+<li><a href="https://www.amazon.com/Pairs-Trading-Quantitative-Methods-Analysis/dp/0471460672" target="_blank" rel="noopener">Vidyamurthy, Ganapathy. Pairs Trading: quantitative methods and analysis. Vol. 217. John Wiley &amp; Sons, 2004.</a></li>
+<li><a href="https://www.amazon.com/Algorithmic-Trading-Winning-Strategies-Rationale/dp/1118460146" target="_blank" rel="noopener">Chan, Ernie. Algorithmic trading: winning strategies and their rationale. Vol. 625. John Wiley &amp; Sons, 2013.</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Kalman_filter" target="_blank" rel="noopener">kalman Filter; Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/State-space_representation" target="_blank" rel="noopener">State Space Model; Wikipedia</a></li>
+</ul>
+<h2 id="Appendix-–-Mathematics"><a href="#Appendix-–-Mathematics" class="headerlink" title="Appendix – Mathematics"></a>Appendix – Mathematics</h2><p>In this appendix we present a neat mathematical presentation of Dynamic Linear Model (DLM), following the notations in <a href="https://www.springer.com/us/book/9780387772370" target="_blank" rel="noopener">this book</a>.</p>
+<p>Firstly, The latent state transition is governed by the equation </p>
+<p>$$<br>\begin{array}{lcl}<br>\theta_t &amp;=&amp; G_t\theta_{t-1}+w_t \\<br>(p\times 1) &amp; &amp; (p\times p)(p\times 1)+(p\times 1)<br>\end{array}<br>\tag{A.1}<br>$$</p>
+<p>where $w_t \sim i.i.d\hspace{5pt} N_p(0,W_t)$.</p>
+<p>After state evolution, we have the measurement equation to observe it by </p>
+<p>$$<br> \begin{array}{lcl}<br> y_t &amp;=&amp; F_t\theta_t+v_t \\<br> (m\times 1) &amp; &amp; (m\times p)(p\times 1)+(m\times 1)<br> \end{array}<br> \tag{A.2}<br> $$</p>
+<p>where $v_t \sim i.i.d.\hspace{5pt} N_m(0,V_t)$</p>
+<!--added space before underscore-->
+<p>To kick off the system, we need initial guess of state variable $\hat{\theta} _{0|0}$ and its initial covariance confidence matrix $P _{0|0}$. </p>
+<p>At each step $k$, we first forecast a-priori predictions of state and state covariance as</p>
+<p>$$<br>\begin{array}{lcl}<br>\hat{\theta}_{k|k-1} &amp;=&amp; G_k\hat{\theta}_{k-1|k-1} \\<br>(p\times 1) &amp; &amp; (p\times p)(p\times 1)<br>\end{array}<br>\tag{A.3}<br>$$</p>
+<p>$$<br>\begin{array}{lcl}<br>P_{k|k-1} &amp;=&amp; G_kP_{k-1|k-1}G_k^T+W_t \\<br>(p\times p) &amp; &amp; (p\times p)(p\times p)(p\times p)+(p\times p)<br>\end{array}<br>\tag{A.4}<br>$$</p>
+<p>Then after observing or measuring new $y_k$, it’s time to update our knowledge of the system by first calculating the innovation or measurement residual as how far away our forecast from the observation</p>
+<p>$$<br>\begin{array}{lcl}<br>\hat{y}_{k} &amp;=&amp; y_k-F_k\hat{\theta}_{k|k-1} \\<br>(m\times 1) &amp; &amp; (m\times 1)-(m\times p)(p\times 1)<br>\end{array}<br>\tag{A.5}<br>$$</p>
+<p>and residual covariance</p>
+<p>$$<br>\begin{array}{lcl}<br>S_k &amp;=&amp; F_kP_{k|k-1}F_k^T+V_k \\<br>(m\times m) &amp; &amp; (m\times p)(p\times p)(p\times m)+(m\times m)<br>\end{array}<br>\tag{A.6}<br>$$</p>
+<p>The Kalman gain reflects how much the residual contributes to the state update, is given by</p>
+<p>$$<br>\begin{array}{lcl}<br>K_k &amp;=&amp; P_{k|k-1}F_k^TS_K^{-1} \\<br>(p\times m) &amp; &amp; (p\times p)(p\times m)(m\times m)<br>\end{array}<br>\tag{A.7}<br>$$</p>
+<p>and Posterior estimation of state and state covariance</p>
+<!-- added a space before underscore -->
+<p>$$<br>\begin{array}{lcl}<br>\hat{\theta} _{k|k} &amp;=&amp; \hat{\theta} _{k|k-1}+K_k\hat{y_k} \\<br>(p\times 1) &amp; &amp; (p\times 1)+(p\times m)(m\times 1)<br>\end{array}<br>\tag{A.8}<br>$$</p>
+<p>$$<br>\begin{array}{lcl}<br> P_{k|k} &amp;=&amp; (I-K_kF_k)P_{k|k-1} \\<br>(p\times p) &amp; &amp; ((p\times p)-(p\times m)(m\times p))(p\times p)<br>\end{array}<br>\tag{A.9}<br>$$</p>
+<p>After this, repeat the steps between (A.3) and (A.9)</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Letian" />
+            
+              <p class="site-author-name" itemprop="name">Letian</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kalman-Fitler-Regression-System"><span class="nav-number">2.</span> <span class="nav-text">Kalman Fitler Regression System</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix-–-Mathematics"><span class="nav-number">4.</span> <span class="nav-text">Appendix – Mathematics</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://letianzj.github.io/bak/fx-correlation-swap.html';
+          this.page.identifier = 'bak/fx-correlation-swap.html';
+          this.page.title = 'Kalman Filter Linear Regression';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

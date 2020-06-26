@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning,Deep Learning" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Basics ARMAWhite NoiseLag operators  Deep Learning">
+<meta name="keywords" content="Machine Learning,Deep Learning">
+<meta property="og:type" content="website">
+<meta property="og:title" content="StatsModels Notes">
+<meta property="og:url" content="https://letianzj.github.io/bak/stats_models.html">
+<meta property="og:site_name" content="Letian Wang">
+<meta property="og:description" content="Basics ARMAWhite NoiseLag operators  Deep Learning">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-06-26T15:15:37.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="StatsModels Notes">
+<meta name="twitter:description" content="Basics ARMAWhite NoiseLag operators  Deep Learning">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://letianzj.github.io/bak/stats_models.html"/>
+
+
+
+
+
+  <title>StatsModels Notes | Machine Learning,Deep Learning | Letian Wang</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-109341958-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Letian Wang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h2 class="post-title" itemprop="name headline">StatsModels Notes</h2>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h2 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h2><ol>
+<li>ARMA<br>White Noise<br>Lag operators</li>
+</ol>
+<h2 id="Deep-Learning"><a href="#Deep-Learning" class="headerlink" title="Deep Learning"></a>Deep Learning</h2><a id="more"></a>
+<ol>
+<li>StatsModels</li>
+<li>SkLearn</li>
+<li>Tensorflow</li>
+<li>Alphalens</li>
+<li>Strategies</li>
+<li>Natual Language</li>
+</ol>
+<p>One of the prerequisits of a <strong>vector autoregressive (VAR)</strong> model is that the time series are stationary. Not long-term relationship cointegration. So-called <strong>vector error correction models (VECM)</strong>. Spurious</p>
+<p>More generally, AR(1) with exogenous variable $x_t$ can be written as</p>
+<p>$$<br>y_t=a_1y_{t-1}+b_0x_t+b_1x_{t-1}+e_t<br>$$</p>
+<p>ADL(1,1) Autoregressive distributed lag, or ADL. </p>
+<p>What if $x_t$ is endogenous too, that is, it depends on $y_{t-1}$? At this point the VAR approach comes in.</p>
+<p>$$<br>y_{1t} y_{2t} = <a href="y_{1t-1}, y_{2t-1}">a_{11}, a_{12}, a{21}, a{22}</a>+(\epsilon_{1t}, \epsilon_{2t})<br>y_t = A_1y_{t=1}+\epsilon_t<br>$$<br>The contemporaneous effects are in the covariance matrix.</p>
+<p>$$<br>\Delta y_t =\Pi y_{t-1} + \Gamma_1 \Delta y_{t-1}+…+\Gamma_p y_{t-p}+u_t<br>$$<br>where the error correction term $\Pi y_{t-1}=\alpha \beta’y_{t-1}$. The cointegration matrix $\beta$ contains the equilibrium relationships between the variables in levels. $\alpah$ is called loading matrix describing the speed at which a dependent variable converges back to its equilibrium value.</p>
+<p>Note that $\Pi$ is assumed to be of reduced rank.</p>
+<ol>
+<li>Two step</li>
+<li>Impulse response analysis, the raaction of a response variable to a one-time shock in an impulse variable.</li>
+</ol>
+<p>Since all variables in a VAR model depend on each other, individual coefficient estimates only provide limited information on the reaction of the system to a shock. In order to get a better picture of the model’s dynamic behaviour, impulse responses (IR) are used. </p>
+<p>Note that an important difference to stationary VAR models is that the impulse response of a cointegrated VAR model does not neccessarily approach zero, because the variables are not stationary.</p>
+<p>The departure point of every impluse reponse function for a linear VAR model is its moving average (MA) representation, which is also the forecast error impulse response (FEIR) function.</p>
+<p><a href="https://gist.github.com/yogabonito/5461b26bed335cad6907aa4e613acb99" target="_blank" rel="noopener">https://gist.github.com/yogabonito/5461b26bed335cad6907aa4e613acb99</a></p>
+<p><a href="https://gist.github.com/yogabonito/b532e20b64587c19198f1aacb5ddfca2" target="_blank" rel="noopener">https://gist.github.com/yogabonito/b532e20b64587c19198f1aacb5ddfca2</a></p>
+<h2 id="Fama-MacBeth-Two-Step-Regression"><a href="#Fama-MacBeth-Two-Step-Regression" class="headerlink" title="Fama-MacBeth Two-Step Regression"></a>Fama-MacBeth Two-Step Regression</h2><h3 id="Policy-Gradient"><a href="#Policy-Gradient" class="headerlink" title="Policy Gradient"></a>Policy Gradient</h3><p>Directly optimize the policy network.</p>
+<p>Consider a trajectory $\tau={s_1, a_1, s_2, a_2, …, s_T, a_T}$ with probabilty $p_\theta(\tau)$. Assumming MDP (Markov Decision Process)</p>
+<p>$$<br>\begin{aligned}<br>p_\theta(\tau) &amp;= p(s_1)p_\theta(a_1|s_1)p(s_2|s_1,a_1)p_\theta(a_2|s_2)p(s_3|s_2, a_2)… \\<br> &amp;= p(s_1)\prod_{t=1}^{T}p_\theta(a_t|s_t)p(s_{t+1}|s_t, a_t)<br>\end{aligned}<br>$$</p>
+<p>Total rewards $R(\tau)=\sum_{t=1}^Tr_t$, $R_t(\tau)=\sum_{t=t}^Tr_t$ and its expectation </p>
+<p>$$J(\theta)=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)]=\int R(\tau)p_{\theta}(\tau)d\tau \sim \sum R(\tau)p_{\theta}(\tau)$$. </p>
+<p>Its (policy) gradient</p>
+<p>$$<br>\begin{aligned}<br>\frac{\partial J}{\partial \theta}&amp;=\int \left( \frac{\partial}{\partial \theta}p_{\theta}(\tau) \right) R(\tau)d\tau \\<br>&amp;=\int p_{\theta}(\tau) \left(\frac{\partial}{\partial\theta}log p_{\theta}(\tau)\right) R(\tau)d\tau \\<br>&amp;=E_{\tau \sim p_{\theta}(\tau)} \left[\frac{\partial}{\partial\theta}log p_{\theta}(\tau))R(\tau) \right] \\<br>&amp;=E_{\tau \sim p_{\theta}(\tau)} \left[\sum_{t=1}^{T} \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right)R(\tau) \right]<br>\end{aligned}<br>$$</p>
+<p>where the partial derivative depends implicitly on $\tau$.</p>
+<p>Sample $N$ episode, $\tau^{(n)}, n \in [1, N]$, the expectation becomes,</p>
+<p>$$<br>\frac{\partial J}{\partial \theta} \approx \frac{1}{N} \sum_{n=1}^N \left( \left( \sum_{t=1}^{T} \frac{\partial}{\partial \theta} logp_{\theta} \left( a_t^{(n)} | s_t^{(n)}\right) \right) R\left(\tau^{(n)}\right) \right)<br>$$</p>
+<p>This is the original Reinforce algorithm.</p>
+<p>Improvements</p>
+<ol>
+<li>Decrease $R(\tau)$ variance by using part of it $R(\tau_{t:T})$.</li>
+</ol>
+<p>$$<br>\frac{\partial J}{\partial \theta}=E_{\tau \sim p_{\theta}(\tau)} \left[\sum_{t=1}^{T} \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right)R(\tau_{t:T}) \right]<br>$$</p>
+<ol start="2">
+<li>Rewards advantage over average $b$.</li>
+</ol>
+<p>$$<br>\begin{aligned}<br>\frac{\partial J}{\partial \theta}&amp;=E_{\tau \sim p_{\theta}(\tau)} \left[\sum_{t=1}^{T} \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right) A^{\theta}(s_t, a_t) \right] \\<br>A^{\theta}(s_t, a_t) &amp;= \left( R(\tau_{t:T}) - b \right)\\<br>b&amp;=\frac{1}{N} \sum_{n=1}^N R\left(\tau_{t:T}^{(n)} \right)<br>\end{aligned}<br>$$</p>
+<p>where $A^{\theta}(s_t, a_t)$ is called Advantage function; and $b$ can also be estimated by a network.</p>
+<p><strong>On-policy</strong>: the agent learned and agent interacting with the environment is the same. <strong>Off-policy</strong> is different (learning by watching others play). Let the demonstrater’s policy be $\theta’$, then apply <strong>importance sampling</strong>,</p>
+<p>$$<br>E_{\tau \sim p}\left[ f(\tau) \right]=\int f(\tau)p(\tau)d(\tau)=\int \frac{p(\tau)}{q(\tau)}f(\tau)q(\tau)d\tau=E_{\tau \sim q}\left[ \frac{p(\tau)}{q(\tau)}f(\tau) \right]<br>$$</p>
+<p>on</p>
+<p>$$<br>\begin{aligned}<br>\frac{\partial J}{\partial \theta}&amp;=\sum_{t=1}^{T}  E_{\tau \sim p_{\theta}(\tau)} \left[ \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right) A^{\theta}(s_t, a_t) \right] \\<br>&amp;=\sum_{t=1}^{T} E_{\tau \sim p_{\theta’}(\tau)} \left[ \frac{p_{\theta}(s_t, a_t)}{p_{\theta’}(s_t,a_t)} A^{\theta}(s_t, a_t) \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right) \right] \\<br>&amp;=\sum_{t=1}^{T} E_{\tau \sim p_{\theta’}(\tau)} \left[ \frac{p_{\theta}(s_t|a_t)}{p_{\theta’}(s_t|a_t)} \frac{p_{\theta}(s_t)}{p_{\theta’}(s_t)} A^{\theta}(s_t, a_t) \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right) \right] \\<br>&amp;\approx \sum_{t=1}^{T} E_{\tau \sim p_{\theta’}(\tau)} \left[ \frac{p_{\theta}(s_t|a_t)}{p_{\theta’}(s_t|a_t)} A^{\theta’}(s_t, a_t) \frac{\partial}{\partial\theta}log \left( p_{\theta}(a_t|s_t) \right) \right]<br>\end{aligned}<br>$$</p>
+<p>which also implies the objective function,</p>
+<p>$$<br>J^{\theta’}(\theta) = E_{(s_t, a_t) \sim \pi_{\theta’}} \left[ \frac{p_{\theta}(a_t, s_t)}{p_{\theta’}(a_t, s_t)} A^{\theta’}(s_t, a_t) \right]<br>$$</p>
+<p><strong>PPO</strong> uses regularization constraint that prevent importance sampling $\theta’$ does not different too much from $\theta$.</p>
+<p>$$<br>J^{\theta’}_{PPO}(\theta)=J^{\theta’}(\theta)-\beta KL(\theta, \theta’)<br>$$</p>
+<h3 id="Q-Learning"><a href="#Q-Learning" class="headerlink" title="Q-Learning"></a>Q-Learning</h3><p>Rather than directly on policy, it works on state(-action) values.<br>State Value function Bellman equation is</p>
+<p>$$<br>V^{\pi}(s_t)=E_{\tau \sim p(\tau)}\left[ R(\tau_{t:T})\right]=E_{\tau \sim p(\tau)}\left[ r_t + \gamma V^{\pi}(s_{t+1}) \right]<br>$$</p>
+<p>The optimal policy $\pi^<em>$ is<br>$$<br>\begin{aligned}<br>\pi^</em>&amp;=\underset{\pi}{\operatorname{argmax}}V^{\pi}(s) \;\;\;\;\; \forall s\in S \\<br>V^<em>(s)&amp;=\underset{\pi}{\operatorname{max}}V^{\pi}(s) \;\;\;\;\; \forall s\in S    \\<br>V^</em>(s_t) &amp;= E_{\tau \sim p(\tau)}\left[r_t + \gamma V^{*}(s_{t+1}) \right]<br>\end{aligned}<br>$$</p>
+<p>State-Action Value function (Q-function $Q^{\pi}(a,s)$) measures the expected return obtained from state $s$ by taking action $a$ first and then follow policy $\pi$ afterwards. The optimal Q-function $Q^<em>(a,s)$ is the maximum discounted rewards that can be achieved starting from state $s$, taking action $a$ and following the optimal policy $\pi^</em>$ thereafter.</p>
+<p>Bellman equation,<br>$$<br>Q^{<em>}(s, a) = \mathbb{E}\left[ r + \gamma \max_{a’} Q^{</em>}(s’, a’) \right]<br>$$</p>
+<p>$$<br>\begin{aligned}<br>Q^{\pi}(s_t, a_t) &amp;= E_{\tau \sim p(\tau)}\left[ r(s_t, a_t) + \gamma V^{\pi}(s_{t+1}) \right] \\<br>V^{\pi}(s_t) &amp;= E_{a_t \sim \pi(a_t|s_t)}\left[Q^{\pi}(s_t, a_t) \right]    \\<br>Q^<em>(s_t, a_t) &amp;= \underset{\pi}{\operatorname{max}} Q^{\pi}(s_t, a_t)    \\<br>\pi^</em> &amp;= \underset{a_t}{\operatorname{argmax}}Q^<em>(s_t, a_t)        \\<br>V^</em>(s_t) &amp;= \underset{a_t}{\operatorname{max}}Q^<em>(s_t, a_t)        \\<br>Q^</em>(s_t, a_t) &amp;= E_{\tau \sim p(\tau)}\left[ r(s_t, a_t) + \gamma V^<em>(s_{t+1}) \right]=E_{\tau \sim p(\tau)}\left[ r(s_t, a_t) + \gamma \underset{a_{t+1}}{\operatorname{max}}Q^</em>(s_{t+1}, a_{t+1})\right]<br>\end{aligned}<br>$$</p>
+<p>Advantage function is defined as</p>
+<p>$$<br>A^{\pi}(s, a) = Q^{\pi}(s,a)-V^{\pi}(s)<br>$$</p>
+<p>How to estimate state value function and Q-function?</p>
+<ol>
+<li>Monte Carlo approach</li>
+</ol>
+<p>$$<br>\begin{aligned}<br>Q^{\pi}(s, a) &amp;= E_{\tau \sim p(\tau)}\left[ R(s_0=s, t_0 = t) \right] \approx \frac{1}{N} \sum_{n=1}^N R(\tau^{(n)}_{s_0=s,t_0=t}) \\<br>V^{\pi}(s) &amp;= \frac{1}{N}\sum_{n=1}^N R(\tau^{(n)}_{s_0=s})<br>\end{aligned}<br>$$</p>
+<ol start="2">
+<li>Temporal-Difference Approach</li>
+</ol>
+<p>The basic idea behind Q-Learning is to use the Bellman optimality equation as an iterative update. Based on Bellman equation, this will converge to Q-Table.<br>$$<br>Q_{i+1}(s,a) \leftarrow \mathbb{E}\left[ r + \gamma \max_{a’} Q_i(s’, a’) \right]<br>$$</p>
+<p>and it can be shown that $Q_i \rightarrow Q^*$ as $i \rightarrow \infty$.</p>
+<p>Let $Q^*(s,a)$ be modelled as a network $Q_{\theta}(s, a)$. Minimize the loss at each step $i$,<br>$$<br>\begin{aligned}<br>L_i(\theta_i)&amp;=\mathbb{E}_{s,a,r,s’\sim p(.)}\left[ \left(y_i - Q_{\theta}(s, a)\right)^2 \right] \\<br>y_i &amp;=r+\gamma \max_{a’}Q_{\theta_{i-1}}(s’, a’)<br>\end{aligned}<br>$$</p>
+<p>where $y_i$ is called the TD (Tempoeral difference) target, and $y_i-Q$ is called the TD error. $p$ represents the behaviour distribution, the distribution over transitions $s, s, r, s’$ collected from the environment.</p>
+<p>Note that $\theta_{i-1}$ are fixed and not updated. In practice we use a snapshot of the network parameters from a few iterations ago instead of the last itration. This copy is called the target network.</p>
+<p>$V$ function</p>
+<p>$$<br>V^{\pi}(s_t) \leftarrow V^{\pi}(s_t)+\alpha\left(r_t + \gamma V^{\pi}(s_{t+1})-V^{\pi}(s_t) \right)<br>$$</p>
+<p>$Q$ function<br>$$<br>Q^<em>(s_t,a_t) \leftarrow Q^</em>(s_t, a_t)+\alpha\left(r(s_t,a_t) + \gamma \underset{a_{t+1}}{\operatorname{max}}Q^<em>(s_{t+1}, a_{t+1})-Q^</em>(s_t,a_t) \right)<br>$$</p>
+<p>Always taking maximium is known as greedy; it prevents the algorithm from trying new things. The solution is called epsilon-greedy.</p>
+<p>Policy improvement</p>
+<p>Let $\pi’$ be<br>$$<br>\pi’(s)=\underset{a}{\operatorname{argmax}}Q^{\pi}(s,a)<br>$$</p>
+<p>then $\pi’$ is better than $\pi$ for all states $V^{\pi’}(s)&gt;V^{\pi}(s)$. In other words, given $\pi$, you can always find a better policy $\pi’$.</p>
+<p>Target network</p>
+<p>$$<br>Q^{\pi}(s_t, a_t) = r_t+Q^{\pi}(s_{t+1}, \pi(s_t+1))\sim r_t+\underset{a}{\operatorname{max}}Q(s_{t+1},a)<br>$$</p>
+<p>DQN (Deep Q Network)<br>When states and actions become very large: Q-Learing + Deep Learning = DQN. Q table becomes neural network. Loop until it converges<br>$$<br>cost =\left[ Q(s,a) - \left( r(s,a) + \gamma \underset{a}{\operatorname{max}}Q(s’, a) \right) \right]^2<br>$$</p>
+<p>Monte Carlo based approach, a regression network</p>
+<p>Exploration vs Exploitation, </p>
+<ul>
+<li>epsilon greedy exploration, epsilon decays over time. </li>
+<li>Boltzmann Exploration that probability depends on Q value.</li>
+</ul>
+<p>$$<br>p(a|s) = \frac{exp(Q(s,a))}{\sum_aexp(Q(s,a))}<br>$$</p>
+<ul>
+<li>Replay Buffer, the experience in the buffer comes from different policies.</li>
+</ul>
+<p>Temporal-Difference (TD) approach<br>$$<br>V^{\pi}(s_t)-V^{\pi}(s_{t+1})=r_t<br>$$</p>
+<p>DQN (Deep Q-Network)</p>
+<p>Double DQN</p>
+<ul>
+<li>Q value is usually over estimate</li>
+<li>two functions/network $Q$ to choose action and $Q’$ to provide value</li>
+<li>Fix the target network, only one Q net is optimized. After a while, copy it over to the target network.<br>$$<br>Q(s_t,a_t) \sim r_t+Q’(s_{t_1}, \underset{a}{\operatorname{argmax}}Q(s_{t+1}, a))<br>$$</li>
+</ul>
+<p>Dueling DQN<br>$$<br>Q(s,a)=V(s)+A(s,a)<br>$$</p>
+<p>Prioritized replay: data with larger TD error has higher probability to be sampled from experience buffer.<br>Multi-Step: store N steps in experience buffer. Target value is $s_{t+N+1}$. combination of MC and TD.<br>Noisy Net: instead of epsilon greedy, inject noise into the parameters of Q-function at the beginning of each episode.<br>$$<br>a=a\underset{a}{\operatorname{argmax}}\tilde{Q}(s,a)<br>$$</p>
+<p>Distributional Q Function, state-action value function is a distribution, $Q^{\pi}(s,a)$ is expected cumulated reward.</p>
+<h3 id="Actor-Critic"><a href="#Actor-Critic" class="headerlink" title="Actor-Critic"></a>Actor-Critic</h3><p>Policy Gradient + Q-Values, where policy gradients optimize agent’s policy, and the temporal-difference method is used as a bootstrap for the expected value estimates.</p>
+<p>$A^{\theta}(s_t,a_t)$ is a sample, and unstable.</p>
+<p>$$<br>\begin{aligned}<br>E[A^{\theta}(s_t^n,a_t^n)]&amp;=Q^{\pi_{\theta}}(s_t^n,a_t^n)  \\<br>b&amp;=V^{\pi_{\theta}}(s_t^n) \\<br>Q^{\pi}(s_t^n, a_t^n) &amp;=E\left[r_t^n+V^{\pi}(s_{t+1}^n) \right] \sim r_t^n+V^{\pi}(s_{t+1}^n) \\<br>A^{\theta}(s_t^n, a_t^n) &amp;=r_t^n+V^{\pi}(s_{t+1}^n)-V^{\pi}(s_t^n)<br>\end{aligned}<br>$$</p>
+<p>two networks: policy network $\pi(s)$ and value network $V^{\pi}(s)$ to be estimated. First couple of layers can be shared. </p>
+<p>$$<br>\begin{aligned}<br>\frac{\partial J}{\partial \theta}&amp;=\bold{E}<em>{\tau \sim p</em>{\theta}(\tau)}\left[ \sum_{t=1}^{T-1}\frac{\partial}{\partial \theta}log\pi_{\theta}(a_t|s_t)(R(\tau)-b) \right]  \\<br>&amp;=\bold{E}<em>{\tau \sim p</em>{\theta}(\tau)}\left[ \sum_{t=1}^{T-1}\frac{\partial}{\partial \theta}log\pi_{\theta}(a_t|s_t)(Q^{\pi}(s_t, a_t)-V^{\pi}(s_t)) \right]<br>\end{aligned}<br>$$</p>
+<p>where the objective of Critic network $V^{pi}<em>{\phi}$ is<br>$$<br>\phi = \underset{\phi}{\operatorname{argmax}}dis\left( V^{\pi}</em>{\phi}(s_t), V^{\pi}_{target}(s_t) \right)<br>$$</p>
+<p>and the target is<br>$$<br>\begin{aligned}<br>V^{\pi}_{target}(s_t)&amp;=R(\tau_{t:T}) \;\;\;\;\;\; MC \\<br>V^{\pi}_{target}(s_t)&amp;=r_t+\gamma V^{\pi}(s_{t+1}) \;\;\;\;\;\; TD \\<br>\end{aligned}<br>$$</p>
+<p>A2C (Advantage Actor-Critic)</p>
+<p>A3C (Asynchronous Advantage Actor-Critic): multiple workers being trained asynchronously.</p>
+<p>Pathwise Derivative Policy Gradient</p>
+<h2 id="Apendix"><a href="#Apendix" class="headerlink" title="Apendix"></a>Apendix</h2><p>Entropy<br>$$<br>H(p) = -E_{x \sim p}[log(p(x))]=-\int log(p(x))p(x)dx \le log(n)<br>$$</p>
+<p>$H(x)\ge 0$. $H(x)=log(n)$ iff $x$ is uniformly distributed.</p>
+<p>Given two distribution p, q, the relative entropy of q respect to p, or the Kullback-Leiber divergence of q from p, is<br>$$<br>D(p||q)=-E_{x \sim p}\left[log \frac{q(x)}{p(x)} \right]=E_{x \sim p}\left[log p(x) \right] - E_{x \sim p}\left[log q(x)\right]<br>$$</p>
+<p>$D(p||q) \ge 0$ with equality iff $p=q$. The first term is negative entropy, the second term (with negative sign) is cross-entropy. Minimizing KL distance is equivalent to minimizing cross-entropy (MCE).<br>$$<br>min-E_{x \sim p} \left[ log(q(x)) \right]=-\sum_xp(x)*logq(x)<br>$$</p>
+<p>Imagine $x\in[-1, 0, 1]$, $p$ is equally probable. If $q=p$, then $CE=log3$.</p>
+<p>Binary Cross Entropy<br>$$<br>H_p(q) = -\frac{1}{N}\sum_{i=1}^{N}\left[ x_i<em>log(q(x_i))+(1-x_i)</em>log(1-q(x_i)) \right]<br>$$<br>where $x_i = 0$ or $1$, the label (true prob) for every element $i$ in the batch $N$.</p>
+<p>EM (Earth-Mover) distance, or Wasserstein distance, improves KL distance in terms of convergence.</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li>Greff, Klaus, et al. “LSTM: A search space odyssey.” IEEE transactions on neural networks and learning systems 28.10 (2016): 2222-2232.</li>
+<li>Jozefowicz, Rafal, Wojciech Zaremba, and Ilya Sutskever. “An empirical exploration of recurrent network architectures.” International Conference on Machine Learning. 2015.</li>
+<li>Graves, Alex. “Supervised sequence labelling with recurrent neural networks. 2012.” <a href="http://books.google.com/books (2012" target="_blank" rel="noopener">URL</a>).</li>
+</ul>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Letian" />
+            
+              <p class="site-author-name" itemprop="name">Letian</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Basics"><span class="nav-number">1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Learning"><span class="nav-number">2.</span> <span class="nav-text">Deep Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fama-MacBeth-Two-Step-Regression"><span class="nav-number">3.</span> <span class="nav-text">Fama-MacBeth Two-Step Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Policy-Gradient"><span class="nav-number">3.1.</span> <span class="nav-text">Policy Gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-Learning"><span class="nav-number">3.2.</span> <span class="nav-text">Q-Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Actor-Critic"><span class="nav-number">3.3.</span> <span class="nav-text">Actor-Critic</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apendix"><span class="nav-number">4.</span> <span class="nav-text">Apendix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://letianzj.github.io/bak/stats_models.html';
+          this.page.identifier = 'bak/stats_models.html';
+          this.page.title = 'StatsModels Notes';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
