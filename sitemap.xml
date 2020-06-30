@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/mean-reversion.html</loc>
+    
+    <lastmod>2020-06-30T03:48:29.383Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
+    
+    <lastmod>2020-06-30T03:46:19.557Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
+    
+    <lastmod>2020-06-30T03:45:37.601Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/welcome.html</loc>
     
-    <lastmod>2019-01-07T02:23:44.364Z</lastmod>
+    <lastmod>2020-06-30T01:11:57.725Z</lastmod>
     
   </url>
   
@@ -68,13 +89,6 @@
     <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
     
     <lastmod>2018-10-16T00:30:50.683Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/mean-reversion.html</loc>
-    
-    <lastmod>2018-10-16T00:28:09.098Z</lastmod>
     
   </url>
   

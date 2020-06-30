@@ -262,6 +262,352 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/mcmc-linear-regression.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Systematic Investing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/mcmc-linear-regression.html" itemprop="url">MCMC Linear Regression</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-30T21:30:00-05:00">
+                2017-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/mcmc-linear-regression.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="mcmc-linear-regression.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/bayesian-linear-regression.html" title="last post">last post</a> we examined the Bayesian approach for linear regression. It relies on the <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">conjugate prior</a> assumption, which nicely sets posterior to Gaussian distribution. In reality, most times we don’t have this luxury, so we rely instead on a technique called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo" target="_blank" rel="noopener">Markov Chain Monte Carlo (MCMC)</a>. One popular algorithm in this family is <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis–Hastings</a> and this is what we are looking at today. Before we proceed, I want to point out that this post is inpsired by <a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">this article in R</a>.</p>
+<p>MCMC answers to this question: if we don’t know what the posterior distribution looks like, and we don’t have the closed form solution as given in equation (2.5) of <a href="/bayesian-linear-regression.html" title="last post">last post</a> for $\beta_1$ and $\Sigma_{\beta,1}$, how do we obtain the posterior distrubtion of $\beta$? Can we at least approximate it? Metropolis–Hastings provides a numerical Monte Carlo simulation method to magically draw a sample out of the posterior distribution. The magic is to construct a Markov Chain that converges to the given distribution as its stationary equilibrium distribution. Hence the name Markov Chain Monte Carlo (MCMC).</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/mcmc-linear-regression.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/bayesian-linear-regression.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Systematic Investing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/bayesian-linear-regression.html" itemprop="url">Bayesian Linear Regression</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-26T22:35:00-05:00">
+                2017-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/bayesian-linear-regression.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="bayesian-linear-regression.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+		  
+		  
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/classical-linear-regression.html" title="last post">last post</a> we reviewed the classical linear regression and now let’s look from Bayesian perspective. There is well-known philosophical difference between <a href="https://en.wikipedia.org/wiki/Frequentist_inference" target="_blank" rel="noopener">frequentist</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_inference" target="_blank" rel="noopener">Bayesian</a>. Interested readers can read further this debate online such as <a href="https://en.wikipedia.org/wiki/Probability_interpretations" target="_blank" rel="noopener">this one on Wiki</a>. In my opinion, one advantage of Bayesian is its ability to perform <a href="https://en.wikipedia.org/wiki/Recursive_Bayesian_estimation" target="_blank" rel="noopener">online machine learning</a> recursivelly as new information comes along incrementally. </p>
+<p>In terms of the linear regression, <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Bayes’s Theorem</a> can be written as</p>
+<p>$$<br>f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}<br>\tag{1.1}<br>$$</p>
+<p>where $f(\beta|X)$ is the <strong>prior</strong> belief of parameter $\beta$; $f(y|\beta,X)$ is the <strong>likelihood</strong> of observing $y$ given our <strong>prior</strong>; and $f(y|X)$ is called <strong>evidence</strong>. Finally, $f(\beta|y,X)$ is the <strong>posterior</strong> belief of pararmeter $\beta$ once the evidence $y$ has been taken into account. This posterior then becomes new prior and the circle continues recursively.</p>
+<p>In this post we will bring the example from <a href="/classical-linear-regression.html" title="last post">last post</a> into Bayesian world.</p>
+<p>If you have difficulty viewing the formulas, right click on it and select Math Settings Math Renderer to switch to another format.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/bayesian-linear-regression.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/classical-linear-regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -823,7 +1169,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -834,7 +1180,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -845,7 +1191,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
