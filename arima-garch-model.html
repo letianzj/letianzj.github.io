@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/arima_forecast.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/garch_fit.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/garch_forecast.png">
-<meta property="og:updated_time" content="2020-06-30T03:45:37.601Z">
+<meta property="og:updated_time" content="2020-06-30T15:20:36.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ARIMA GARCH Model">
 <meta name="twitter:description" content="IntroductionAn ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below $$\begin{aligned}X_t &amp;amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^">
@@ -370,12 +370,12 @@
 
       
         <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>An <a href="https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model" target="_blank" rel="noopener">ARMA (AutoRegressive-Moving Average)</a> has two parts, the AR(p) part and MA(q) part, expressed as below</p>
-<p>$$<br>\begin{aligned}<br>X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsilon_{t-i}\\<br>\left( 1-\sum_{i=1}^p\varphi_iL^i \right)X_t&amp;=c+\left(1+\sum_{i=1}^q\theta_iL^i \right)\epsilon_i<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsilon_{t-i}\<br>\left( 1-\sum_{i=1}^p\varphi_iL^i \right)X_t&amp;=c+\left(1+\sum_{i=1}^q\theta_iL^i \right)\epsilon_i<br>\end{aligned}<br>$$</p>
 <p>where $L$ is the lag operator and $\epsilon_i$ is white noise. It can be approached by <a href="https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method" target="_blank" rel="noopener">Box-Jenkins method</a>. We may use <a href="https://en.wikipedia.org/wiki/Partial_autocorrelation_function" target="_blank" rel="noopener">PACF</a> plot to identify AR lag order $p$, and <a href="https://en.wikipedia.org/wiki/Autocorrelation" target="_blank" rel="noopener">ACF</a> plot to identify MA lag order $q$; or use information such as <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion" target="_blank" rel="noopener">AIC</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion" target="_blank" rel="noopener">BIC</a> to do the model selection.</p>
 <p><a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average" target="_blank" rel="noopener">ARIMA (AutoRegressive Integrated Moving Average)</a> is a generalization of ARMA by adding an integrated part with order $d$ for non-stationary processes.</p>
 <p>While ARIMA works on price level or returns, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity" target="_blank" rel="noopener">GARCH (Generalized AutoRegressive Conditional heteroskedasticity)</a> tries to model the clustering in volatility or squared returns. It extends ARMA terms to the variance front</p>
 <a id="more"></a>
-<p>$$<br>\begin{aligned}<br>y_t&amp;=x’_tb+\epsilon_t \;\;\; \epsilon_t \sim N(0, \sigma^2_t) \\<br>\sigma^2_t &amp;= \omega + \sum_{i=1}^p \beta_i\sigma^2_{t-i}+\sum_{i=1}^q\alpha_i\epsilon^2_{t-i}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>y_t&amp;=x’_tb+\epsilon_t \;\;\; \epsilon_t \sim N(0, \sigma^2_t) \<br>\sigma^2_t &amp;= \omega + \sum_{i=1}^p \beta_i\sigma^2_{t-i}+\sum_{i=1}^q\alpha_i\epsilon^2_{t-i}<br>\end{aligned}<br>$$</p>
 <p>As the discrete version of Stochastic Volatility model, GARCH also captures the fat-tail effect in stock markets. Therefore combining ARIMA with GARCH is expected to have a better fit in modelling stock prices than one model alone. In this post we will apply them to S&amp;P 500 prices. The workbook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/arima_garch.ipynb" target="_blank" rel="noopener">here</a>.</p>
 <h2 id="ARIMA"><a href="#ARIMA" class="headerlink" title="ARIMA"></a>ARIMA</h2><p>First it’s known that stock prices are not stationary; while returns mgiht be. This is confirmed by ADF unit root test.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># price is known to be non-stationary; return is stationary</span></span><br><span class="line"><span class="keyword">from</span> statsmodels.tsa.stattools <span class="keyword">import</span> adfuller</span><br><span class="line"></span><br><span class="line">result = adfuller(hist_close)</span><br><span class="line">print(<span class="string">f'ADF Statistic: <span class="subst">&#123;result[<span class="number">0</span>]&#125;</span>, p-value: <span class="subst">&#123;result[<span class="number">1</span>]&#125;</span>'</span>)  <span class="comment"># null hypothesis: unit root exists; can't reject null.</span></span><br><span class="line"></span><br><span class="line">result = adfuller(hist_ret)</span><br><span class="line">print(<span class="string">f'ADF Statistic: <span class="subst">&#123;result[<span class="number">0</span>]&#125;</span>, p-value: <span class="subst">&#123;result[<span class="number">1</span>]&#125;</span>'</span>)   <span class="comment"># reject null hypothesis of unit root ==&gt; stationary</span></span><br></pre></td></tr></table></figure>
@@ -393,6 +393,10 @@
 <img src="/arima-garch-model/garch_fit.png" title="GARCH Model Fit">
 <p>Last but not least, the forecast band fluctuates from $\pm 4\%$ down to $\pm 3\%$ before bounces back to $\pm 5\%$, which clearly demonstrates volatility clustering as promised by the model. Note that here it is the one-step rolling forecast, and supposed to be better than the static multi-period forecast.</p>
 <img src="/arima-garch-model/garch_forecast.png" title="GARCH Forecast">
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p><strong>Trend stationary and difference stationary</strong><br>Trend stationary, as known as deterministic trend, has deterministic mean trend. In contrast, difference stationary has stochastic trend. The former can be estimated with OLS, while the latter needs to be differenced first.</p>
+<p>Consider a simple process<br>$$<br>\begin{aligned}<br>x_t &amp;=at+u_t \<br>u_t &amp;= \varphi u_{t-1}+\epsilon_t<br>\end{aligned}<br>$$</p>
+<p>If $\varphi &lt; 1$, the process is trend stationary; That is, if we substract trend $at$, the process becomes stationary.<br>If $\varphi = 1$, it is difference stationary. It is easy to see the stochasticity by putting second equation into the first, and rewrite the equation as<br>$$<br>x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t<br>$$</p>
+
       
     </div>
     
@@ -440,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/principal-component-analysis.html" rel="next" title="Principal Component Analysis">
-                <i class="fa fa-chevron-left"></i> Principal Component Analysis
+              <a href="/vector-autoregression.html" rel="next" title="ARIMA GARCH Model">
+                <i class="fa fa-chevron-left"></i> ARIMA GARCH Model
               </a>
             
           </div>
@@ -539,7 +543,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -616,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARIMA"><span class="nav-number">2.</span> <span class="nav-text">ARIMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GARCH"><span class="nav-number">3.</span> <span class="nav-text">GARCH</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARIMA"><span class="nav-number">2.</span> <span class="nav-text">ARIMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GARCH"><span class="nav-number">3.</span> <span class="nav-text">GARCH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">4.</span> <span class="nav-text">Appendix</span></a></li></ol></div>
             
 
           </div>

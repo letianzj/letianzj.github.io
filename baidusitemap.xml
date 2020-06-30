@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
+    <lastmod>2020-06-30T20:50:49.898Z</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    <lastmod>2020-06-30T16:17:00.194Z</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
+    <lastmod>2020-06-30T15:20:36.010Z</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/welcome.html</loc>
+    <lastmod>2020-06-30T03:50:11.071Z</lastmod>
+  </url>  <url>
     <loc>https://letianzj.github.io/mean-reversion.html</loc>
     <lastmod>2020-06-30T03:48:29.383Z</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
     <lastmod>2020-06-30T03:46:19.557Z</lastmod>
   </url>  <url>
-    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
+    <loc>https://letianzj.github.io/vector-autoregression.html</loc>
     <lastmod>2020-06-30T03:45:37.601Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/welcome.html</loc>
-    <lastmod>2020-06-30T01:11:57.725Z</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
     <lastmod>2019-01-07T00:26:47.118Z</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
     <lastmod>2019-01-06T01:32:27.962Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
-    <lastmod>2018-10-16T23:04:18.042Z</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/classical-linear-regression.html</loc>
     <lastmod>2018-10-16T03:15:29.034Z</lastmod>
@@ -36,9 +42,6 @@
   </url>  <url>
     <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
     <lastmod>2018-10-16T00:31:23.106Z</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
-    <lastmod>2018-10-16T00:30:50.683Z</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
     <lastmod>2018-10-16T00:27:16.336Z</lastmod>

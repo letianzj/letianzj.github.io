@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="IntroductionIn  we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a p">
+<meta name="description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
 <meta name="keywords" content="Cointegration,Error-Correction Model,Pairs Trading,Johansen Test,Quantitative Trading">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cointegration and Pairs Trading">
 <meta property="og:url" content="https://letianzj.github.io/cointegration-pairs-trading.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionIn  we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a p">
+<meta property="og:description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://letianzj.github.io/cointegration-pairs-trading/ewa_ewc.png">
 <meta property="og:image" content="https://letianzj.github.io/cointegration-pairs-trading/backtest_results.png">
-<meta property="og:updated_time" content="2018-10-16T23:04:18.042Z">
+<meta property="og:updated_time" content="2020-06-30T16:17:00.194Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cointegration and Pairs Trading">
-<meta name="twitter:description" content="IntroductionIn  we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a p">
+<meta name="twitter:description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
 <meta name="twitter:image" content="https://letianzj.github.io/cointegration-pairs-trading/ewa_ewc.png">
 
 
@@ -378,7 +378,7 @@
       
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In  we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a portfolio of stocks that is mean-reverting. If the portfolio has only two stocks, it is known as <a href="https://en.wikipedia.org/wiki/Pairs_trade" target="_blank" rel="noopener">pairs trading</a>, a special form of <a href="https://en.wikipedia.org/wiki/Statistical_arbitrage" target="_blank" rel="noopener">statistical arbitrage</a>. By combining two <a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">cointegrated</a> stocks, we can construct a spread that is mean-reverting, even when these two stocks themselves are not. Please refer to the appendix if you want to check out cointegration first.</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/mean-reversion.html" title="last post">last post</a> we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a portfolio of stocks that is mean-reverting. If the portfolio has only two stocks, it is known as <a href="https://en.wikipedia.org/wiki/Pairs_trade" target="_blank" rel="noopener">pairs trading</a>, a special form of <a href="https://en.wikipedia.org/wiki/Statistical_arbitrage" target="_blank" rel="noopener">statistical arbitrage</a>. By combining two <a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">cointegrated</a> stocks, we can construct a spread that is mean-reverting, even when these two stocks themselves are not. Please refer to the appendix if you want to check out cointegration first.</p>
 <p><a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">Cointegration</a> and <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank" rel="noopener">correlation</a> talk abouot different things. For example, if two stock prices follow two straight lines with differennt slopes, then they are positively correlated but not cointegrated, as illustrated in <a href="https://www.quora.com/What-is-the-difference-between-correlation-and-cointegration-Is-cointegration-a-good-measure-of-risk" target="_blank" rel="noopener">this quora post</a>. The mathematical formulas are relegated in the appendix.</p>
 <p>The backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
 <a id="more"></a>
@@ -386,7 +386,7 @@
 <!--<img src="cointegration-pairs-trading/ewa_ewc.png" align="center" width="100%" height="100%">-->
 <img src="/cointegration-pairs-trading/ewa_ewc.png" title="EWA vs EWC">
 <p>EWA and EWC visually appear to be highly correlated with pearson correlation coefficient of 95%. The residual seems mean-reverting. Let’s verify it with statistical tests.</p>
-<h3 id="Cointegrated-Augmented-Dickey-Fuller-Test"><a href="#Cointegrated-Augmented-Dickey-Fuller-Test" class="headerlink" title="Cointegrated Augmented Dickey Fuller Test"></a>Cointegrated Augmented Dickey Fuller Test</h3><p>In order to perform ADF test as in , we need to know the hedging ratio between the two stocks. Cointegrated Augmented Dickey-Fuller (CADF) test determines the optimal hedge ratio by linear regression against the two stocks and then tests for stationarity of the residuals. CADF is also known as <a href="https://en.wikipedia.org/wiki/Cointegration#Engle%E2%80%93Granger_two-step_method" target="_blank" rel="noopener">Engle-Granger two-step method</a>.</p>
+<h3 id="Cointegrated-Augmented-Dickey-Fuller-Test"><a href="#Cointegrated-Augmented-Dickey-Fuller-Test" class="headerlink" title="Cointegrated Augmented Dickey Fuller Test"></a>Cointegrated Augmented Dickey Fuller Test</h3><p>In order to perform ADF test as in <a href="/mean-reversion.html" title="last post">last post</a>, we need to know the hedging ratio between the two stocks. Cointegrated Augmented Dickey-Fuller (CADF) test determines the optimal hedge ratio by linear regression against the two stocks and then tests for stationarity of the residuals. CADF is also known as <a href="https://en.wikipedia.org/wiki/Cointegration#Engle%E2%80%93Granger_two-step_method" target="_blank" rel="noopener">Engle-Granger two-step method</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> statsmodels.tsa.stattools <span class="keyword">as</span> ts</span><br><span class="line">ts.adfuller(y_residual, <span class="number">1</span>)           <span class="comment"># lag = 1</span></span><br><span class="line"><span class="comment"># (-3.667485117146333,</span></span><br><span class="line"><span class="comment">#  0.0045944586170011716,</span></span><br><span class="line"><span class="comment">#  1,</span></span><br><span class="line"><span class="comment">#  4560,</span></span><br><span class="line"><span class="comment">#  &#123;'1%': -3.431784865122899,</span></span><br><span class="line"><span class="comment">#   '5%': -2.8621740417619224,</span></span><br><span class="line"><span class="comment">#   '10%': -2.5671075035106954&#125;,</span></span><br><span class="line"><span class="comment">#  625.5003218990623)</span></span><br></pre></td></tr></table></figure>
 <p>The result indicates that the calculated test statistic of -3.667, smaller than the 5% critical value of -2.86; the p-value is 0.00459. This means that we can reject the null hypothesis of unit root or no cointegration. In other words, we accept that EWA and EWC are cointegrated with the hedging ratio given by the linear regression.</p>
 <p>One undesired feature of the ordinary least square is that it is asymmetric, by switching the dependent and independent variables it will result in a differnet hedging ratio. A common solution is to do both sides, and choose the one with most negative / statistically significant test-statistic.</p>
@@ -413,19 +413,19 @@
 <li>[2] Chan, Ernie. Algorithmic trading: winning strategies and their rationale. Vol. 625. John Wiley &amp; Sons, 2013.</li>
 <li>[3] Vidyamurthy, Ganapathy. Pairs Trading: quantitative methods and analysis. Vol. 217. John Wiley &amp; Sons, 2004.</li>
 </ul>
-<h2 id="Appendix-–-Cointegration-and-Error-Correction-Model"><a href="#Appendix-–-Cointegration-and-Error-Correction-Model" class="headerlink" title="Appendix – Cointegration and Error-Correction Model"></a>Appendix – Cointegration and Error-Correction Model</h2><p>Cointegration loosely speaking means that two non-stationary time series can be paired up to form a stationary time series. Technically speaking it means there are more unit-root non-stationary components than the number of unit roots in the system. There are a lot of materials online about this topic but I found some of them hard for beginners to follow. In this appendix I try to convey the basic idea through an example.</p>
+<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><h3 id="Cointegration-and-Error-Correction-Model"><a href="#Cointegration-and-Error-Correction-Model" class="headerlink" title="Cointegration and Error-Correction Model"></a>Cointegration and Error-Correction Model</h3><p>Cointegration loosely speaking means that two non-stationary time series can be paired up to form a stationary time series. Technically speaking it means there are more unit-root non-stationary components than the number of unit roots in the system. There are a lot of materials online about this topic but I found some of them hard for beginners to follow. In this appendix I try to convey the basic idea through an example.</p>
 <p>Consider two time series</p>
-<p>$$<br>\begin{matrix}<br>y_{1t} &amp;=&amp; y_{1,t-1}+b_{1,t}-0.5b_{1,t-1}  \\<br>y_{2t} &amp;=&amp; b_{2,t}<br>\tag{A1}<br>\end{matrix}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>y_{1t} &amp;= y_{1,t-1}+b_{1,t}-0.5b_{1,t-1}  \<br>y_{2t} &amp;= b_{2,t}<br>\tag{A1}<br>\end{aligned}<br>$$</p>
 <p>It is obvious $y_{1t}$ is $I(1)$ while $y_{2t}$ is $I(0)$ (see <a href="https://en.wikipedia.org/wiki/Order_of_integration" target="_blank" rel="noopener">order of integration</a>). </p>
 <p>Now assume two stock prices $x_{1t}$ and $x_{2t}$ follows</p>
-<p>$$<br>\begin{matrix}<br>x_{1t} &amp;=&amp; 2y_{1t}+y_{2t}  \\<br>x_{2t} &amp;=&amp; y_{1t}-2y_{2t}<br>\tag{A2}<br>\end{matrix}<br>$$</p>
+<p>$$<br>\begin{matrix}<br>x_{1t} &amp;=&amp; 2y_{1t}+y_{2t}  \<br>x_{2t} &amp;=&amp; y_{1t}-2y_{2t}<br>\tag{A2}<br>\end{matrix}<br>$$</p>
 <p>By plugging $(A1)$ into $(A2)$, we get</p>
-<p>$$<br>\begin{matrix}<br>x_{1t} &amp;=&amp; x_{1,t-1}+2b_{1t}-b_{1,t-1}+b_{2t}-b_{2,t-1}  \\<br>x_{2t} &amp;=&amp; x_{2,t-1}+b_{1,t}-0.5b_{1,t-1}-2b_{2t}+2b_{2,t-1}<br>\tag{A2}<br>\end{matrix}<br>$$</p>
+<p>$$<br>\begin{matrix}<br>x_{1t} &amp;=&amp; x_{1,t-1}+2b_{1t}-b_{1,t-1}+b_{2t}-b_{2,t-1}  \<br>x_{2t} &amp;=&amp; x_{2,t-1}+b_{1,t}-0.5b_{1,t-1}-2b_{2t}+2b_{2,t-1}<br>\tag{A2}<br>\end{matrix}<br>$$</p>
 <p><strong>Notice that both $x_{1t}$ and $x_{2t}$ are unit root non-stationary but both unit roots come from $y_{1t}$</strong> alone. In other words, there are two price series but there is only one unit root. $x_{1t}$ and $x_{2t}$ share a common trend $y_{1t}$, and we can pair them up to cancel this common trend. Therefore $x_{1t}$ and $x_{2t}$ are said to be <a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">cointegrated</a>. This is the mathematics behind the <a href="https://en.wikipedia.org/wiki/Pairs_trade" target="_blank" rel="noopener">pairs trading</a>.</p>
 <p>From (A2), it’s easy to find the pairing strategy as buying one lot of stock one and selling two lots of stock two,</p>
 <p>$$<br>x_{1t}-2x_{2t}=5y_{2t}<br>\tag{A3}<br>$$</p>
 <p>In case we can’t find it by eyes, we can use OLS to regress out the coeffficient, which is exactly what we did in the second section.</p>
-<p>Last but not least, (A2) can be re-writtenn as</p>
+<p>Last but not least, (A2) can be re-written as</p>
 <p>$$<br>\begin{matrix}<br>x_{1t}-x_{1,t-1}&amp;=&amp; -(0.2x_{1,t-1}-0.4x_{2,t-1})+2b_{1t}-b_{1,t-1}+b_{2t}  \\<br>x_{2t}-x_{2,t-1} &amp;=&amp; (0.2x_{1,t-1}-0.4x_{2,t-1})+b_{1,t}-0.5b_{1,t-1}-2b_{2t}<br>\tag{A4}<br>\end{matrix}<br>$$</p>
 <p>or in <a href="https://en.wikipedia.org/wiki/Vector_autoregression" target="_blank" rel="noopener">VAR</a> vector format</p>
 <p>$$<br>\begin{matrix}<br>\left[ \begin {array}{c} \Delta x_{1,t} \\ \Delta x_{2,t} \end{array} \right] &amp;=&amp;\left[ \begin {array}{c} -0.2 \\ 0.4 \end{array} \right]\left[ \begin {array}{cc} 1 &amp; -2 \end{array} \right]\left[ \begin{array}{c} x_{1,t-1} \ x_{2,t-1} \end{array}\right]+\left[ \begin{array}{c} 2b_{1t}-b_{1,t-1}+b_{2t} \\ b_{1,t}-0.5b_{1,t-1}-2b_{2t} \end{array}\right]<br>\tag{A5}<br>\end{matrix}<br>$$</p>
@@ -433,6 +433,9 @@
 <p>The first term on the right-hand side of (A5) is referred to as error-correction term. Let </p>
 <p>$$<br>\Pi=\left[ \begin {array}{c} -0.2 \\ 0.4 \end{array} \right]\left[ \begin {array}{cc} 1 &amp; -2 \end{array} \right]=\begin{bmatrix} -0.2 &amp; 0.4 \\ 0.4 &amp; -0.8 \end{bmatrix}<br>\tag{A6}<br>$$</p>
 <p><a href="https://en.wikipedia.org/wiki/Johansen_test" target="_blank" rel="noopener">Johansen test</a> first estimates $\Pi$ and then check if it is full <a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra" target="_blank" rel="noopener">rank</a>). Particularly in this example it will find coefficent as $[1, -2]$ and rank = 1 (not full rank).</p>
+<h3 id="ECM-two-step-Approach"><a href="#ECM-two-step-Approach" class="headerlink" title="ECM two-step Approach"></a>ECM two-step Approach</h3><p>To estimate the model in two steps is because one-step regression upon differences will miss the long-term relationship. Consider a simple system<br>$$<br>\begin{aligned}<br>x_t&amp;=x_{t-1}+u_t \<br>y_t&amp;=y_{t-1}+v_t<br>\end{aligned}<br>$$</p>
+<p>If we know $x$ and $y$ have a long term relationship $y=ax+\epsilon$, then<br>$$<br>\Delta y_t = y_t-y_{t-1}=ax_t-y_{t-1}+\epsilon_t=a\Delta x_t+ \left(ax_{t-1}-y_{t-1}\right)+\epsilon_t<br>$$</p>
+<p>It is clear now that first step is to regression $\left(ax_{t-1}-y_{t-1}\right)$ and then put that into the second step regression. Also note that this is to find the VAR representation in ECM format. To test for cointegration, it usually performs ADF test on residuals from first step regression.</p>
 
       
     </div>
@@ -586,7 +589,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -663,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statistical-Testing"><span class="nav-number">2.</span> <span class="nav-text">Statistical Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegrated-Augmented-Dickey-Fuller-Test"><span class="nav-number">2.1.</span> <span class="nav-text">Cointegrated Augmented Dickey Fuller Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Johansen-Test"><span class="nav-number">2.2.</span> <span class="nav-text">Johansen Test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pairs-Trading"><span class="nav-number">3.</span> <span class="nav-text">Pairs Trading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix-–-Cointegration-and-Error-Correction-Model"><span class="nav-number">4.</span> <span class="nav-text">Appendix – Cointegration and Error-Correction Model</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statistical-Testing"><span class="nav-number">2.</span> <span class="nav-text">Statistical Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegrated-Augmented-Dickey-Fuller-Test"><span class="nav-number">2.1.</span> <span class="nav-text">Cointegrated Augmented Dickey Fuller Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Johansen-Test"><span class="nav-number">2.2.</span> <span class="nav-text">Johansen Test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pairs-Trading"><span class="nav-number">3.</span> <span class="nav-text">Pairs Trading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">4.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegration-and-Error-Correction-Model"><span class="nav-number">4.1.</span> <span class="nav-text">Cointegration and Error-Correction Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECM-two-step-Approach"><span class="nav-number">4.2.</span> <span class="nav-text">ECM two-step Approach</span></a></li></ol></li></ol></div>
             
 
           </div>

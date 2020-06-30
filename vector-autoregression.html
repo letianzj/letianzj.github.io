@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Time Series,Machine Learning" />
+  <meta name="keywords" content="Time Series" />
 
 
 
@@ -79,23 +79,23 @@
 
 
 
-<meta name="description" content="IntroductionPrincipal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduc">
-<meta name="keywords" content="Time Series,Machine Learning">
+<meta name="description" content="IntroductionAn ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below $$\begin{aligned}X_t &amp;amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^">
+<meta name="keywords" content="Time Series">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Principal Component Analysis">
-<meta property="og:url" content="https://letianzj.github.io/principal-component-analysis.html">
+<meta property="og:title" content="ARIMA GARCH Model">
+<meta property="og:url" content="https://letianzj.github.io/vector-autoregression.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionPrincipal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduc">
+<meta property="og:description" content="IntroductionAn ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below $$\begin{aligned}X_t &amp;amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/tenor_correlation_matrix.png">
-<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/cumulative_explained_variance.png">
-<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/eigenvalue_loadings.png">
-<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/6M_10Y.png">
-<meta property="og:updated_time" content="2020-06-30T03:46:19.557Z">
+<meta property="og:image" content="https://letianzj.github.io/vector-autoregression/return_acf_pacf.png">
+<meta property="og:image" content="https://letianzj.github.io/vector-autoregression/arima_forecast.png">
+<meta property="og:image" content="https://letianzj.github.io/vector-autoregression/garch_fit.png">
+<meta property="og:image" content="https://letianzj.github.io/vector-autoregression/garch_forecast.png">
+<meta property="og:updated_time" content="2020-06-30T03:45:37.601Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Principal Component Analysis">
-<meta name="twitter:description" content="IntroductionPrincipal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduc">
-<meta name="twitter:image" content="https://letianzj.github.io/principal-component-analysis/tenor_correlation_matrix.png">
+<meta name="twitter:title" content="ARIMA GARCH Model">
+<meta name="twitter:description" content="IntroductionAn ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below $$\begin{aligned}X_t &amp;amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^">
+<meta name="twitter:image" content="https://letianzj.github.io/vector-autoregression/return_acf_pacf.png">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://letianzj.github.io/principal-component-analysis.html"/>
+  <link rel="canonical" href="https://letianzj.github.io/vector-autoregression.html"/>
 
 
 
 
 
-  <title>Principal Component Analysis | Time Series,Machine Learning | Systematic Investing</title>
+  <title>ARIMA GARCH Model | Time Series | Systematic Investing</title>
   
 
 
@@ -267,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/principal-component-analysis.html">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/vector-autoregression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Letian Wang">
@@ -284,7 +284,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Principal Component Analysis</h2>
+          <h2 class="post-title" itemprop="name headline">ARIMA GARCH Model</h2>
         
 
         <div class="post-meta">
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-30T19:00:00-05:00">
-                2018-12-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-17T21:00:00-05:00">
+                2019-02-17
               </time>
             
 
@@ -326,17 +326,6 @@
 
                 
                 
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Time-Series/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -348,9 +337,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/principal-component-analysis.html#comments" itemprop="discussionUrl">
+                <a href="/vector-autoregression.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="principal-component-analysis.html" itemprop="commentCount"></span>
+                        data-disqus-identifier="vector-autoregression.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -380,26 +369,30 @@
       
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank" rel="noopener">Principal component analysis (PCA)</a> rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduction technique by taking first few variables in the rotated dataset. That is, denote $X \in R^{n \times p}$ be the original dataset, and let $W \in R^{p \times p}$ be the rotation operator, then the new dataset is</p>
-<p>$$<br>T=XW \;\; or \;\; T_L= XW_L<br>$$</p>
-<p>where $W_L \in R^{p \times l}$ keeps the first $L$ components of $W$ according to their eigenvalues. $W$ is the eigenvectors of covariance matrrix $X^TX$ and usually obtained by performing <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition" target="_blank" rel="noopener">SVD decomposition</a> on $X$ directly.</p>
-<p>$$<br>X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T<br>$$</p>
-<p>In this post we apply PCA to USD treasury curves. Treasury curves are known to be correlated, and first three principal components, namely, level, spread, and fly, explain most of the curve variations. The notebook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/principal_component_analysis.ipynb" target="_blank" rel="noopener">here</a>.</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>An <a href="https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model" target="_blank" rel="noopener">ARMA (AutoRegressive-Moving Average)</a> has two parts, the AR(p) part and MA(q) part, expressed as below</p>
+<p>$$<br>\begin{aligned}<br>X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsilon_{t-i}\\<br>\left( 1-\sum_{i=1}^p\varphi_iL^i \right)X_t&amp;=c+\left(1+\sum_{i=1}^q\theta_iL^i \right)\epsilon_i<br>\end{aligned}<br>$$</p>
+<p>where $L$ is the lag operator and $\epsilon_i$ is white noise. It can be approached by <a href="https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method" target="_blank" rel="noopener">Box-Jenkins method</a>. We may use <a href="https://en.wikipedia.org/wiki/Partial_autocorrelation_function" target="_blank" rel="noopener">PACF</a> plot to identify AR lag order $p$, and <a href="https://en.wikipedia.org/wiki/Autocorrelation" target="_blank" rel="noopener">ACF</a> plot to identify MA lag order $q$; or use information such as <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion" target="_blank" rel="noopener">AIC</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion" target="_blank" rel="noopener">BIC</a> to do the model selection.</p>
+<p><a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average" target="_blank" rel="noopener">ARIMA (AutoRegressive Integrated Moving Average)</a> is a generalization of ARMA by adding an integrated part with order $d$ for non-stationary processes.</p>
+<p>While ARIMA works on price level or returns, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity" target="_blank" rel="noopener">GARCH (Generalized AutoRegressive Conditional heteroskedasticity)</a> tries to model the clustering in volatility or squared returns. It extends ARMA terms to the variance front</p>
 <a id="more"></a>
-<h2 id="Treasury-Curves"><a href="#Treasury-Curves" class="headerlink" title="Treasury Curves"></a>Treasury Curves</h2><p>First let’s download the constant maturity Treasury curves and look at their correlations.</p>
-<img src="/principal-component-analysis/tenor_correlation_matrix.png" title="Correlation Matrix">
-<p>The rates are in general highly correlated; and as tenor points become further apart, the correlation decreases.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA().fit(df)</span><br><span class="line"></span><br><span class="line">plt.plot(pca.explained_variance_ratio_.cumsum())</span><br><span class="line">plt.xlabel(<span class="string">'number of components'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'cumulative explained variance'</span>)</span><br></pre></td></tr></table></figure>
-<img src="/principal-component-analysis/cumulative_explained_variance.png" title="Cumulative Variance">
-<p>The first three principal components explained almost $99\%$ of the total variance.</p>
-<p>Next, let’s look at the loadings or eigenvectors. It shows how the principal components are constructed from the original rates.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tenors_label = [<span class="string">'1M'</span>, <span class="string">'3M'</span>, <span class="string">'6M'</span>, <span class="string">'1Y'</span>, <span class="string">'2Y'</span>, <span class="string">'3Y'</span>, <span class="string">'5Y'</span>, <span class="string">'7Y'</span>, <span class="string">'10Y'</span>, <span class="string">'20Y'</span>, <span class="string">'30Y'</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>,<span class="number">4</span>))</span><br><span class="line">plt.subplot(<span class="number">131</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">0</span>, :])</span><br><span class="line">plt.subplot(<span class="number">132</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">1</span>, :])</span><br><span class="line">plt.subplot(<span class="number">133</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">2</span>, :])</span><br></pre></td></tr></table></figure>
-<img src="/principal-component-analysis/eigenvalue_loadings.png" title="Loadings">
-<p>From the graph, it is easy to see that the first pc is level shift; the second pc is spread; and the third pc is butterfly.</p>
-<p>If we dont’ want to trade on the exact portfolio, it’s possible to construct an approximate trade. For example on the spread trade, we can choose 3M-10Y*2 as the approximate to the loadings. </p>
-<img src="/principal-component-analysis/6M_10Y.png" title="Spread Trade">
-<p>Notice that the curves on the left resemble each other. If we expect the curve will start steepening soon,  we can short the spread by holding 10Y twice of the duration neutral amount.</p>
-
+<p>$$<br>\begin{aligned}<br>y_t&amp;=x’_tb+\epsilon_t \;\;\; \epsilon_t \sim N(0, \sigma^2_t) \\<br>\sigma^2_t &amp;= \omega + \sum_{i=1}^p \beta_i\sigma^2_{t-i}+\sum_{i=1}^q\alpha_i\epsilon^2_{t-i}<br>\end{aligned}<br>$$</p>
+<p>As the discrete version of Stochastic Volatility model, GARCH also captures the fat-tail effect in stock markets. Therefore combining ARIMA with GARCH is expected to have a better fit in modelling stock prices than one model alone. In this post we will apply them to S&amp;P 500 prices. The workbook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/arima_garch.ipynb" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="ARIMA"><a href="#ARIMA" class="headerlink" title="ARIMA"></a>ARIMA</h2><p>First it’s known that stock prices are not stationary; while returns mgiht be. This is confirmed by ADF unit root test.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># price is known to be non-stationary; return is stationary</span></span><br><span class="line"><span class="keyword">from</span> statsmodels.tsa.stattools <span class="keyword">import</span> adfuller</span><br><span class="line"></span><br><span class="line">result = adfuller(hist_close)</span><br><span class="line">print(<span class="string">f'ADF Statistic: <span class="subst">&#123;result[<span class="number">0</span>]&#125;</span>, p-value: <span class="subst">&#123;result[<span class="number">1</span>]&#125;</span>'</span>)  <span class="comment"># null hypothesis: unit root exists; can't reject null.</span></span><br><span class="line"></span><br><span class="line">result = adfuller(hist_ret)</span><br><span class="line">print(<span class="string">f'ADF Statistic: <span class="subst">&#123;result[<span class="number">0</span>]&#125;</span>, p-value: <span class="subst">&#123;result[<span class="number">1</span>]&#125;</span>'</span>)   <span class="comment"># reject null hypothesis of unit root ==&gt; stationary</span></span><br></pre></td></tr></table></figure>
+<p>ADF p-value for return series is $0$, which rejects the null hypothesis of unit root. Therefore, we accept $d=1$ in ARIMA(p, d, q), and the next step is to identify lag $p$ and $q$. The ACF and PACF plots suggest a lag up to $35$ business days. There will be too many parameters to fit if we follow the graph. One solution is to use weekly or monthly charts. Here we constraint max lag to $5$ days and use AIC to selct the best model.</p>
+<img src="/vector-autoregression/return_acf_pacf.png" title="ACF_PACF">
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.arima_model <span class="keyword">import</span> ARIMA, ARMA</span><br><span class="line"></span><br><span class="line">hist_training = hist_ret.iloc[:<span class="number">-45</span>]</span><br><span class="line">hist_testing = hist_ret.iloc[<span class="number">-45</span>:]</span><br><span class="line"></span><br><span class="line">dict_aic = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">6</span>):</span><br><span class="line">    <span class="keyword">for</span> q <span class="keyword">in</span> range(<span class="number">6</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            model = ARIMA(hist_training, order=(p, <span class="number">0</span>, q))</span><br><span class="line">            model_fit = model.fit(disp=<span class="number">0</span>)</span><br><span class="line">            dict_aic[(p, q)] = model_fit.aic</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">df_aic = pd.DataFrame.from_dict(dict_aic, orient=<span class="string">'index'</span>, columns=[<span class="string">'aic'</span>])</span><br><span class="line">p, q = df_aic[df_aic.aic == df_aic.aic.min()].index[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">f'ARIMA order is (<span class="subst">&#123;p&#125;</span>, <span class="subst">&#123;<span class="number">0</span>&#125;</span>, <span class="subst">&#123;q&#125;</span>)'</span>)</span><br></pre></td></tr></table></figure>
+<p>The next step is to fit the model and evaluate model fit through residual statistics. The residuals still show some autocorrelations, and didn’t pass the normality tests. This is somehow expected, due to the lag order constraints. </p>
+<p>Nevertheless, let’s proceed to the last step and use the model to forecast. Below it compares the return forecast on the test set and actual returns.</p>
+<img src="/vector-autoregression/arima_forecast.png" title="ARIMA Forecast">
+<p>The return forecast is centered around $0\%$, with confidence band between $\pm2\%$. The outcome is not particularly impressive. After all, the market is undergoing a turbulent stage, even slumped $6\%$ during the forecast time window. </p>
+<h2 id="GARCH"><a href="#GARCH" class="headerlink" title="GARCH"></a>GARCH</h2><p>Let’s see whether adding GARCH effect will yield a better result or not. The modelling process is similar to ARIMA: first identify the lag orders; then fit the model and evaluate the residual, and finally if the model is satisfactory, use it to forecast the future.</p>
+<p>We constraint both the AR lag and GARCH lag be less than $5$. The optimal order turns out to be $(4, 2, 2)$.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> arch <span class="keyword">import</span> arch_model</span><br><span class="line">dict_aic = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">5</span>):</span><br><span class="line">        <span class="keyword">for</span> q <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">5</span>):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                split_date = hist_ret.index[<span class="number">-45</span>]</span><br><span class="line">                model = arch_model(hist_ret, mean=<span class="string">'ARX'</span>, lags=l, vol=<span class="string">'Garch'</span>, p=p, o=<span class="number">0</span>, q=q, dist=<span class="string">'Normal'</span>)</span><br><span class="line">                res = model.fit(last_obs=split_date)</span><br><span class="line">                dict_aic[(l, p, q)] = res.aic</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">df_aic = pd.DataFrame.from_dict(dict_aic, orient=<span class="string">'index'</span>, columns=[<span class="string">'aic'</span>])</span><br><span class="line">l, p, q = df_aic[df_aic.aic == df_aic.aic.min()].index[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">f'ARIMA-GARCH order is (<span class="subst">&#123;l&#125;</span>, <span class="subst">&#123;p&#125;</span>, <span class="subst">&#123;q&#125;</span>)'</span>)      <span class="comment"># (4, 2, 2)</span></span><br></pre></td></tr></table></figure>
+<p>Next let’s fit the model according to best parameters selected, as shown below. It confirms that the mean model is AR(4), and variance model is GARCH(2, 2). Some of the coefficients are not statistically significant.</p>
+<img src="/vector-autoregression/garch_fit.png" title="GARCH Model Fit">
+<p>Last but not least, the forecast band fluctuates from $\pm 4\%$ down to $\pm 3\%$ before bounces back to $\pm 5\%$, which clearly demonstrates volatility clustering as promised by the model. Note that here it is the one-step rolling forecast, and supposed to be better than the static multi-period forecast.</p>
+<img src="/vector-autoregression/garch_forecast.png" title="GARCH Forecast">
       
     </div>
     
@@ -419,7 +412,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://letianzj.github.io/principal-component-analysis.html" title="Principal Component Analysis">https://letianzj.github.io/principal-component-analysis.html</a>
+    <a href="https://letianzj.github.io/vector-autoregression.html" title="ARIMA GARCH Model">https://letianzj.github.io/vector-autoregression.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -436,8 +429,6 @@
           
             <a href="/tags/Time-Series/" rel="tag"># Time Series</a>
           
-            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-          
         </div>
       
 
@@ -449,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/rnn-stock-prediction.html" rel="next" title="RNN Stock Prediction">
-                <i class="fa fa-chevron-left"></i> RNN Stock Prediction
+              <a href="/principal-component-analysis.html" rel="next" title="Principal Component Analysis">
+                <i class="fa fa-chevron-left"></i> Principal Component Analysis
               </a>
             
           </div>
@@ -459,7 +450,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/vector-autoregression.html" rel="prev" title="ARIMA GARCH Model">
+              <a href="/arima-garch-model.html" rel="prev" title="ARIMA GARCH Model">
                 ARIMA GARCH Model <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -629,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Treasury-Curves"><span class="nav-number">2.</span> <span class="nav-text">Treasury Curves</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARIMA"><span class="nav-number">2.</span> <span class="nav-text">ARIMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GARCH"><span class="nav-number">3.</span> <span class="nav-text">GARCH</span></a></li></ol></div>
             
 
           </div>
@@ -799,9 +790,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://letianzj.github.io/principal-component-analysis.html';
-          this.page.identifier = 'principal-component-analysis.html';
-          this.page.title = 'Principal Component Analysis';
+          this.page.url = 'https://letianzj.github.io/vector-autoregression.html';
+          this.page.identifier = 'vector-autoregression.html';
+          this.page.title = 'ARIMA GARCH Model';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
