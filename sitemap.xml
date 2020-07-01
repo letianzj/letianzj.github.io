@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
+    
+    <lastmod>2020-07-01T02:10:52.072Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
     
-    <lastmod>2020-06-30T20:50:49.898Z</lastmod>
+    <lastmod>2020-06-30T20:55:31.593Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
     
     <lastmod>2020-06-30T16:17:00.194Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
-    
-    <lastmod>2020-06-30T15:20:36.010Z</lastmod>
     
   </url>
   
@@ -40,13 +40,6 @@
     <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
     
     <lastmod>2020-06-30T03:46:19.557Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/vector-autoregression.html</loc>
-    
-    <lastmod>2020-06-30T03:45:37.601Z</lastmod>
     
   </url>
   
