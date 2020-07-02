@@ -4,12 +4,12 @@ Allow: /archives/
 Allow: /categories/
 Allow: /tags/
 
-Disallow: /vendors/
-Disallow: /js/
-Disallow: /css/
-Disallow: /fonts/
-Disallow: /vendors/
-Disallow: /fancybox/
+Allow: /vendors/
+Allow: /js/
+Allow: /css/
+Allow: /fonts/
+Allow: /vendors/
+Allow: /fancybox/
 
 Sitemap: https://letianzj.github.io/sitemap.xml
 Sitemap: https://letianzj.github.io/baidusitemap.xml
