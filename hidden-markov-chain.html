@@ -28,6 +28,8 @@
 <meta property="og:description" content="IntroductionHidden Markov Model (HMM) is a Markov Model with latent state space. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it ha">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/example.png">
+<meta property="og:image" content="https://letianzj.github.io/hidden-markov-chain/example.png">
+<meta property="og:image" content="https://letianzj.github.io/hidden-markov-chain/spx_hmm.png">
 <meta property="article:published_time" content="2018-09-02T11:05:00.000Z">
 <meta property="article:modified_time" content="2020-07-02T02:14:48.459Z">
 <meta property="article:author" content="Letian Wang">
@@ -254,7 +256,7 @@
 <a id="more"></a>
 
 <!--<img src="example.png" align="left" width="100%" height="100%">-->
-
+<img src="/hidden-markov-chain/example.png" class title="Example">
 <p>No cell phone, no TV, without logging into Bloomberg terminal, this simple example teaches you how to guess market movements solely from the trader’s mood. Here the two hidden states are market rally or drop. The transition matrix stipulates that if the market goes up today, there are 80% chance that the trend will continue tomorrow and 20% chance that the trend will reverse. On the contrary, if the market drops today, there are 70% chance sliding further tomorrow and 30% chance turning back up. </p>
 <p>The emission matrix shows the dependency of the trader’s mood on mareket changes. If she is just moody (high noise/information ratio), it would tell us nothing about the market. If somehow her mood is driven by her PnL, then we might be able to learn the market from her behavior. In this example, it says that if the market heads up, she would most likely be happy but there are 10% chance that something else, for example a car accident in the morning, upsets here. On the contrary, if the market goes down she would be unhappy, unless something else, perphas today happens to be her anniversary, cheers her up.</p>
 <p>With all these uncertainties/probabilities in place, there are three questions to ask, in the order of complexity:</p>
@@ -271,7 +273,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hmm_model = GaussianHMM(</span><br><span class="line">    n_components=<span class="number">3</span>,                     <span class="comment"># number of states</span></span><br><span class="line">    covariance_type=<span class="string">"full"</span>,             <span class="comment"># full covariance matrix vs diagonal</span></span><br><span class="line">    n_iter=<span class="number">1000</span>                         <span class="comment"># number of iterations</span></span><br><span class="line">).fit(rets)</span><br><span class="line"></span><br><span class="line">print(hmm_model.transmat_)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Means and vars of each hidden state"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(hmm_model.n_components):                   <span class="comment"># 0 is down, 1 is up</span></span><br><span class="line">    print(<span class="string">"&#123;0&#125;th hidden state"</span>.format(i))</span><br><span class="line">    print(<span class="string">"mean = "</span>, hmm_model.means_[i])</span><br><span class="line">    print(<span class="string">"var = "</span>, np.diag(hmm_model.covars_[i]))</span><br></pre></td></tr></table></figure>
 
 <p>From the mean and standard deviation, it seems that state 0 is market-down state; state 1 and 2 are market-up states. Within them, state 3 has $65%$ of chance flipping to the downside. Below is the historical states distribution of S&amp;P 500 index. At first glance it doesn’t seem to be a very precise result. It might need to be combined with other strategies.</p>
-
+<img src="/hidden-markov-chain/spx_hmm.png" class title="HMM States">
 
 <p><strong>Reference</strong></p>
 <ul>

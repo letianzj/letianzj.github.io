@@ -27,6 +27,9 @@
 <meta property="og:site_name" content="Systematic Investing">
 <meta property="og:description" content="IntroductionIt’s been a while since the post of Hidden Markov Chain (HMM), this time let’s continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov R">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png">
+<meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png">
+<meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/markov_regime_vix.png">
 <meta property="article:published_time" content="2019-11-30T22:00:00.000Z">
 <meta property="article:modified_time" content="2020-07-02T02:14:45.316Z">
 <meta property="article:author" content="Letian Wang">
@@ -34,6 +37,7 @@
 <meta property="article:tag" content="Regime Shift Model">
 <meta property="article:tag" content="Markov Switching Model">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png">
 
 <link rel="canonical" href="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html">
 
@@ -262,17 +266,17 @@
 <h2 id="Gaussian-Mixture-Model"><a href="#Gaussian-Mixture-Model" class="headerlink" title="Gaussian Mixture Model"></a>Gaussian Mixture Model</h2><p>In the above example, if we assume instead $\theta_A$ and $\theta_B$ come from two Gaussian distributions, respectively, then it becomes Gaussian Mixture model. A good illustration can be found <a href="https://www.kaggle.com/charel/learn-by-example-expectation-maximization" target="_blank" rel="noopener">here</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.mixture <span class="keyword">import</span> GaussianMixture</span><br><span class="line"></span><br><span class="line">X = hist_ret.values.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">n_components = np.arange(<span class="number">1</span>, <span class="number">21</span>)</span><br><span class="line">models = [GaussianMixture(n, covariance_type=<span class="string">'full'</span>, random_state=<span class="number">0</span>).fit(X) <span class="keyword">for</span> n <span class="keyword">in</span> n_components]</span><br><span class="line"></span><br><span class="line">plt.plot(n_components, [m.bic(X) <span class="keyword">for</span> m <span class="keyword">in</span> models], label=<span class="string">'BIC'</span>)</span><br><span class="line">plt.plot(n_components, [m.aic(X) <span class="keyword">for</span> m <span class="keyword">in</span> models], label=<span class="string">'AIC'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'best'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'n_components'</span>);</span><br></pre></td></tr></table></figure>
 
-
+<img src="/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png" class title="Gaussian Mixture AIC">
 
 <p>We may choose either two or three states based on the AIC graph. Two states could indicate high and low vol regimes; while three states hopefully can explain uptrend, downtrend and sideways. In this post we use two components. The result suggests first state is low vol ($0.5%$), second state is high vol ($5.6/%$).</p>
 <h2 id="Markov-Regime-Switching-Model"><a href="#Markov-Regime-Switching-Model" class="headerlink" title="Markov Regime Switching Model"></a>Markov Regime Switching Model</h2><p>It’s known that stock return is not normally distributed, having negative skewness and high kurtosis. It can be better modeled as conditional normal distribution (e.g. GARCH), which may suggest that the market can have different regimes and returns are normally distributed within a regime.</p>
 <p>Here again we choose two regimes, and assuming return is centered around zero. </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.regime_switching.markov_regression <span class="keyword">import</span> MarkovRegression</span><br><span class="line">model = MarkovRegression(hist_ret, k_regimes=<span class="number">2</span>, trend=<span class="string">'nc'</span>, switching_variance=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">res = model.fit()</span><br><span class="line">res.summary()</span><br></pre></td></tr></table></figure>
 
-
+<img src="/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png" class title="Markov Switching Model Fit">
 
 <p>The result also suggests first state is low vol $0.5%$, while second state is high vol $4.17%$. By comparing the graphs, the regime switch model turns out to have better fit than Gaussian mixture; which is undertandable, because Gaussian mixture doesn’t consider time sequence in time series. And comparing with VIX, Markov Regime Switching model captures major market downturns as shown below.</p>
-
+<img src="/gaussian-mixture-markov-regime-switching/markov_regime_vix.png" class title="Markov regime and VIX">
 
 <p>A straightforward way to use regime switching for trading is to assume regime doesn’t change; or tomorrow is in the same regime as today.</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>VanderPlas, Jake. Python data science handbook: Essential tools for working with data. “ O’Reilly Media, Inc.”, 2016.</p>

@@ -27,12 +27,17 @@
 <meta property="og:site_name" content="Systematic Investing">
 <meta property="og:description" content="IntroductionPrincipal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduc">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/tenor_correlation_matrix.png">
+<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/cumulative_explained_variance.png">
+<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/eigenvalue_loadings.png">
+<meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/6M_10Y.png">
 <meta property="article:published_time" content="2018-12-31T00:00:00.000Z">
 <meta property="article:modified_time" content="2020-07-02T02:14:14.606Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Time Series">
 <meta property="article:tag" content="Machine Learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://letianzj.github.io/principal-component-analysis/tenor_correlation_matrix.png">
 
 <link rel="canonical" href="https://letianzj.github.io/principal-component-analysis.html">
 
@@ -251,22 +256,22 @@
 <a id="more"></a>
 
 <h2 id="Treasury-Curves"><a href="#Treasury-Curves" class="headerlink" title="Treasury Curves"></a>Treasury Curves</h2><p>First let’s download the constant maturity Treasury curves and look at their correlations.</p>
-
+<img src="/principal-component-analysis/tenor_correlation_matrix.png" class title="Correlation Matrix">
 
 <p>The rates are in general highly correlated; and as tenor points become further apart, the correlation decreases.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA().fit(df)</span><br><span class="line"></span><br><span class="line">plt.plot(pca.explained_variance_ratio_.cumsum())</span><br><span class="line">plt.xlabel(<span class="string">'number of components'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'cumulative explained variance'</span>)</span><br></pre></td></tr></table></figure>
 
-
+<img src="/principal-component-analysis/cumulative_explained_variance.png" class title="Cumulative Variance">
 
 <p>The first three principal components explained almost $99%$ of the total variance.</p>
 <p>Next, let’s look at the loadings or eigenvectors. It shows how the principal components are constructed from the original rates.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tenors_label = [<span class="string">'1M'</span>, <span class="string">'3M'</span>, <span class="string">'6M'</span>, <span class="string">'1Y'</span>, <span class="string">'2Y'</span>, <span class="string">'3Y'</span>, <span class="string">'5Y'</span>, <span class="string">'7Y'</span>, <span class="string">'10Y'</span>, <span class="string">'20Y'</span>, <span class="string">'30Y'</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>,<span class="number">4</span>))</span><br><span class="line">plt.subplot(<span class="number">131</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">0</span>, :])</span><br><span class="line">plt.subplot(<span class="number">132</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">1</span>, :])</span><br><span class="line">plt.subplot(<span class="number">133</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">2</span>, :])</span><br></pre></td></tr></table></figure>
 
-
+<img src="/principal-component-analysis/eigenvalue_loadings.png" class title="Loadings">
 
 <p>From the graph, it is easy to see that the first pc is level shift; the second pc is spread; and the third pc is butterfly.</p>
 <p>If we dont’ want to trade on the exact portfolio, it’s possible to construct an approximate trade. For example on the spread trade, we can choose 3M-10Y*2 as the approximate to the loadings. </p>
-
+<img src="/principal-component-analysis/6M_10Y.png" class title="Spread Trade">
 
 <p>Notice that the curves on the left resemble each other. If we expect the curve will start steepening soon,  we can short the spread by holding 10Y twice of the duration neutral amount.</p>
 
