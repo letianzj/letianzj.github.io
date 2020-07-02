@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IntroductionAn ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below $$\begin{aligned}X_t &amp;&#x3D; c + \epsilon_t+\sum_{i&#x3D;1}^p\varphi_iX_{t-i}+\sum_{i&#x3D;1}^">
+  <meta name="description" content="Introduction An ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below \[ \begin{aligned} X_t &amp;&#x3D; c + \epsilon_t+\sum_{i&#x3D;1}^p\varphi_iX_{t-i}+\sum">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ARIMA GARCH Model">
 <meta property="og:url" content="https://letianzj.github.io/arima-garch-model.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionAn ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below $$\begin{aligned}X_t &amp;&#x3D; c + \epsilon_t+\sum_{i&#x3D;1}^p\varphi_iX_{t-i}+\sum_{i&#x3D;1}^">
+<meta property="og:description" content="Introduction An ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below \[ \begin{aligned} X_t &amp;&#x3D; c + \epsilon_t+\sum_{i&#x3D;1}^p\varphi_iX_{t-i}+\sum">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/return_acf_pacf.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/arima_forecast.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/garch_fit.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/garch_forecast.png">
 <meta property="article:published_time" content="2019-02-18T02:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-02T02:11:58.148Z">
+<meta property="article:modified_time" content="2020-07-02T16:30:16.398Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Time Series">
 <meta name="twitter:card" content="summary">
@@ -179,7 +179,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/arima-garch-model.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:11:58" itemprop="dateModified" datetime="2020-07-01T22:11:58-04:00">2020-07-01</time>
+                <time title="Modified: 2020-07-02 12:30:16" itemprop="dateModified" datetime="2020-07-02T12:30:16-04:00">2020-07-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,40 +243,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>An <a href="https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model" target="_blank" rel="noopener">ARMA (AutoRegressive-Moving Average)</a> has two parts, the AR(p) part and MA(q) part, expressed as below</p>
-<p>$$<br>\begin{aligned}<br>X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsilon_{t-i}\\<br>\left( 1-\sum_{i=1}^p\varphi_iL^i \right)X_t&amp;=c+\left(1+\sum_{i=1}^q\theta_iL^i \right)\epsilon_i<br>\end{aligned}<br>$$</p>
-<p>where $L$ is the lag operator and $\epsilon_i$ is white noise. It can be approached by <a href="https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method" target="_blank" rel="noopener">Box-Jenkins method</a>. We may use <a href="https://en.wikipedia.org/wiki/Partial_autocorrelation_function" target="_blank" rel="noopener">PACF</a> plot to identify AR lag order $p$, and <a href="https://en.wikipedia.org/wiki/Autocorrelation" target="_blank" rel="noopener">ACF</a> plot to identify MA lag order $q$; or use information such as <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion" target="_blank" rel="noopener">AIC</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion" target="_blank" rel="noopener">BIC</a> to do the model selection.</p>
-<p><a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average" target="_blank" rel="noopener">ARIMA (AutoRegressive Integrated Moving Average)</a> is a generalization of ARMA by adding an integrated part with order $d$ for non-stationary processes.</p>
+        <h2 id="introduction">Introduction</h2>
+<p>An <a href="https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model" target="_blank" rel="noopener">ARMA (AutoRegressive-Moving Average)</a> has two parts, the AR(p) part and MA(q) part, expressed as below</p>
+<p><span class="math display">\[
+\begin{aligned}
+X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsilon_{t-i}\\\\
+\left( 1-\sum_{i=1}^p\varphi_iL^i \right)X_t&amp;=c+\left(1+\sum_{i=1}^q\theta_iL^i \right)\epsilon_i
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(L\)</span> is the lag operator and <span class="math inline">\(\epsilon_i\)</span> is white noise. It can be approached by <a href="https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method" target="_blank" rel="noopener">Box-Jenkins method</a>. We may use <a href="https://en.wikipedia.org/wiki/Partial_autocorrelation_function" target="_blank" rel="noopener">PACF</a> plot to identify AR lag order <span class="math inline">\(p\)</span>, and <a href="https://en.wikipedia.org/wiki/Autocorrelation" target="_blank" rel="noopener">ACF</a> plot to identify MA lag order <span class="math inline">\(q\)</span>; or use information such as <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion" target="_blank" rel="noopener">AIC</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion" target="_blank" rel="noopener">BIC</a> to do the model selection.</p>
+<p><a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average" target="_blank" rel="noopener">ARIMA (AutoRegressive Integrated Moving Average)</a> is a generalization of ARMA by adding an integrated part with order <span class="math inline">\(d\)</span> for non-stationary processes.</p>
 <p>While ARIMA works on price level or returns, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity" target="_blank" rel="noopener">GARCH (Generalized AutoRegressive Conditional heteroskedasticity)</a> tries to model the clustering in volatility or squared returns. It extends ARMA terms to the variance front</p>
 <a id="more"></a>
-
-<p>$$<br>\begin{aligned}<br>y_t&amp;=x’<em>tb+\epsilon_t ;;; \epsilon_t \sim N(0, \sigma^2_t) \\<br>\sigma^2_t &amp;= \omega + \sum</em>{i=1}^p \beta_i\sigma^2_{t-i}+\sum_{i=1}^q\alpha_i\epsilon^2_{t-i}<br>\end{aligned}<br>$$</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_t&amp;=x&#39;_tb+\epsilon_t \;\;\; \epsilon_t \sim N(0, \sigma^2_t) \\\\
+\sigma^2_t &amp;= \omega + \sum_{i=1}^p \beta_i\sigma^2_{t-i}+\sum_{i=1}^q\alpha_i\epsilon^2_{t-i}
+\end{aligned}
+\]</span></p>
 <p>As the discrete version of Stochastic Volatility model, GARCH also captures the fat-tail effect in stock markets. Therefore combining ARIMA with GARCH is expected to have a better fit in modelling stock prices than one model alone. In this post we will apply them to S&amp;P 500 prices. The workbook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/arima_garch.ipynb" target="_blank" rel="noopener">here</a>.</p>
-<h2 id="ARIMA"><a href="#ARIMA" class="headerlink" title="ARIMA"></a>ARIMA</h2><p>First it’s known that stock prices are not stationary; while returns mgiht be. This is confirmed by ADF unit root test.</p>
+<h2 id="arima">ARIMA</h2>
+<p>First it's known that stock prices are not stationary; while returns mgiht be. This is confirmed by ADF unit root test.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># price is known to be non-stationary; return is stationary</span></span><br><span class="line"><span class="keyword">from</span> statsmodels.tsa.stattools <span class="keyword">import</span> adfuller</span><br><span class="line"></span><br><span class="line">result = adfuller(hist_close)</span><br><span class="line">print(<span class="string">f'ADF Statistic: <span class="subst">&#123;result[<span class="number">0</span>]&#125;</span>, p-value: <span class="subst">&#123;result[<span class="number">1</span>]&#125;</span>'</span>)  <span class="comment"># null hypothesis: unit root exists; can't reject null.</span></span><br><span class="line"></span><br><span class="line">result = adfuller(hist_ret)</span><br><span class="line">print(<span class="string">f'ADF Statistic: <span class="subst">&#123;result[<span class="number">0</span>]&#125;</span>, p-value: <span class="subst">&#123;result[<span class="number">1</span>]&#125;</span>'</span>)   <span class="comment"># reject null hypothesis of unit root ==&gt; stationary</span></span><br></pre></td></tr></table></figure>
-
-<p>ADF p-value for return series is $0$, which rejects the null hypothesis of unit root. Therefore, we accept $d=1$ in ARIMA(p, d, q), and the next step is to identify lag $p$ and $q$. The ACF and PACF plots suggest a lag up to $35$ business days. There will be too many parameters to fit if we follow the graph. One solution is to use weekly or monthly charts. Here we constraint max lag to $5$ days and use AIC to selct the best model.</p>
-<img src="/arima-garch-model/return_acf_pacf.png" class title="ACF_PACF">
-
+<p>ADF p-value for return series is <span class="math inline">\(0\)</span>, which rejects the null hypothesis of unit root. Therefore, we accept <span class="math inline">\(d=1\)</span> in ARIMA(p, d, q), and the next step is to identify lag <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span>. The ACF and PACF plots suggest a lag up to <span class="math inline">\(35\)</span> business days. There will be too many parameters to fit if we follow the graph. One solution is to use weekly or monthly charts. Here we constraint max lag to <span class="math inline">\(5\)</span> days and use AIC to selct the best model.</p>
+<img src="/arima-garch-model/return_acf_pacf.png" class="" title="ACF_PACF">
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.arima_model <span class="keyword">import</span> ARIMA, ARMA</span><br><span class="line"></span><br><span class="line">hist_training = hist_ret.iloc[:<span class="number">-45</span>]</span><br><span class="line">hist_testing = hist_ret.iloc[<span class="number">-45</span>:]</span><br><span class="line"></span><br><span class="line">dict_aic = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">6</span>):</span><br><span class="line">    <span class="keyword">for</span> q <span class="keyword">in</span> range(<span class="number">6</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            model = ARIMA(hist_training, order=(p, <span class="number">0</span>, q))</span><br><span class="line">            model_fit = model.fit(disp=<span class="number">0</span>)</span><br><span class="line">            dict_aic[(p, q)] = model_fit.aic</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">df_aic = pd.DataFrame.from_dict(dict_aic, orient=<span class="string">'index'</span>, columns=[<span class="string">'aic'</span>])</span><br><span class="line">p, q = df_aic[df_aic.aic == df_aic.aic.min()].index[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">f'ARIMA order is (<span class="subst">&#123;p&#125;</span>, <span class="subst">&#123;<span class="number">0</span>&#125;</span>, <span class="subst">&#123;q&#125;</span>)'</span>)</span><br></pre></td></tr></table></figure>
-<p>The next step is to fit the model and evaluate model fit through residual statistics. The residuals still show some autocorrelations, and didn’t pass the normality tests. This is somehow expected, due to the lag order constraints. </p>
-<p>Nevertheless, let’s proceed to the last step and use the model to forecast. Below it compares the return forecast on the test set and actual returns.</p>
-<img src="/arima-garch-model/arima_forecast.png" class title="ARIMA Forecast">
-
-<p>The return forecast is centered around $0%$, with confidence band between $\pm2%$. The outcome is not particularly impressive. After all, the market is undergoing a turbulent stage, even slumped $6%$ during the forecast time window. </p>
-<h2 id="GARCH"><a href="#GARCH" class="headerlink" title="GARCH"></a>GARCH</h2><p>Let’s see whether adding GARCH effect will yield a better result or not. The modelling process is similar to ARIMA: first identify the lag orders; then fit the model and evaluate the residual, and finally if the model is satisfactory, use it to forecast the future.</p>
-<p>We constraint both the AR lag and GARCH lag be less than $5$. The optimal order turns out to be $(4, 2, 2)$.</p>
+<p>The next step is to fit the model and evaluate model fit through residual statistics. The residuals still show some autocorrelations, and didn't pass the normality tests. This is somehow expected, due to the lag order constraints.</p>
+<p>Nevertheless, let's proceed to the last step and use the model to forecast. Below it compares the return forecast on the test set and actual returns.</p>
+<img src="/arima-garch-model/arima_forecast.png" class="" title="ARIMA Forecast">
+<p>The return forecast is centered around <span class="math inline">\(0\%\)</span>, with confidence band between <span class="math inline">\(\pm2\%\)</span>. The outcome is not particularly impressive. After all, the market is undergoing a turbulent stage, even slumped <span class="math inline">\(6\%\)</span> during the forecast time window.</p>
+<h2 id="garch">GARCH</h2>
+<p>Let's see whether adding GARCH effect will yield a better result or not. The modelling process is similar to ARIMA: first identify the lag orders; then fit the model and evaluate the residual, and finally if the model is satisfactory, use it to forecast the future.</p>
+<p>We constraint both the AR lag and GARCH lag be less than <span class="math inline">\(5\)</span>. The optimal order turns out to be <span class="math inline">\((4, 2, 2)\)</span>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> arch <span class="keyword">import</span> arch_model</span><br><span class="line">dict_aic = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">5</span>):</span><br><span class="line">        <span class="keyword">for</span> q <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">5</span>):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                split_date = hist_ret.index[<span class="number">-45</span>]</span><br><span class="line">                model = arch_model(hist_ret, mean=<span class="string">'ARX'</span>, lags=l, vol=<span class="string">'Garch'</span>, p=p, o=<span class="number">0</span>, q=q, dist=<span class="string">'Normal'</span>)</span><br><span class="line">                res = model.fit(last_obs=split_date)</span><br><span class="line">                dict_aic[(l, p, q)] = res.aic</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">df_aic = pd.DataFrame.from_dict(dict_aic, orient=<span class="string">'index'</span>, columns=[<span class="string">'aic'</span>])</span><br><span class="line">l, p, q = df_aic[df_aic.aic == df_aic.aic.min()].index[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">f'ARIMA-GARCH order is (<span class="subst">&#123;l&#125;</span>, <span class="subst">&#123;p&#125;</span>, <span class="subst">&#123;q&#125;</span>)'</span>)      <span class="comment"># (4, 2, 2)</span></span><br></pre></td></tr></table></figure>
-
-<p>Next let’s fit the model according to best parameters selected, as shown below. It confirms that the mean model is AR(4), and variance model is GARCH(2, 2). Some of the coefficients are not statistically significant.</p>
-<img src="/arima-garch-model/garch_fit.png" class title="GARCH Model Fit">
-
-<p>Last but not least, the forecast band fluctuates from $\pm 4%$ down to $\pm 3%$ before bounces back to $\pm 5%$, which clearly demonstrates volatility clustering as promised by the model. Note that here it is the one-step rolling forecast, and supposed to be better than the static multi-period forecast.</p>
-<img src="/arima-garch-model/garch_forecast.png" class title="GARCH Forecast">
-
-<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p><strong>Trend stationary and difference stationary</strong><br>Trend stationary, as known as deterministic trend, has deterministic mean trend. In contrast, difference stationary has stochastic trend. The former can be estimated with OLS, while the latter needs to be differenced first.</p>
-<p>Consider a simple process<br>$$<br>\begin{aligned}<br>x_t &amp;=at+u_t \<br>u_t &amp;= \varphi u_{t-1}+\epsilon_t<br>\end{aligned}<br>$$</p>
-<p>If $\varphi &lt; 1$, the process is trend stationary; That is, if we substract trend $at$, the process becomes stationary.<br>If $\varphi = 1$, it is difference stationary. It is easy to see the stochasticity by putting second equation into the first, and rewrite the equation as<br>$$<br>x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t<br>$$</p>
+<p>Next let's fit the model according to best parameters selected, as shown below. It confirms that the mean model is AR(4), and variance model is GARCH(2, 2). Some of the coefficients are not statistically significant.</p>
+<img src="/arima-garch-model/garch_fit.png" class="" title="GARCH Model Fit">
+<p>Last but not least, the forecast band fluctuates from <span class="math inline">\(\pm 4\%\)</span> down to <span class="math inline">\(\pm 3\%\)</span> before bounces back to <span class="math inline">\(\pm 5\%\)</span>, which clearly demonstrates volatility clustering as promised by the model. Note that here it is the one-step rolling forecast, and supposed to be better than the static multi-period forecast.</p>
+<img src="/arima-garch-model/garch_forecast.png" class="" title="GARCH Forecast">
+<h2 id="appendix">Appendix</h2>
+<p><strong>Trend stationary and difference stationary</strong> Trend stationary, as known as deterministic trend, has deterministic mean trend. In contrast, difference stationary has stochastic trend. The former can be estimated with OLS, while the latter needs to be differenced first.</p>
+<p>Consider a simple process <span class="math display">\[
+\begin{aligned}
+x_t &amp;=at+u_t \\
+u_t &amp;= \varphi u_{t-1}+\epsilon_t
+\end{aligned}
+\]</span></p>
+<p>If <span class="math inline">\(\varphi &lt; 1\)</span>, the process is trend stationary; That is, if we substract trend <span class="math inline">\(at\)</span>, the process becomes stationary. If <span class="math inline">\(\varphi = 1\)</span>, it is difference stationary. It is easy to see the stochasticity by putting second equation into the first, and rewrite the equation as <span class="math display">\[
+x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t
+\]</span></p>
 
     </div>
 
@@ -367,14 +381,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARIMA"><span class="nav-number">2.</span> <span class="nav-text">ARIMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GARCH"><span class="nav-number">3.</span> <span class="nav-text">GARCH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">4.</span> <span class="nav-text">Appendix</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arima"><span class="nav-number">2.</span> <span class="nav-text">ARIMA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#garch"><span class="nav-number">3.</span> <span class="nav-text">GARCH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#appendix"><span class="nav-number">4.</span> <span class="nav-text">Appendix</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -383,20 +397,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -439,7 +450,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -465,7 +476,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

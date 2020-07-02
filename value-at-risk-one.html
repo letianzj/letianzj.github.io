@@ -17,19 +17,19 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IntroductionValue at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certain">
+  <meta name="description" content="Introduction Value at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Value at Risk">
 <meta property="og:url" content="https://letianzj.github.io/value-at-risk-one.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionValue at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certain">
+<meta property="og:description" content="Introduction Value at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certa">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/value-at-risk-one/value_at_risk.png">
 <meta property="article:published_time" content="2017-11-03T00:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-02T02:14:25.085Z">
+<meta property="article:modified_time" content="2018-10-16T03:14:34.900Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Risk Management">
 <meta property="article:tag" content="Value at Risk">
@@ -177,7 +177,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/value-at-risk-one.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:25" itemprop="dateModified" datetime="2020-07-01T22:14:25-04:00">2020-07-01</time>
+                <time title="Modified: 2018-10-15 23:14:34" itemprop="dateModified" datetime="2018-10-15T23:14:34-04:00">2018-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -245,43 +245,87 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Value at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certain time horizon, with a certain confidence level $\alpha$, or</p>
-<p>$$<br>Pr(Loss \le -VaR)=1-\alpha<br>\tag{1.1}<br>$$</p>
-<p>There are three approaches to calculate VaR, that is, historical simulation, variance-covariance, and Monte Carlo simulation. </p>
+        <h2 id="introduction">Introduction</h2>
+<p>Value at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certain time horizon, with a certain confidence level <span class="math inline">\(\alpha\)</span>, or</p>
+<p><span class="math display">\[
+Pr(Loss \le -VaR)=1-\alpha
+\tag{1.1}
+\]</span></p>
+<p>There are three approaches to calculate VaR, that is, historical simulation, variance-covariance, and Monte Carlo simulation.</p>
 <p>If you have difficulty viewing the formulas, right click on it and select Math Settings Math Renderer to switch to another format.</p>
 <a id="more"></a>
-
-<p>In this post we explore the variance-covariance method, or the delta-normal method, for VaR, Marginal VaR, and Component VaR.<br>Consider a portfolio of n assets with corresponding weights w and covariance matrix $\Sigma$, then the value this portfolio V, and its return and risk are</p>
-<p>$$<br>\begin{matrix}<br>V&amp;=&amp;\sum_{i=1}^{n} V_i\<br>r_p&amp;=&amp; w^T\cdot r \<br>\sigma_p^2 &amp;=&amp; w^T\Sigma w<br>\end{matrix}<br>\tag{1.2}<br>$$</p>
-<p>Assuming return normality,  The value at risk of the portfolio in dollar amount is</p>
-<p>$$<br>VaR_p = z\sigma_pV<br>\tag{1.3}<br>$$</p>
-<p>where z is the inverser normal of confidence level $\alpha$. For example, if $\alpha$=5%, then z=NORMSINV(0.95)=1.645 by Excel spreadsheet.<br>Similarily, we can look at each individual stock and define its value at risk. Due to portfolio diversification, the portfolio VaR will be smaller than the sum of each individual VaR.</p>
-<p>$$<br>\begin{matrix}<br>VaR_i=z\sigma_i V_i \<br>VaR_p \lt \sum_{i=1}^{n} VaR_i<br>\end{matrix}<br>\tag{1.4}<br>$$</p>
+<p>In this post we explore the variance-covariance method, or the delta-normal method, for VaR, Marginal VaR, and Component VaR. Consider a portfolio of n assets with corresponding weights w and covariance matrix <span class="math inline">\(\Sigma\)</span>, then the value this portfolio V, and its return and risk are</p>
+<p><span class="math display">\[
+\begin{matrix}
+V&amp;=&amp;\sum_{i=1}^{n} V_i\\
+r_p&amp;=&amp; w^T\cdot r \\
+\sigma_p^2 &amp;=&amp; w^T\Sigma w
+\end{matrix}
+\tag{1.2}
+\]</span></p>
+<p>Assuming return normality, The value at risk of the portfolio in dollar amount is</p>
+<p><span class="math display">\[
+VaR_p = z\sigma_pV
+\tag{1.3}
+\]</span></p>
+<p>where z is the inverser normal of confidence level <span class="math inline">\(\alpha\)</span>. For example, if <span class="math inline">\(\alpha\)</span>=5%, then z=NORMSINV(0.95)=1.645 by Excel spreadsheet. Similarily, we can look at each individual stock and define its value at risk. Due to portfolio diversification, the portfolio VaR will be smaller than the sum of each individual VaR.</p>
+<p><span class="math display">\[
+\begin{matrix}
+VaR_i=z\sigma_i V_i \\
+VaR_p \lt \sum_{i=1}^{n} VaR_i
+\end{matrix}
+\tag{1.4}
+\]</span></p>
 <p>A natural question then is if we can normalize VaR so that the VaR of all the component stocks sum up to exactly the VaR of the portfolio? This is the concept of Marginal VaR (MVaR) and Componenet VaR (CVaR).</p>
 <p>Marginal VaR is defined as derivative of portfolio w.r.t the per unit dollar change in value of the component stock, or</p>
-<p>$$<br>MVaR_i=\frac{\partial VaR_p}{\partial V_i} = \frac{\partial z\sigma_pV_p}{\partial w_iV_p}=z\frac{\partial \sigma_p}{\partial w_i}=z\frac{\sigma_{ip}}{\sigma_p}<br>\tag{1.5}<br>$$</p>
-<p>where $\sigma_{ip}$ is the covariance between ith asset and portfolio p, and the last equation uses the following fact that,</p>
-<p>$$<br>\begin{matrix}<br>\frac{\partial\sigma_P}{\partial w_i} &amp;=&amp; \frac{[ \sum_{i=1}^{n} w_i^2\sigma_i^2 + \sum_{i=1}^n \sum_{j=1, j\ne i}^{n} w_iw_jc_{ij} ]^{1/2} } { dw_i }  \\<br>&amp;=&amp; \frac{1}{2} [ 2w_i\sigma_i^2 + 2 \sum_{j=1, j\ne 1}^{n} w_jc_{ij} ] \times<br>[ \sum_{i=1}^{n} w_i^2\sigma_i^2 + \sum_{i=1}^n \sum_{j=1, j\ne i}^{n} w_iw_jc_{ij}]^{-1/2}  \\<br>  &amp;=&amp; \frac{w_i^2\sigma_i^2 + \sum_{j=1, j\ne 1}^{n} w_j c_{ij} } {\sigma_p}<br>= \frac{c_{ip}}{\sigma_p}<br>\end{matrix}<br>\tag{1.6}<br>$$</p>
+<p><span class="math display">\[
+MVaR_i=\frac{\partial VaR_p}{\partial V_i} = \frac{\partial z\sigma_pV_p}{\partial w_iV_p}=z\frac{\partial \sigma_p}{\partial w_i}=z\frac{\sigma_{ip}}{\sigma_p}
+\tag{1.5}
+\]</span></p>
+<p>where <span class="math inline">\(\sigma_{ip}\)</span> is the covariance between ith asset and portfolio p, and the last equation uses the following fact that,</p>
+<p><span class="math display">\[
+\begin{matrix}
+\frac{\partial\sigma_P}{\partial w_i} &amp;=&amp; \frac{[ \sum_{i=1}^{n} w_i^2\sigma_i^2 + \sum_{i=1}^n \sum_{j=1, j\ne i}^{n} w_iw_jc_{ij} ]^{1/2} } { dw_i }  \\\\
+&amp;=&amp; \frac{1}{2} [ 2w_i\sigma_i^2 + 2 \sum_{j=1, j\ne 1}^{n} w_jc_{ij} ] \times
+[ \sum_{i=1}^{n} w_i^2\sigma_i^2 + \sum_{i=1}^n \sum_{j=1, j\ne i}^{n} w_iw_jc_{ij}]^{-1/2}  \\\\
+  &amp;=&amp; \frac{w_i^2\sigma_i^2 + \sum_{j=1, j\ne 1}^{n} w_j c_{ij} } {\sigma_p}
+= \frac{c_{ip}}{\sigma_p}
+\end{matrix}
+\tag{1.6}
+\]</span></p>
 <p>Note that <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient" target="_blank" rel="noopener">return correlation</a> and <a href="https://en.wikipedia.org/wiki/Beta_(finance)" target="_blank" rel="noopener">beta coefficient</a> are respectively,</p>
-<p>$$<br>\begin{matrix}<br>\rho_{ip}=\frac{\sigma_{ip}}{\sigma_i\sigma_p} \<br>\beta_{ip}=\frac{\sigma_{ip}}{\sigma_p^2}<br>\end{matrix}<br>\tag{1.7}<br>$$</p>
+<p><span class="math display">\[
+\begin{matrix}
+\rho_{ip}=\frac{\sigma_{ip}}{\sigma_i\sigma_p} \\
+\beta_{ip}=\frac{\sigma_{ip}}{\sigma_p^2}
+\end{matrix}
+\tag{1.7}
+\]</span></p>
 <p>then Marginal VaR can be rewritten as</p>
-<p>$$<br>MVaR_i=z\frac{\sigma_{ip}}{\sigma_p}=z\sigma_i\rho_{ip}=z\sigma_p\beta_{ip}<br>\tag{1.8}<br>$$</p>
+<p><span class="math display">\[
+MVaR_i=z\frac{\sigma_{ip}}{\sigma_p}=z\sigma_i\rho_{ip}=z\sigma_p\beta_{ip}
+\tag{1.8}
+\]</span></p>
 <p>At last, Component VaR (CVaR) is defined as,</p>
-<p>$$<br>CVaR_i=MVaR_i \cdot V_i<br>\tag{1.9}<br>$$</p>
+<p><span class="math display">\[
+CVaR_i=MVaR_i \cdot V_i
+\tag{1.9}
+\]</span></p>
 <p>It holds nicely to the following relationship,</p>
-<p>$$<br>\sum_{i=1}^{n}CVaR_i=\sum_{i=1}^{n}z\sigma_p\beta_{ip}w_iV=z\sigma_pV{\sum_{i=1}^{n}w_i\beta_{ip}}=VaR_p<br>\tag{1.10}<br>$$</p>
-<h2 id="Real-Portfolio"><a href="#Real-Portfolio" class="headerlink" title="Real Portfolio"></a>Real Portfolio</h2><p>To illustrate the VaR delta-normal model, we continue to use the portfolio in the post in portfolio optimization.</p>
-<p>First, let’s download historical data and estimate the covariance matrix from it</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}CVaR_i=\sum_{i=1}^{n}z\sigma_p\beta_{ip}w_iV=z\sigma_pV\{\sum_{i=1}^{n}w_i\beta_{ip}\}=VaR_p
+\tag{1.10}
+\]</span></p>
+<h2 id="real-portfolio">Real Portfolio</h2>
+<p>To illustrate the VaR delta-normal model, we continue to use the portfolio in the post in portfolio optimization.</p>
+<p>First, let's download historical data and estimate the covariance matrix from it</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">assets = [<span class="string">'AAPL'</span>,       <span class="comment"># Apple</span></span><br><span class="line">          <span class="string">'KO'</span>,         <span class="comment"># Coca-Cola</span></span><br><span class="line">          <span class="string">'DIS'</span>,        <span class="comment"># Disney</span></span><br><span class="line">          <span class="string">'XOM'</span>,        <span class="comment"># Exxon Mobil</span></span><br><span class="line">          <span class="string">'JPM'</span>,        <span class="comment"># JPMorgan Chase</span></span><br><span class="line">          <span class="string">'MCD'</span>,        <span class="comment"># McDonald's</span></span><br><span class="line">          <span class="string">'WMT'</span>]         <span class="comment"># Walmart</span></span><br><span class="line"></span><br><span class="line">holdings = [<span class="number">100</span>,<span class="number">200</span>,<span class="number">300</span>,<span class="number">400</span>,<span class="number">500</span>,<span class="number">600</span>,<span class="number">700</span>]          <span class="comment"># number of shares in each assets</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># download historical data from quandl</span></span><br><span class="line">hist_data = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> asset <span class="keyword">in</span> assets:</span><br><span class="line">    data = quandl.get(<span class="string">'wiki/'</span>+asset, start_date=<span class="string">'2015-01-01'</span>, end_date=<span class="string">'2017-12-31'</span>, authtoken=<span class="string">'ay68s2CUzKbVuy8GAqxj'</span>)</span><br><span class="line">    hist_data[asset] = data[<span class="string">'Adj. Close'</span>]</span><br><span class="line">hist_data = pd.concat(hist_data, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <p>Then we can calculate portfolio VaR, marginal VaR, and component VaR via equations (1), (3) and (4), respectively,</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># calculate historical log returns</span></span><br><span class="line">hist_return = np.log(hist_data / hist_data.shift())</span><br><span class="line">hist_return = hist_return.dropna()</span><br><span class="line"></span><br><span class="line">port_cov = hist_return.cov()             <span class="comment"># portfolio covariance matrix</span></span><br><span class="line">port_corr = hist_return.corr()           <span class="comment"># portfolio correlation matrix</span></span><br><span class="line"></span><br><span class="line">V_i = hist_data.iloc[<span class="number">-1</span>] * holdings        <span class="comment"># dollar value as of end_date</span></span><br><span class="line">V_i = V_i.as_matrix()                        <span class="comment"># convert to vector</span></span><br><span class="line">V_p = V_i.sum()                          <span class="comment"># dollar value of the portfolio</span></span><br><span class="line"></span><br><span class="line">z = norm.ppf(<span class="number">0.95</span>, <span class="number">0</span>, <span class="number">1</span>)                <span class="comment"># z value</span></span><br><span class="line">sigma_p = np.sqrt(np.dot(V_i.T, np.dot(port_cov.as_matrix(),V_i)))    <span class="comment"># note it's in dollar amount</span></span><br><span class="line">VaR_p = z * sigma_p                      <span class="comment"># portfolio VaR</span></span><br><span class="line"></span><br><span class="line">sigma_i = np.sqrt(np.diag(port_cov.as_matrix()))        <span class="comment"># individual asset</span></span><br><span class="line">VaR_i = z * sigma_i * V_i</span><br><span class="line"></span><br><span class="line">cov_ip = np.dot(port_cov.as_matrix(), V_i)/V_p               <span class="comment"># covariance</span></span><br><span class="line">beta_i = cov_ip / (sigma_p*sigma_p/V_p/V_p)                  <span class="comment"># beta</span></span><br><span class="line">MVar_i = VaR_p/V_p*beta_i                                    <span class="comment"># marginal var</span></span><br><span class="line"></span><br><span class="line">CVaR_i = MVar_i * V_i                                        <span class="comment"># component var</span></span><br><span class="line">CVaR_i_df = pd.DataFrame(data=np.column_stack((V_i, V_i/V_p, CVaR_i, CVaR_i/VaR_p, beta_i)))</span><br><span class="line">CVaR_i_df.index = assets</span><br><span class="line">CVaR_i_df.columns = [<span class="string">'Position ($)'</span>, <span class="string">'Position (%)'</span>,<span class="string">'CVaR ($)'</span>,<span class="string">'CVaR (%)'</span>, <span class="string">'Beta'</span>]</span><br><span class="line">print(CVaR_i_df)</span><br></pre></td></tr></table></figure>
-
-<p>The compoenet VaR results are printed out as</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">      Position ($)  Position (%)     CVaR ($)  CVaR (%)      Beta</span><br><span class="line">AAPL       <span class="number">16923.0</span>      <span class="number">0.057814</span>   <span class="number">211.850987</span>  <span class="number">0.058426</span>  <span class="number">1.010597</span></span><br><span class="line">KO         <span class="number">21502.0</span>      <span class="number">0.073457</span>   <span class="number">227.700358</span>  <span class="number">0.062797</span>  <span class="number">0.854889</span></span><br><span class="line">DIS        <span class="number">32082.0</span>      <span class="number">0.109601</span>   <span class="number">493.220879</span>  <span class="number">0.136025</span>  <span class="number">1.241094</span></span><br><span class="line">XOM        <span class="number">18352.0</span>      <span class="number">0.062695</span>   <span class="number">138.558105</span>  <span class="number">0.038213</span>  <span class="number">0.609499</span></span><br><span class="line">JPM        <span class="number">86060.0</span>      <span class="number">0.294004</span>  <span class="number">1058.301425</span>  <span class="number">0.291868</span>  <span class="number">0.992734</span></span><br><span class="line">MCD        <span class="number">59250.0</span>      <span class="number">0.202414</span>   <span class="number">726.546655</span>  <span class="number">0.200373</span>  <span class="number">0.989919</span></span><br><span class="line">WMT        <span class="number">58548.0</span>      <span class="number">0.200016</span>   <span class="number">769.783563</span>  <span class="number">0.212298</span>  <span class="number">1.061405</span></span><br></pre></td></tr></table></figure>
-
+<p>The compoenet VaR results are printed out as <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">      Position ($)  Position (%)     CVaR ($)  CVaR (%)      Beta</span><br><span class="line">AAPL       <span class="number">16923.0</span>      <span class="number">0.057814</span>   <span class="number">211.850987</span>  <span class="number">0.058426</span>  <span class="number">1.010597</span></span><br><span class="line">KO         <span class="number">21502.0</span>      <span class="number">0.073457</span>   <span class="number">227.700358</span>  <span class="number">0.062797</span>  <span class="number">0.854889</span></span><br><span class="line">DIS        <span class="number">32082.0</span>      <span class="number">0.109601</span>   <span class="number">493.220879</span>  <span class="number">0.136025</span>  <span class="number">1.241094</span></span><br><span class="line">XOM        <span class="number">18352.0</span>      <span class="number">0.062695</span>   <span class="number">138.558105</span>  <span class="number">0.038213</span>  <span class="number">0.609499</span></span><br><span class="line">JPM        <span class="number">86060.0</span>      <span class="number">0.294004</span>  <span class="number">1058.301425</span>  <span class="number">0.291868</span>  <span class="number">0.992734</span></span><br><span class="line">MCD        <span class="number">59250.0</span>      <span class="number">0.202414</span>   <span class="number">726.546655</span>  <span class="number">0.200373</span>  <span class="number">0.989919</span></span><br><span class="line">WMT        <span class="number">58548.0</span>      <span class="number">0.200016</span>   <span class="number">769.783563</span>  <span class="number">0.212298</span>  <span class="number">1.061405</span></span><br></pre></td></tr></table></figure></p>
 <p>We have chosen big companies with beta close to one. So their component VaRs are in line with their position weights.</p>
-<img src="/value-at-risk-one/value_at_risk.png" class title="Value at Risk">
+<img src="/value-at-risk-one/value_at_risk.png" class="" title="Value at Risk">
+
     </div>
 
     
@@ -372,14 +416,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Real-Portfolio"><span class="nav-number">2.</span> <span class="nav-text">Real Portfolio</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#real-portfolio"><span class="nav-number">2.</span> <span class="nav-text">Real Portfolio</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -388,20 +432,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -444,7 +485,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -470,7 +511,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

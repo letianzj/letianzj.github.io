@@ -17,21 +17,21 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IntroductionHidden Markov Model (HMM) is a Markov Model with latent state space. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it ha">
+  <meta name="description" content="Introduction Hidden Markov Model (HMM) is a Markov Model with latent state space. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hidden Markov Chain">
 <meta property="og:url" content="https://letianzj.github.io/hidden-markov-chain.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionHidden Markov Model (HMM) is a Markov Model with latent state space. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it ha">
+<meta property="og:description" content="Introduction Hidden Markov Model (HMM) is a Markov Model with latent state space. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/example.png">
 <meta property="og:image" content="https://letianzj.github.io/hidden-markov-chain/example.png">
 <meta property="og:image" content="https://letianzj.github.io/hidden-markov-chain/spx_hmm.png">
 <meta property="article:published_time" content="2018-09-02T11:05:00.000Z">
-<meta property="article:modified_time" content="2020-07-02T02:14:48.459Z">
+<meta property="article:modified_time" content="2018-10-16T03:05:52.833Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Hidden Markov Chain">
 <meta property="article:tag" content="Machine Learning">
@@ -184,7 +184,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/hidden-markov-chain.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:48" itemprop="dateModified" datetime="2020-07-01T22:14:48-04:00">2020-07-01</time>
+                <time title="Modified: 2018-10-15 23:05:52" itemprop="dateModified" datetime="2018-10-15T23:05:52-04:00">2018-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,114 +252,124 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" target="_blank" rel="noopener">Hidden Markov Model (HMM)</a> is a <a href="https://en.wikipedia.org/wiki/Markov_model" target="_blank" rel="noopener">Markov Model</a> with latent <a href="https://en.wikipedia.org/wiki/State_space" target="_blank" rel="noopener">state space</a>. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it has been applied to detecting latent market regimes ([2], [3]). I’ll relegate technical details to appendix and present the intuitions by an example.</p>
+        <h2 id="introduction">Introduction</h2>
+<p><a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" target="_blank" rel="noopener">Hidden Markov Model (HMM)</a> is a <a href="https://en.wikipedia.org/wiki/Markov_model" target="_blank" rel="noopener">Markov Model</a> with latent <a href="https://en.wikipedia.org/wiki/State_space" target="_blank" rel="noopener">state space</a>. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it has been applied to detecting latent market regimes ([2], [3]). I'll relegate technical details to appendix and present the intuitions by an example.</p>
 <a id="more"></a>
-
 <!--<img src="example.png" align="left" width="100%" height="100%">-->
-<img src="/hidden-markov-chain/example.png" class title="Example">
-<p>No cell phone, no TV, without logging into Bloomberg terminal, this simple example teaches you how to guess market movements solely from the trader’s mood. Here the two hidden states are market rally or drop. The transition matrix stipulates that if the market goes up today, there are 80% chance that the trend will continue tomorrow and 20% chance that the trend will reverse. On the contrary, if the market drops today, there are 70% chance sliding further tomorrow and 30% chance turning back up. </p>
-<p>The emission matrix shows the dependency of the trader’s mood on mareket changes. If she is just moody (high noise/information ratio), it would tell us nothing about the market. If somehow her mood is driven by her PnL, then we might be able to learn the market from her behavior. In this example, it says that if the market heads up, she would most likely be happy but there are 10% chance that something else, for example a car accident in the morning, upsets here. On the contrary, if the market goes down she would be unhappy, unless something else, perphas today happens to be her anniversary, cheers her up.</p>
+<img src="/hidden-markov-chain/example.png" class="" title="Example">
+<p>No cell phone, no TV, without logging into Bloomberg terminal, this simple example teaches you how to guess market movements solely from the trader's mood. Here the two hidden states are market rally or drop. The transition matrix stipulates that if the market goes up today, there are 80% chance that the trend will continue tomorrow and 20% chance that the trend will reverse. On the contrary, if the market drops today, there are 70% chance sliding further tomorrow and 30% chance turning back up.</p>
+<p>The emission matrix shows the dependency of the trader's mood on mareket changes. If she is just moody (high noise/information ratio), it would tell us nothing about the market. If somehow her mood is driven by her PnL, then we might be able to learn the market from her behavior. In this example, it says that if the market heads up, she would most likely be happy but there are 10% chance that something else, for example a car accident in the morning, upsets here. On the contrary, if the market goes down she would be unhappy, unless something else, perphas today happens to be her anniversary, cheers her up.</p>
 <p>With all these uncertainties/probabilities in place, there are three questions to ask, in the order of complexity:</p>
-<ol>
-<li><p><strong>Evaluation</strong>: What is the odds that she is happy three days in a row?</p>
-</li>
-<li><p><strong>Decoding</strong>: Given that she is happy three days in a row, what would be the most likely market movements in the last three days?</p>
-</li>
-<li><p><strong>Learning</strong>: If we don’t know any of the probablities labeled next to the arrows in the figure, given that she is happy three days in a row, what would be our best estimates of these probabilities (model parameters)?</p>
-</li>
+<ol type="1">
+<li><p><strong>Evaluation</strong>: What is the odds that she is happy three days in a row?</p></li>
+<li><p><strong>Decoding</strong>: Given that she is happy three days in a row, what would be the most likely market movements in the last three days?</p></li>
+<li><p><strong>Learning</strong>: If we don't know any of the probablities labeled next to the arrows in the figure, given that she is happy three days in a row, what would be our best estimates of these probabilities (model parameters)?</p></li>
 </ol>
 <p>The first question can be answered by <a href="https://en.wikipedia.org/wiki/Forward_algorithm" target="_blank" rel="noopener">forward</a> OR backward algorithm (do not confuse with <a href="https://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm" target="_blank" rel="noopener">forward-backward algorithm</a>). The second question is tackled by <a href="https://en.wikipedia.org/wiki/Viterbi_algorithm" target="_blank" rel="noopener">Viterbi algorithm</a>. The third one is solved by <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Baum-Welch algorithm</a>, an <a href="https://en.wikipedia.org/wiki/Forward%E2%80%93backward_algorithm" target="_blank" rel="noopener">forward-backward</a> <a href="https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm" target="_blank" rel="noopener">expectation maximization</a> approach.</p>
-<h2 id="Regime-Detection"><a href="#Regime-Detection" class="headerlink" title="Regime Detection"></a>Regime Detection</h2><p>This section follows the <a href="https://hmmlearn.readthedocs.io/en/latest/auto_examples/plot_hmm_stock_analysis.html" target="_blank" rel="noopener">accompanying example</a> of the package <a href="https://github.com/hmmlearn/hmmlearn" target="_blank" rel="noopener">HMMLearn</a>. The code is located on <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/research/hidden_markov_chain.py" target="_blank" rel="noopener">Github</a>.</p>
+<h2 id="regime-detection">Regime Detection</h2>
+<p>This section follows the <a href="https://hmmlearn.readthedocs.io/en/latest/auto_examples/plot_hmm_stock_analysis.html" target="_blank" rel="noopener">accompanying example</a> of the package <a href="https://github.com/hmmlearn/hmmlearn" target="_blank" rel="noopener">HMMLearn</a>. The code is located on <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/research/hidden_markov_chain.py" target="_blank" rel="noopener">Github</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hmm_model = GaussianHMM(</span><br><span class="line">    n_components=<span class="number">3</span>,                     <span class="comment"># number of states</span></span><br><span class="line">    covariance_type=<span class="string">"full"</span>,             <span class="comment"># full covariance matrix vs diagonal</span></span><br><span class="line">    n_iter=<span class="number">1000</span>                         <span class="comment"># number of iterations</span></span><br><span class="line">).fit(rets)</span><br><span class="line"></span><br><span class="line">print(hmm_model.transmat_)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Means and vars of each hidden state"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(hmm_model.n_components):                   <span class="comment"># 0 is down, 1 is up</span></span><br><span class="line">    print(<span class="string">"&#123;0&#125;th hidden state"</span>.format(i))</span><br><span class="line">    print(<span class="string">"mean = "</span>, hmm_model.means_[i])</span><br><span class="line">    print(<span class="string">"var = "</span>, np.diag(hmm_model.covars_[i]))</span><br></pre></td></tr></table></figure>
-
-<p>From the mean and standard deviation, it seems that state 0 is market-down state; state 1 and 2 are market-up states. Within them, state 3 has $65%$ of chance flipping to the downside. Below is the historical states distribution of S&amp;P 500 index. At first glance it doesn’t seem to be a very precise result. It might need to be combined with other strategies.</p>
-<img src="/hidden-markov-chain/spx_hmm.png" class title="HMM States">
-
-<p><strong>Reference</strong></p>
-<ul>
-<li>[1] Petris, Giovanni, Sonia Petrone, and Patrizia Campagnoli. “Dynamic linear models.” Dynamic Linear Models with R. Springer, New York, NY, 2009. 31-84.</li>
-<li>[2] Nguyen, Nguyet, and Dung Nguyen. “Hidden Markov model for stock selection.” Risks 3.4 (2015): 455-473.</li>
-<li>[3] Nguyen, Nguyet. “Hidden Markov Model for Stock Trading.” International Journal of Financial Studies 6.2 (2018): 36.</li>
-<li>[4] Wikipeida, <a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" target="_blank" rel="noopener">Hidden Markov Model</a></li>
-<li>[5] Wikipeida, <a href="https://en.wikipedia.org/wiki/Forward_algorithm" target="_blank" rel="noopener">Forward algorithm</a></li>
-<li>[6] Wikipedia, <a href="https://en.wikipedia.org/wiki/Viterbi_algorithm" target="_blank" rel="noopener">Viterbi algorithm</a></li>
-<li>[7] Wikipedia, <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Baum–Welch algorithm</a></li>
-</ul>
-<h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><p>You might need some basic understanding about <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank" rel="noopener">Markov Chain</a> in order to continue.</p>
-<p>This example uses the notations on <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Wikipedia</a>. In particular the hidden markov system  $\theta=\left(A,B,\pi\right)$ is given by</p>
-<p>$$<br>\begin{matrix}<br>A=\left[ \begin {array}{cc} 0.8 &amp; 0.2\\ 0.3 &amp; 0.7 \end{array} \right], B=\left[ \begin {array}{cc} 0.9 &amp; 0.1\\ 0.4 &amp; 0.6 \end{array} \right],\pi=\left[ \begin {array}{c} 0.5\\ 0.5 \end{array} \right]<br>\tag{A1}<br>\end{matrix}<br>$$</p>
+<p>From the mean and standard deviation, it seems that state 0 is market-down state; state 1 and 2 are market-up states. Within them, state 3 has <span class="math inline">\(65\%\)</span> of chance flipping to the downside. Below is the historical states distribution of S&amp;P 500 index. At first glance it doesn't seem to be a very precise result. It might need to be combined with other strategies.</p>
+<img src="/hidden-markov-chain/spx_hmm.png" class="" title="HMM States">
+<p><strong>Reference</strong> * [1] Petris, Giovanni, Sonia Petrone, and Patrizia Campagnoli. &quot;Dynamic linear models.&quot; Dynamic Linear Models with R. Springer, New York, NY, 2009. 31-84. * [2] Nguyen, Nguyet, and Dung Nguyen. &quot;Hidden Markov model for stock selection.&quot; Risks 3.4 (2015): 455-473. * [3] Nguyen, Nguyet. &quot;Hidden Markov Model for Stock Trading.&quot; International Journal of Financial Studies 6.2 (2018): 36. * [4] Wikipeida, <a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" target="_blank" rel="noopener">Hidden Markov Model</a> * [5] Wikipeida, <a href="https://en.wikipedia.org/wiki/Forward_algorithm" target="_blank" rel="noopener">Forward algorithm</a> * [6] Wikipedia, <a href="https://en.wikipedia.org/wiki/Viterbi_algorithm" target="_blank" rel="noopener">Viterbi algorithm</a> * [7] Wikipedia, <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Baum–Welch algorithm</a></p>
+<h2 id="appendix">Appendix</h2>
+<p>You might need some basic understanding about <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank" rel="noopener">Markov Chain</a> in order to continue.</p>
+<p>This example uses the notations on <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Wikipedia</a>. In particular the hidden markov system <span class="math inline">\(\theta=\left(A,B,\pi\right)\)</span> is given by</p>
+<p><span class="math display">\[
+\begin{matrix}
+A=\left[ \begin {array}{cc} 0.8 &amp; 0.2\\\\ 0.3 &amp; 0.7 \end{array} \right], B=\left[ \begin {array}{cc} 0.9 &amp; 0.1\\\\ 0.4 &amp; 0.6 \end{array} \right],\pi=\left[ \begin {array}{c} 0.5\\\\ 0.5 \end{array} \right]
+\tag{A1}
+\end{matrix}
+\]</span></p>
 <p>You can find these numbers from the figure above.</p>
-<h3 id="First-Question-–-Evaluation"><a href="#First-Question-–-Evaluation" class="headerlink" title="First Question – Evaluation"></a>First Question – Evaluation</h3><p>The first question is, given we know $\theta$, what is the odds that she is happy three days in a row? This is answered by the forward procedure or backward procedure and is solved recursively.</p>
+<h3 id="first-question----evaluation">First Question -- Evaluation</h3>
+<p>The first question is, given we know <span class="math inline">\(\theta\)</span>, what is the odds that she is happy three days in a row? This is answered by the forward procedure or backward procedure and is solved recursively.</p>
 <table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Day</th>
 <th>Probability</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>1</td>
-<td>$\alpha_1(1)=0.5\times 0.9=0.45$</td>
+<td><span class="math inline">\(\alpha_1(1)=0.5\times 0.9=0.45\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\alpha_2(1)=0.5\times 0.4=0.2$</td>
+<td><span class="math inline">\(\alpha_2(1)=0.5\times 0.4=0.2\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>2</td>
-<td>$\alpha_1(2)=0.9\times\left[\alpha_1(1)\times0.8+\alpha_2(1)\times0.3\right]=0.378$</td>
+<td><span class="math inline">\(\alpha_1(2)=0.9\times\left[\alpha_1(1)\times0.8+\alpha_2(1)\times0.3\right]=0.378\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\alpha_2(2)=0.4\times\left[\alpha_1(1)\times0.2+\alpha_2(1)\times0.7\right]=0.092$</td>
+<td><span class="math inline">\(\alpha_2(2)=0.4\times\left[\alpha_1(1)\times0.2+\alpha_2(1)\times0.7\right]=0.092\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>3</td>
-<td>$\alpha_1(3)=0.9\times\left[\alpha_1(2)\times0.8+\alpha_2(2)\times0.3\right]=0.297$</td>
+<td><span class="math inline">\(\alpha_1(3)=0.9\times\left[\alpha_1(2)\times0.8+\alpha_2(2)\times0.3\right]=0.297\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\alpha_2(3)=0.4\times\left[\alpha_1(2)\times0.2+\alpha_2(2)\times0.7\right]=0.056$</td>
+<td><span class="math inline">\(\alpha_2(3)=0.4\times\left[\alpha_1(2)\times0.2+\alpha_2(2)\times0.7\right]=0.056\)</span></td>
 </tr>
-</tbody></table>
-<p>On day 1, there are $45%$ chance to observe a happy face (H) and market is up; there are $20%$ chance to observe a happy face (H) and market is down. So in total there are $65%$ chance that she would be happy and 35% chance that she would be sad (S). Similarly, the probabilty of seeing $HH$ is $47%$. Other possibilities (that is, $HH$, $HS$ and $SS$) add up to $53%$.</p>
-<p>Finailly on day three, the answer to our question becomes $35.3%$.</p>
+</tbody>
+</table>
+<p>On day 1, there are <span class="math inline">\(45\%\)</span> chance to observe a happy face (H) and market is up; there are <span class="math inline">\(20\%\)</span> chance to observe a happy face (H) and market is down. So in total there are <span class="math inline">\(65\%\)</span> chance that she would be happy and 35% chance that she would be sad (S). Similarly, the probabilty of seeing <span class="math inline">\(HH\)</span> is <span class="math inline">\(47\%\)</span>. Other possibilities (that is, <span class="math inline">\(HH\)</span>, <span class="math inline">\(HS\)</span> and <span class="math inline">\(SS\)</span>) add up to <span class="math inline">\(53\%\)</span>.</p>
+<p>Finailly on day three, the answer to our question becomes <span class="math inline">\(35.3\%\)</span>.</p>
 <p>If we iterate backwards,</p>
 <table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 85%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Day</th>
 <th>Probability</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>1</td>
-<td>$\beta_1(3)=1.0$</td>
+<td><span class="math inline">\(\beta_1(3)=1.0\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\beta_2(3)=1.0$</td>
+<td><span class="math inline">\(\beta_2(3)=1.0\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>2</td>
-<td>$\beta_1(2)=\beta_1(2)\times0.8\times0.9+\beta_2(2)\times0.2\times0.4=0.8$</td>
+<td><span class="math inline">\(\beta_1(2)=\beta_1(2)\times0.8\times0.9+\beta_2(2)\times0.2\times0.4=0.8\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\beta_2(2)=\beta_1(2)\times0.3\times0.9+\beta_2(2)\times0.7\times0.4=0.55$</td>
+<td><span class="math inline">\(\beta_2(2)=\beta_1(2)\times0.3\times0.9+\beta_2(2)\times0.7\times0.4=0.55\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>3</td>
-<td>$\beta_1(1)=0.9\times[\beta_1(2)\times0.8+\beta_2(2)\times0.3]=0.62$</td>
+<td><span class="math inline">\(\beta_1(1)=0.9\times[\beta_1(2)\times0.8+\beta_2(2)\times0.3]=0.62\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\beta_2(1)=0.4\times[\beta_1(2)\times0.2+\beta_2(2)\times0.7]=0.37$</td>
+<td><span class="math inline">\(\beta_2(1)=0.4\times[\beta_1(2)\times0.2+\beta_2(2)\times0.7]=0.37\)</span></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>The final probability should match that from the forward algorithm ([2])</p>
-<p>$$<br>Pr(HHH|\theta)=0.5\times0.62\times0.9+0.5\times0.37\times0.4=35.3%<br>\tag{A2}<br>$$</p>
-<h3 id="Second-Question-–-Decoding"><a href="#Second-Question-–-Decoding" class="headerlink" title="Second Question – Decoding"></a>Second Question – Decoding</h3><!--
+<p><span class="math display">\[
+Pr(HHH|\theta)=0.5\times0.62\times0.9+0.5\times0.37\times0.4=35.3\%
+\tag{A2}
+\]</span></p>
+<h3 id="second-question----decoding">Second Question -- Decoding</h3>
+<!--
 Let define ([2])
 
 $$
@@ -413,103 +423,117 @@ $$
 \tag{A8}
 $$
 -->
-
 <p><a href="https://en.wikipedia.org/wiki/Viterbi_algorithm" target="_blank" rel="noopener">Viterbi algorithm</a> is created to solve question 2. The notations follows <a href="https://en.wikipedia.org/wiki/Viterbi_algorithm" target="_blank" rel="noopener">Wikipedia</a> and the code can be found in <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/research/hidden_markov_chain.py" target="_blank" rel="noopener">Github</a>.</p>
 <table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 46%" />
+<col style="width: 46%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Day</th>
 <th>Prob</th>
 <th>Max Sate</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>1</td>
-<td>$T_1(1,1)=0.5\times0.9=0.45$</td>
-<td>$T_2(1,1)=’Up’$</td>
+<td><span class="math inline">\(T_1(1,1)=0.5\times0.9=0.45\)</span></td>
+<td><span class="math inline">\(T_2(1,1)=&#39;Up&#39;\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$T_1(2,1)=0.5\times0.4=0.2$</td>
-<td>$T_2(2,1)=’Up’$</td>
+<td><span class="math inline">\(T_1(2,1)=0.5\times0.4=0.2\)</span></td>
+<td><span class="math inline">\(T_2(2,1)=&#39;Up&#39;\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>2</td>
-<td>$T_1(1,2)=max\left(0.45\times0.8,0.2\times0.3\right)\times0.9=0.324$</td>
-<td>$T_2(1,2)=’Up’$</td>
+<td><span class="math inline">\(T_1(1,2)=max\left(0.45\times0.8,0.2\times0.3\right)\times0.9=0.324\)</span></td>
+<td><span class="math inline">\(T_2(1,2)=&#39;Up&#39;\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$T_1(2,2)=max\left(0.45\times0.2,0.2\times0.7\right)\times0.4=0.056$</td>
-<td>$T_2(2,2)=’Down’$</td>
+<td><span class="math inline">\(T_1(2,2)=max\left(0.45\times0.2,0.2\times0.7\right)\times0.4=0.056\)</span></td>
+<td><span class="math inline">\(T_2(2,2)=&#39;Down&#39;\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>3</td>
-<td>$T_1(1,3)=max\left(0.324*\times0.8,0.056\times0.3\right)\times0.9=0.23328$</td>
-<td>$T_2(1,3)=’Up’$</td>
+<td><span class="math inline">\(T_1(1,3)=max\left(0.324*\times0.8,0.056\times0.3\right)\times0.9=0.23328\)</span></td>
+<td><span class="math inline">\(T_2(1,3)=&#39;Up&#39;\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$T_1(2,3)=max\left(0.324\times0.2,0.056\times0.7\right)\times0.4=0.02592$</td>
-<td>$T_2(2,3)=’Up’$</td>
+<td><span class="math inline">\(T_1(2,3)=max\left(0.324\times0.2,0.056\times0.7\right)\times0.4=0.02592\)</span></td>
+<td><span class="math inline">\(T_2(2,3)=&#39;Up&#39;\)</span></td>
 </tr>
-</tbody></table>
-<p>On day 1, the table is initialized. Then on day 2 and day3, it uses <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noopener">dynamic programming</a> to find the optimal probability and states recursively. Finally, the most probable hidden states for the three days are {‘Up’,’Up’,’Up’} with maximum probability of $23.328%$. In other words, if she is happy three days in a row, most likely the market is also on a three-day winning streak.</p>
-<h3 id="Third-Question-–-Learning"><a href="#Third-Question-–-Learning" class="headerlink" title="Third Question – Learning"></a>Third Question – Learning</h3><p>The well-known <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Baum–Welch algorithm</a> is designed to find the local maximum iteratively. It takes the following steps, </p>
-<ol>
-<li>Calculate forward probabilities $\alpha_i(t)$ with the forward algorithm</li>
-<li>Calculate backward probabilities $\beta_i(t)$ with the backward algorithm</li>
-<li>Expectation – calculate the probability of being in state $i$ at time $t$, $\gamma_i(t)$; and the probability of being in state $i$ and $j$ at times $t$ and $t+1$, $\xi_{ij}(t)$</li>
-<li>Maximization – update the new model parameters (start probabilities, transition probabilities, emission probabilities)</li>
+</tbody>
+</table>
+<p>On day 1, the table is initialized. Then on day 2 and day3, it uses <a href="https://en.wikipedia.org/wiki/Dynamic_programming" target="_blank" rel="noopener">dynamic programming</a> to find the optimal probability and states recursively. Finally, the most probable hidden states for the three days are {'Up','Up','Up'} with maximum probability of <span class="math inline">\(23.328\%\)</span>. In other words, if she is happy three days in a row, most likely the market is also on a three-day winning streak.</p>
+<h3 id="third-question----learning">Third Question -- Learning</h3>
+<p>The well-known <a href="https://en.wikipedia.org/wiki/Baum%E2%80%93Welch_algorithm" target="_blank" rel="noopener">Baum–Welch algorithm</a> is designed to find the local maximum iteratively. It takes the following steps,</p>
+<ol type="1">
+<li>Calculate forward probabilities <span class="math inline">\(\alpha_i(t)\)</span> with the forward algorithm</li>
+<li>Calculate backward probabilities <span class="math inline">\(\beta_i(t)\)</span> with the backward algorithm</li>
+<li>Expectation -- calculate the probability of being in state <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, <span class="math inline">\(\gamma_i(t)\)</span>; and the probability of being in state <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> at times <span class="math inline">\(t\)</span> and <span class="math inline">\(t+1\)</span>, <span class="math inline">\(\xi_{ij}(t)\)</span></li>
+<li>Maximization -- update the new model parameters (start probabilities, transition probabilities, emission probabilities)</li>
 <li>Repeat step 1 through 4 until the change in log likelihood converges.</li>
 </ol>
-<p>Back to our example, assume $\theta$ in the figure above is not the actual but our current belief. Then we have done step 1 and 2 as in the first question. To proceed.</p>
+<p>Back to our example, assume <span class="math inline">\(\theta\)</span> in the figure above is not the actual but our current belief. Then we have done step 1 and 2 as in the first question. To proceed.</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>Day</th>
 <th>Probability</th>
 <th>Probability</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>1</td>
-<td>$\gamma_1(1)=0.790368$</td>
-<td>$\gamma_2(1)=0.209632$</td>
+<td><span class="math inline">\(\gamma_1(1)=0.790368\)</span></td>
+<td><span class="math inline">\(\gamma_2(1)=0.209632\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\xi_{11}(1)=0.2592$</td>
-<td>$\xi_{12}(1)=0.0198$</td>
+<td><span class="math inline">\(\xi_{11}(1)=0.2592\)</span></td>
+<td><span class="math inline">\(\xi_{12}(1)=0.0198\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td></td>
-<td>$\xi_{21}(1)=0.0432$</td>
-<td>$\xi_{22}(1)=0.0308$</td>
+<td><span class="math inline">\(\xi_{21}(1)=0.0432\)</span></td>
+<td><span class="math inline">\(\xi_{22}(1)=0.0308\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td>2</td>
-<td>$\gamma_1(2)=0.856657$</td>
-<td>$\gamma_2(2)=0.143343$</td>
+<td><span class="math inline">\(\gamma_1(2)=0.856657\)</span></td>
+<td><span class="math inline">\(\gamma_2(2)=0.143343\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td></td>
-<td>$\xi_{11}(2)=0.27216$</td>
-<td>$\xi_{12}(2)=0.03024$</td>
+<td><span class="math inline">\(\xi_{11}(2)=0.27216\)</span></td>
+<td><span class="math inline">\(\xi_{12}(2)=0.03024\)</span></td>
 </tr>
-<tr>
+<tr class="even">
 <td></td>
-<td>$\xi_{21}(2)=0.02484$</td>
-<td>$\xi_{22}(2)=0.02576$</td>
+<td><span class="math inline">\(\xi_{21}(2)=0.02484\)</span></td>
+<td><span class="math inline">\(\xi_{22}(2)=0.02576\)</span></td>
 </tr>
-<tr>
+<tr class="odd">
 <td>3</td>
-<td>$\gamma_1(3)=0.84136$</td>
-<td>$\gamma_2(3)=0.15864$</td>
+<td><span class="math inline">\(\gamma_1(3)=0.84136\)</span></td>
+<td><span class="math inline">\(\gamma_2(3)=0.15864\)</span></td>
 </tr>
-</tbody></table>
-<p>Step $4$ updates the new normalized parameters as follows,</p>
-<p>$$<br>\begin{matrix}<br>A^{1}=\left[ \begin {array}{cc} 0.913932 &amp; 0.086068 \\ 0.546067 &amp; 0.453933 \end{array} \right], B^{1}=\left[ \begin {array}{cc} 1.0 &amp; 0.0 \\ 1.0 &amp; 0.0 \end{array} \right],\pi^{1}=\left[ \begin {array}{c} 0.790368 \\ 0.209632 \end{array} \right]<br>\tag{A1}<br>\end{matrix}<br>$$</p>
+</tbody>
+</table>
+<p>Step <span class="math inline">\(4\)</span> updates the new normalized parameters as follows,</p>
+<p><span class="math display">\[
+\begin{matrix}
+A^{1}=\left[ \begin {array}{cc} 0.913932 &amp; 0.086068 \\\\ 0.546067 &amp; 0.453933 \end{array} \right], B^{1}=\left[ \begin {array}{cc} 1.0 &amp; 0.0 \\\\ 1.0 &amp; 0.0 \end{array} \right],\pi^{1}=\left[ \begin {array}{c} 0.790368 \\\\ 0.209632 \end{array} \right]
+\tag{A1}
+\end{matrix}
+\]</span></p>
 <p>These steps are now repeated iteratively until it converges.</p>
 
     </div>
@@ -529,8 +553,8 @@ $$
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/welcome.html" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
+    <a href="/kalman-filter-pairs-trading.html" rel="prev" title="Kalman Filter and Pairs Trading">
+      <i class="fa fa-chevron-left"></i> Kalman Filter and Pairs Trading
     </a></div>
       <div class="post-nav-item">
     <a href="/rnn-stock-prediction.html" rel="next" title="RNN Stock Prediction">
@@ -601,14 +625,14 @@ $$
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Regime-Detection"><span class="nav-number">2.</span> <span class="nav-text">Regime Detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">3.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Question-–-Evaluation"><span class="nav-number">3.1.</span> <span class="nav-text">First Question – Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Second-Question-–-Decoding"><span class="nav-number">3.2.</span> <span class="nav-text">Second Question – Decoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Third-Question-–-Learning"><span class="nav-number">3.3.</span> <span class="nav-text">Third Question – Learning</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regime-detection"><span class="nav-number">2.</span> <span class="nav-text">Regime Detection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#appendix"><span class="nav-number">3.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#first-question----evaluation"><span class="nav-number">3.1.</span> <span class="nav-text">First Question -- Evaluation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#second-question----decoding"><span class="nav-number">3.2.</span> <span class="nav-text">Second Question -- Decoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#third-question----learning"><span class="nav-number">3.3.</span> <span class="nav-text">Third Question -- Learning</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -617,20 +641,17 @@ $$
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -673,7 +694,7 @@ $$
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -699,7 +720,7 @@ $$
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

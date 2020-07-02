@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="Quantitative Finance Blog">
@@ -173,111 +173,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/kalman-filter-linear-regression.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Letian Wang">
-      <meta itemprop="description" content="Quantitative Finance Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Systematic Investing">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/kalman-filter-linear-regression.html" class="post-title-link" itemprop="url">Kalman Filter Linear Regression</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-01-07 19:20:00" itemprop="dateCreated datePublished" datetime="2018-01-07T19:20:00-05:00">2018-01-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:52" itemprop="dateModified" datetime="2020-07-01T22:14:52-04:00">2020-07-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/kalman-filter-linear-regression.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="kalman-filter-linear-regression.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Kalman_filter" target="_blank" rel="noopener">Kalman Filter</a> is a <a href="https://en.wikipedia.org/wiki/State-space_representation" target="_blank" rel="noopener">state space model</a> that assumes the system state evolves by some hidden and unobservable pattern. Instead we can only observe some measurable features from the system, based on which we try to guess the current state of the system. An example would be without openning Bloomberg terminal, you try to guess stock market movement every day from the trader’s mood.  The graphical narrative can be found <a href="/hidden-markov-chain.html" title="in this post">in this post</a>.</p>
-<p><a href="https://www.amazon.com/Pairs-Trading-Quantitative-Methods-Analysis/dp/047146067" target="_blank" rel="noopener">This book</a> provides a simple random walk example where the hidden state is the true equilibrium stock price in some time interval while stock close price of that interval serves as an observation with errors. Then it proves that the true equilibrium price is the weighted average of close prices with the weights being Fibonacci sequence. <a href="https://www.amazon.com/Algorithmic-Trading-Winning-Strategies-Rationale/dp/1118460146" target="_blank" rel="noopener">Dr Chan</a> makes Kalman Filter popular to the online quantitative trading community with his EWA-EWC ETF pairs trading strategy.</p>
-<p>In this post we will continue with our simple linear regression example from <a href="/mcmc-linear-regression.html" title="last post">last post</a>, and follow the plain Kalman Filter logic without the help of Python packages such as <a href="https://pykalman.github.io/" target="_blank" rel="noopener">PyKalman</a>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/kalman-filter-linear-regression.html#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/mcmc-linear-regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -305,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:13:57" itemprop="dateModified" datetime="2020-07-01T22:13:57-04:00">2020-07-01</time>
+                <time title="Modified: 2018-10-15 20:27:16" itemprop="dateModified" datetime="2018-10-15T20:27:16-04:00">2018-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -346,8 +245,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/bayesian-linear-regression.html" title="last post">last post</a> we examined the Bayesian approach for linear regression. It relies on the <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">conjugate prior</a> assumption, which nicely sets posterior to Gaussian distribution. In reality, most times we don’t have this luxury, so we rely instead on a technique called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo" target="_blank" rel="noopener">Markov Chain Monte Carlo (MCMC)</a>. One popular algorithm in this family is <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis–Hastings</a> and this is what we are looking at today. Before we proceed, I want to point out that this post is inpsired by <a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">this article in R</a>.</p>
-<p>MCMC answers to this question: if we don’t know what the posterior distribution looks like, and we don’t have the closed form solution as given in equation (2.5) of <a href="/bayesian-linear-regression.html" title="last post">last post</a> for $\beta_1$ and $\Sigma_{\beta,1}$, how do we obtain the posterior distrubtion of $\beta$? Can we at least approximate it? Metropolis–Hastings provides a numerical Monte Carlo simulation method to magically draw a sample out of the posterior distribution. The magic is to construct a Markov Chain that converges to the given distribution as its stationary equilibrium distribution. Hence the name Markov Chain Monte Carlo (MCMC).</p>
+          <h2 id="introduction">Introduction</h2>
+<p>In <a href="/bayesian-linear-regression.html" title="last post">last post</a> we examined the Bayesian approach for linear regression. It relies on the <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">conjugate prior</a> assumption, which nicely sets posterior to Gaussian distribution. In reality, most times we don't have this luxury, so we rely instead on a technique called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo" target="_blank" rel="noopener">Markov Chain Monte Carlo (MCMC)</a>. One popular algorithm in this family is <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis–Hastings</a> and this is what we are looking at today. Before we proceed, I want to point out that this post is inpsired by <a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">this article in R</a>.</p>
+<p>MCMC answers to this question: if we don't know what the posterior distribution looks like, and we don't have the closed form solution as given in equation (2.5) of <a href="/bayesian-linear-regression.html" title="last post">last post</a> for <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\Sigma_{\beta,1}\)</span>, how do we obtain the posterior distrubtion of <span class="math inline">\(\beta\)</span>? Can we at least approximate it? Metropolis–Hastings provides a numerical Monte Carlo simulation method to magically draw a sample out of the posterior distribution. The magic is to construct a Markov Chain that converges to the given distribution as its stationary equilibrium distribution. Hence the name Markov Chain Monte Carlo (MCMC).</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/mcmc-linear-regression.html#more" rel="contents">
@@ -377,7 +277,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/bayesian-linear-regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -405,7 +305,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:36" itemprop="dateModified" datetime="2020-07-01T22:14:36-04:00">2020-07-01</time>
+                <time title="Modified: 2018-10-15 23:15:03" itemprop="dateModified" datetime="2018-10-15T23:15:03-04:00">2018-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -446,10 +346,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/classical-linear-regression.html" title="last post">last post</a> we reviewed the classical linear regression and now let’s look from Bayesian perspective. There is well-known philosophical difference between <a href="https://en.wikipedia.org/wiki/Frequentist_inference" target="_blank" rel="noopener">frequentist</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_inference" target="_blank" rel="noopener">Bayesian</a>. Interested readers can read further this debate online such as <a href="https://en.wikipedia.org/wiki/Probability_interpretations" target="_blank" rel="noopener">this one on Wiki</a>. In my opinion, one advantage of Bayesian is its ability to perform <a href="https://en.wikipedia.org/wiki/Recursive_Bayesian_estimation" target="_blank" rel="noopener">online machine learning</a> recursivelly as new information comes along incrementally. </p>
-<p>In terms of the linear regression, <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Bayes’s Theorem</a> can be written as</p>
-<p>$$<br>f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}<br>\tag{1.1}<br>$$</p>
-<p>where $f(\beta|X)$ is the <strong>prior</strong> belief of parameter $\beta$; $f(y|\beta,X)$ is the <strong>likelihood</strong> of observing $y$ given our <strong>prior</strong>; and $f(y|X)$ is called <strong>evidence</strong>. Finally, $f(\beta|y,X)$ is the <strong>posterior</strong> belief of pararmeter $\beta$ once the evidence $y$ has been taken into account. This posterior then becomes new prior and the circle continues recursively.</p>
+          <h2 id="introduction">Introduction</h2>
+<p>In <a href="/classical-linear-regression.html" title="last post">last post</a> we reviewed the classical linear regression and now let's look from Bayesian perspective. There is well-known philosophical difference between <a href="https://en.wikipedia.org/wiki/Frequentist_inference" target="_blank" rel="noopener">frequentist</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_inference" target="_blank" rel="noopener">Bayesian</a>. Interested readers can read further this debate online such as <a href="https://en.wikipedia.org/wiki/Probability_interpretations" target="_blank" rel="noopener">this one on Wiki</a>. In my opinion, one advantage of Bayesian is its ability to perform <a href="https://en.wikipedia.org/wiki/Recursive_Bayesian_estimation" target="_blank" rel="noopener">online machine learning</a> recursivelly as new information comes along incrementally.</p>
+<p>In terms of the linear regression, <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Bayes's Theorem</a> can be written as</p>
+<p><span class="math display">\[
+f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
+\tag{1.1}
+\]</span></p>
+<p>where <span class="math inline">\(f(\beta|X)\)</span> is the <strong>prior</strong> belief of parameter <span class="math inline">\(\beta\)</span>; <span class="math inline">\(f(y|\beta,X)\)</span> is the <strong>likelihood</strong> of observing <span class="math inline">\(y\)</span> given our <strong>prior</strong>; and <span class="math inline">\(f(y|X)\)</span> is called <strong>evidence</strong>. Finally, <span class="math inline">\(f(\beta|y,X)\)</span> is the <strong>posterior</strong> belief of pararmeter <span class="math inline">\(\beta\)</span> once the evidence <span class="math inline">\(y\)</span> has been taken into account. This posterior then becomes new prior and the circle continues recursively.</p>
 <p>In this post we will bring the example from <a href="/classical-linear-regression.html" title="last post">last post</a> into Bayesian world.</p>
 <p>If you have difficulty viewing the formulas, right click on it and select Math Settings Math Renderer to switch to another format.</p>
           <!--noindex-->
@@ -481,7 +385,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/classical-linear-regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -509,7 +413,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:39" itemprop="dateModified" datetime="2020-07-01T22:14:39-04:00">2020-07-01</time>
+                <time title="Modified: 2018-10-15 23:15:29" itemprop="dateModified" datetime="2018-10-15T23:15:29-04:00">2018-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -550,11 +454,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank" rel="noopener">Linear Regression</a> is the most frequently used statistical and machine learning technique. It tries to put a straight line between feature variables $X$ and label variable $y$ that best fits the dataset. In mathematical term, it can be expressed as</p>
-<p>$$<br>y=X\beta+\epsilon  \tag{1.1}<br>$$</p>
-<p>where $\beta$ is the parameter vector that includes the constant intercept term and exposure coefficients to each feature variable $x\in X$.</p>
-<p><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" target="_blank" rel="noopener">Least Square (OLS)</a> provides a closed-form estimation of coefficient $\beta$ called <a href="https://en.wikipedia.org/wiki/Linear_least_squares#Derivation_of_the_normal_equations" target="_blank" rel="noopener">normal equation</a> given as follows:</p>
-<p>$$<br>\hat{\beta} = (X^TX)^{-1}X^Ty  \tag{1.2}<br>$$</p>
+          <h2 id="introduction">Introduction</h2>
+<p><a href="https://en.wikipedia.org/wiki/Linear_regression" target="_blank" rel="noopener">Linear Regression</a> is the most frequently used statistical and machine learning technique. It tries to put a straight line between feature variables <span class="math inline">\(X\)</span> and label variable <span class="math inline">\(y\)</span> that best fits the dataset. In mathematical term, it can be expressed as</p>
+<p><span class="math display">\[
+y=X\beta+\epsilon  \tag{1.1}
+\]</span></p>
+<p>where <span class="math inline">\(\beta\)</span> is the parameter vector that includes the constant intercept term and exposure coefficients to each feature variable <span class="math inline">\(x\in X\)</span>.</p>
+<p><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" target="_blank" rel="noopener">Least Square (OLS)</a> provides a closed-form estimation of coefficient <span class="math inline">\(\beta\)</span> called <a href="https://en.wikipedia.org/wiki/Linear_least_squares#Derivation_of_the_normal_equations" target="_blank" rel="noopener">normal equation</a> given as follows:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X^TX)^{-1}X^Ty  \tag{1.2}
+\]</span></p>
 <p>In the case of linear regression, it is also <a href="https://en.wikipedia.org/wiki/Maximum_likelihood_estimation" target="_blank" rel="noopener">Maximinum Likelihood Estimation (MLE)</a>.</p>
 <p>If you have difficulty viewing the formulas, right click on it and select Math Settings Math Renderer to switch to another format.</p>
           <!--noindex-->
@@ -586,7 +495,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/value-at-risk-one.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -614,7 +523,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:25" itemprop="dateModified" datetime="2020-07-01T22:14:25-04:00">2020-07-01</time>
+                <time title="Modified: 2018-10-15 23:14:34" itemprop="dateModified" datetime="2018-10-15T23:14:34-04:00">2018-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -655,9 +564,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Value at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certain time horizon, with a certain confidence level $\alpha$, or</p>
-<p>$$<br>Pr(Loss \le -VaR)=1-\alpha<br>\tag{1.1}<br>$$</p>
-<p>There are three approaches to calculate VaR, that is, historical simulation, variance-covariance, and Monte Carlo simulation. </p>
+          <h2 id="introduction">Introduction</h2>
+<p>Value at Risk (VaR) is widely used by financial institutions to measure market risks or potential investment losses. It tells the maximum possible loss for a given portfolio over a certain time horizon, with a certain confidence level <span class="math inline">\(\alpha\)</span>, or</p>
+<p><span class="math display">\[
+Pr(Loss \le -VaR)=1-\alpha
+\tag{1.1}
+\]</span></p>
+<p>There are three approaches to calculate VaR, that is, historical simulation, variance-covariance, and Monte Carlo simulation.</p>
 <p>If you have difficulty viewing the formulas, right click on it and select Math Settings Math Renderer to switch to another format.</p>
           <!--noindex-->
             <div class="post-button">
@@ -688,7 +601,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/portfolio-management-one.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -716,7 +629,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:11" itemprop="dateModified" datetime="2020-07-01T22:14:11-04:00">2020-07-01</time>
+                <time title="Modified: 2020-06-30 16:55:31" itemprop="dateModified" datetime="2020-06-30T16:55:31-04:00">2020-06-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -757,8 +670,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Modern Portfolio Theory (MPT) studies the tradeoff between return and risk. The risk of a portfolio is determined by not only the variance but also the correlations among assets. For a given risk, a rational investor would prefer an allocation with a higher expected returns; On the other hand, for a given return, he or she would prefer the portfolio with a lower risk level. This is a typical dual optimization problem. </p>
-<p>This post examines the classic mean-variance portfolio optimization from computational mathematics’ perspective, with mathematical formulas and programming codes. We will use real world stock data from Quandl.</p>
+          <h2 id="introduction">Introduction</h2>
+<p>Modern Portfolio Theory (MPT) studies the tradeoff between return and risk. The risk of a portfolio is determined by not only the variance but also the correlations among assets. For a given risk, a rational investor would prefer an allocation with a higher expected returns; On the other hand, for a given return, he or she would prefer the portfolio with a lower risk level. This is a typical dual optimization problem.</p>
+<p>This post examines the classic mean-variance portfolio optimization from computational mathematics' perspective, with mathematical formulas and programming codes. We will use real world stock data from Quandl.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/portfolio-management-one.html#more" rel="contents">
@@ -843,7 +757,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -852,20 +766,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -908,7 +819,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -934,7 +845,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

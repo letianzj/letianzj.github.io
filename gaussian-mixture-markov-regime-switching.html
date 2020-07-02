@@ -17,21 +17,21 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IntroductionIt’s been a while since the post of Hidden Markov Chain (HMM), this time let’s continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov R">
+  <meta name="description" content="Introduction It&#39;s been a while since the post of Hidden Markov Chain (HMM), this time let&#39;s continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gaussian Mixture and Regime Switching Model">
 <meta property="og:url" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionIt’s been a while since the post of Hidden Markov Chain (HMM), this time let’s continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov R">
+<meta property="og:description" content="Introduction It&#39;s been a while since the post of Hidden Markov Chain (HMM), this time let&#39;s continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png">
 <meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png">
 <meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/markov_regime_vix.png">
 <meta property="article:published_time" content="2019-11-30T22:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-02T02:14:45.316Z">
+<meta property="article:modified_time" content="2020-07-01T23:57:04.587Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Gaussian Mixture Model">
 <meta property="article:tag" content="Regime Shift Model">
@@ -180,7 +180,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -207,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:45" itemprop="dateModified" datetime="2020-07-01T22:14:45-04:00">2020-07-01</time>
+                <time title="Modified: 2020-07-01 19:57:04" itemprop="dateModified" datetime="2020-07-01T19:57:04-04:00">2020-07-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,38 +248,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>It’s been a while since the post of Hidden Markov Chain (HMM), this time let’s continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov Regime Switching model (MRSM). Similar to HMM, the market regime is served as hidden states so they are all approached by some sort of Expectation-Maximization (EM) machine learning techniques. It’s in place to have a brief discussion on EM algorithm first.</p>
+        <h2 id="introduction">Introduction</h2>
+<p>It's been a while since the post of Hidden Markov Chain (HMM), this time let's continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov Regime Switching model (MRSM). Similar to HMM, the market regime is served as hidden states so they are all approached by some sort of Expectation-Maximization (EM) machine learning techniques. It's in place to have a brief discussion on EM algorithm first.</p>
 <p>The accompanying notebook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/gaussian_mixture_markov_switching.ipynb" target="_blank" rel="noopener">here</a>.</p>
 <a id="more"></a>
-
-<h2 id="Expectation-Maximization"><a href="#Expectation-Maximization" class="headerlink" title="Expectation-Maximization"></a>Expectation-Maximization</h2><p>The simplest example on EM I can come up with has already been posted on <a href="https://stats.stackexchange.com/questions/72774/numerical-example-to-understand-expectation-maximization" target="_blank" rel="noopener">stackexchange and the paper cited there</a>. Here I will just make some comments on the coin-flipping example.</p>
-<p>Maximum Likelihood Estimation (MLE) is the most widely used method to estimate model parameters. Yet it is only effective when the data generation process is transparent and there are no hidden or latent variables. In the example there are two coins with probability of heads $\theta_A$ and $\theta_B$ respectively, and we know exactly which coin generates the toss set (identified by blue and red). Then MLE estimation is simply the percentage of heads in the red and blue group, respectively.</p>
-<p>If there exist latent variables, EM algorithm is used to find MLE estimation iteratively. In this case we don’t know which coin is used to generate the toss set. The E-M two-step works as below.</p>
-<ol>
-<li>E-step: make assumptions and complete the dataset<br>Assume coin A gets head $60%$ of time, coin B $50%$ of time (or any other numbers you prefer). Had we picked coin A, the probability of seen first toss set (5H, 5T) is given by Binomial<br>$$<br>\begin{pmatrix}<br>10 \<br>5<br>\end{pmatrix}<br>(0.6)^5(0.4)^5=0.20<br>$$</li>
+<h2 id="expectation-maximization">Expectation-Maximization</h2>
+<p>The simplest example on EM I can come up with has already been posted on <a href="https://stats.stackexchange.com/questions/72774/numerical-example-to-understand-expectation-maximization" target="_blank" rel="noopener">stackexchange and the paper cited there</a>. Here I will just make some comments on the coin-flipping example.</p>
+<p>Maximum Likelihood Estimation (MLE) is the most widely used method to estimate model parameters. Yet it is only effective when the data generation process is transparent and there are no hidden or latent variables. In the example there are two coins with probability of heads <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(\theta_B\)</span> respectively, and we know exactly which coin generates the toss set (identified by blue and red). Then MLE estimation is simply the percentage of heads in the red and blue group, respectively.</p>
+<p>If there exist latent variables, EM algorithm is used to find MLE estimation iteratively. In this case we don't know which coin is used to generate the toss set. The E-M two-step works as below. 1. E-step: make assumptions and complete the dataset Assume coin A gets head <span class="math inline">\(60\%\)</span> of time, coin B <span class="math inline">\(50\%\)</span> of time (or any other numbers you prefer). Had we picked coin A, the probability of seen first toss set (5H, 5T) is given by Binomial <span class="math display">\[
+\begin{pmatrix}
+10 \\
+5
+\end{pmatrix}
+(0.6)^5(0.4)^5=0.20
+\]</span></p>
+<p>simiarily the probability is <span class="math inline">\(0.246\)</span> had we chosen coin B. Based on the likihoods, the probability of coin <span class="math inline">\(A\)</span> behind the first toss set is <span class="math inline">\(0.20/(0.20+0.246)=0.45\)</span> and <span class="math inline">\(1-0.45=0.55\)</span> for coin <span class="math inline">\(B\)</span>, which makes sense because we would expect that it's more likely that coin <span class="math inline">\(B\)</span> produced the toss set. Then (5H, 5T) contributes <span class="math inline">\(5H*0.45=2.2H\)</span> to coin A, <span class="math inline">\(5H*0.55=2.8H\)</span> to coin B, and so on the table on the right side.</p>
+<ol start="2" type="1">
+<li>M-step: update the assumptions M-step is regular maximum likelihood estimation given the new probability table generated in the E-step.</li>
 </ol>
-<p>simiarily the probability is $0.246$ had we chosen coin B. Based on the likihoods, the probability of coin $A$ behind the first toss set is $0.20/(0.20+0.246)=0.45$ and $1-0.45=0.55$ for coin $B$, which makes sense because we would expect that it’s more likely that coin $B$ produced the toss set.<br>Then (5H, 5T) contributes $5H<em>0.45=2.2H$ to coin A, $5H</em>0.55=2.8H$ to coin B, and so on the table on the right side.</p>
-<ol start="2">
-<li>M-step: update the assumptions<br>M-step is regular maximum likelihood estimation given the new probability table generated in the E-step.</li>
-</ol>
-<p>Iterate step 1 and 2 until $\theta_A$ and $\theta_B$ converge.</p>
-<h2 id="Gaussian-Mixture-Model"><a href="#Gaussian-Mixture-Model" class="headerlink" title="Gaussian Mixture Model"></a>Gaussian Mixture Model</h2><p>In the above example, if we assume instead $\theta_A$ and $\theta_B$ come from two Gaussian distributions, respectively, then it becomes Gaussian Mixture model. A good illustration can be found <a href="https://www.kaggle.com/charel/learn-by-example-expectation-maximization" target="_blank" rel="noopener">here</a>.</p>
+<p>Iterate step 1 and 2 until <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(\theta_B\)</span> converge.</p>
+<h2 id="gaussian-mixture-model">Gaussian Mixture Model</h2>
+<p>In the above example, if we assume instead <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(\theta_B\)</span> come from two Gaussian distributions, respectively, then it becomes Gaussian Mixture model. A good illustration can be found <a href="https://www.kaggle.com/charel/learn-by-example-expectation-maximization" target="_blank" rel="noopener">here</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.mixture <span class="keyword">import</span> GaussianMixture</span><br><span class="line"></span><br><span class="line">X = hist_ret.values.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">n_components = np.arange(<span class="number">1</span>, <span class="number">21</span>)</span><br><span class="line">models = [GaussianMixture(n, covariance_type=<span class="string">'full'</span>, random_state=<span class="number">0</span>).fit(X) <span class="keyword">for</span> n <span class="keyword">in</span> n_components]</span><br><span class="line"></span><br><span class="line">plt.plot(n_components, [m.bic(X) <span class="keyword">for</span> m <span class="keyword">in</span> models], label=<span class="string">'BIC'</span>)</span><br><span class="line">plt.plot(n_components, [m.aic(X) <span class="keyword">for</span> m <span class="keyword">in</span> models], label=<span class="string">'AIC'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'best'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'n_components'</span>);</span><br></pre></td></tr></table></figure>
-
-<img src="/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png" class title="Gaussian Mixture AIC">
-
-<p>We may choose either two or three states based on the AIC graph. Two states could indicate high and low vol regimes; while three states hopefully can explain uptrend, downtrend and sideways. In this post we use two components. The result suggests first state is low vol ($0.5%$), second state is high vol ($5.6/%$).</p>
-<h2 id="Markov-Regime-Switching-Model"><a href="#Markov-Regime-Switching-Model" class="headerlink" title="Markov Regime Switching Model"></a>Markov Regime Switching Model</h2><p>It’s known that stock return is not normally distributed, having negative skewness and high kurtosis. It can be better modeled as conditional normal distribution (e.g. GARCH), which may suggest that the market can have different regimes and returns are normally distributed within a regime.</p>
-<p>Here again we choose two regimes, and assuming return is centered around zero. </p>
+<img src="/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png" class="" title="Gaussian Mixture AIC">
+<p>We may choose either two or three states based on the AIC graph. Two states could indicate high and low vol regimes; while three states hopefully can explain uptrend, downtrend and sideways. In this post we use two components. The result suggests first state is low vol (<span class="math inline">\(0.5\%\)</span>), second state is high vol (<span class="math inline">\(5.6/%\)</span>).</p>
+<h2 id="markov-regime-switching-model">Markov Regime Switching Model</h2>
+<p>It's known that stock return is not normally distributed, having negative skewness and high kurtosis. It can be better modeled as conditional normal distribution (e.g. GARCH), which may suggest that the market can have different regimes and returns are normally distributed within a regime.</p>
+<p>Here again we choose two regimes, and assuming return is centered around zero.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.regime_switching.markov_regression <span class="keyword">import</span> MarkovRegression</span><br><span class="line">model = MarkovRegression(hist_ret, k_regimes=<span class="number">2</span>, trend=<span class="string">'nc'</span>, switching_variance=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">res = model.fit()</span><br><span class="line">res.summary()</span><br></pre></td></tr></table></figure>
-
-<img src="/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png" class title="Markov Switching Model Fit">
-
-<p>The result also suggests first state is low vol $0.5%$, while second state is high vol $4.17%$. By comparing the graphs, the regime switch model turns out to have better fit than Gaussian mixture; which is undertandable, because Gaussian mixture doesn’t consider time sequence in time series. And comparing with VIX, Markov Regime Switching model captures major market downturns as shown below.</p>
-<img src="/gaussian-mixture-markov-regime-switching/markov_regime_vix.png" class title="Markov regime and VIX">
-
-<p>A straightforward way to use regime switching for trading is to assume regime doesn’t change; or tomorrow is in the same regime as today.</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>VanderPlas, Jake. Python data science handbook: Essential tools for working with data. “ O’Reilly Media, Inc.”, 2016.</p>
+<img src="/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png" class="" title="Markov Switching Model Fit">
+<p>The result also suggests first state is low vol <span class="math inline">\(0.5\%\)</span>, while second state is high vol <span class="math inline">\(4.17\%\)</span>. By comparing the graphs, the regime switch model turns out to have better fit than Gaussian mixture; which is undertandable, because Gaussian mixture doesn't consider time sequence in time series. And comparing with VIX, Markov Regime Switching model captures major market downturns as shown below.</p>
+<img src="/gaussian-mixture-markov-regime-switching/markov_regime_vix.png" class="" title="Markov regime and VIX">
+<p>A straightforward way to use regime switching for trading is to assume regime doesn't change; or tomorrow is in the same regime as today.</p>
+<h2 id="reference">Reference</h2>
+<p>VanderPlas, Jake. Python data science handbook: Essential tools for working with data. &quot; O'Reilly Media, Inc.&quot;, 2016.</p>
 
     </div>
 
@@ -369,14 +371,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Expectation-Maximization"><span class="nav-number">2.</span> <span class="nav-text">Expectation-Maximization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gaussian-Mixture-Model"><span class="nav-number">3.</span> <span class="nav-text">Gaussian Mixture Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markov-Regime-Switching-Model"><span class="nav-number">4.</span> <span class="nav-text">Markov Regime Switching Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expectation-maximization"><span class="nav-number">2.</span> <span class="nav-text">Expectation-Maximization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gaussian-mixture-model"><span class="nav-number">3.</span> <span class="nav-text">Gaussian Mixture Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markov-regime-switching-model"><span class="nav-number">4.</span> <span class="nav-text">Markov Regime Switching Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -385,20 +387,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -441,7 +440,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -467,7 +466,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

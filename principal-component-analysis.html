@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IntroductionPrincipal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduc">
+  <meta name="description" content="Introduction Principal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension red">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Principal Component Analysis">
 <meta property="og:url" content="https://letianzj.github.io/principal-component-analysis.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionPrincipal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduc">
+<meta property="og:description" content="Introduction Principal component analysis (PCA) rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension red">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/tenor_correlation_matrix.png">
 <meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/cumulative_explained_variance.png">
 <meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/eigenvalue_loadings.png">
 <meta property="og:image" content="https://letianzj.github.io/principal-component-analysis/6M_10Y.png">
 <meta property="article:published_time" content="2018-12-31T00:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-02T02:14:14.606Z">
+<meta property="article:modified_time" content="2020-06-30T03:46:19.557Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Time Series">
 <meta property="article:tag" content="Machine Learning">
@@ -180,7 +180,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/principal-component-analysis.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -207,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:14" itemprop="dateModified" datetime="2020-07-01T22:14:14-04:00">2020-07-01</time>
+                <time title="Modified: 2020-06-29 23:46:19" itemprop="dateModified" datetime="2020-06-29T23:46:19-04:00">2020-06-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,32 +248,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank" rel="noopener">Principal component analysis (PCA)</a> rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduction technique by taking first few variables in the rotated dataset. That is, denote $X \in R^{n \times p}$ be the original dataset, and let $W \in R^{p \times p}$ be the rotation operator, then the new dataset is</p>
-<p>$$<br>T=XW ;; or ;; T_L= XW_L<br>$$</p>
-<p>where $W_L \in R^{p \times l}$ keeps the first $L$ components of $W$ according to their eigenvalues. $W$ is the eigenvectors of covariance matrrix $X^TX$ and usually obtained by performing <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition" target="_blank" rel="noopener">SVD decomposition</a> on $X$ directly.</p>
-<p>$$<br>X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T<br>$$</p>
+        <h2 id="introduction">Introduction</h2>
+<p><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank" rel="noopener">Principal component analysis (PCA)</a> rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduction technique by taking first few variables in the rotated dataset. That is, denote <span class="math inline">\(X \in R^{n \times p}\)</span> be the original dataset, and let <span class="math inline">\(W \in R^{p \times p}\)</span> be the rotation operator, then the new dataset is</p>
+<p><span class="math display">\[
+T=XW \;\; or \;\; T_L= XW_L
+\]</span></p>
+<p>where <span class="math inline">\(W_L \in R^{p \times l}\)</span> keeps the first <span class="math inline">\(L\)</span> components of <span class="math inline">\(W\)</span> according to their eigenvalues. <span class="math inline">\(W\)</span> is the eigenvectors of covariance matrrix <span class="math inline">\(X^TX\)</span> and usually obtained by performing <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition" target="_blank" rel="noopener">SVD decomposition</a> on <span class="math inline">\(X\)</span> directly.</p>
+<p><span class="math display">\[
+X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
+\]</span></p>
 <p>In this post we apply PCA to USD treasury curves. Treasury curves are known to be correlated, and first three principal components, namely, level, spread, and fly, explain most of the curve variations. The notebook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/principal_component_analysis.ipynb" target="_blank" rel="noopener">here</a>.</p>
 <a id="more"></a>
-
-<h2 id="Treasury-Curves"><a href="#Treasury-Curves" class="headerlink" title="Treasury Curves"></a>Treasury Curves</h2><p>First let’s download the constant maturity Treasury curves and look at their correlations.</p>
-<img src="/principal-component-analysis/tenor_correlation_matrix.png" class title="Correlation Matrix">
-
+<h2 id="treasury-curves">Treasury Curves</h2>
+<p>First let's download the constant maturity Treasury curves and look at their correlations.</p>
+<img src="/principal-component-analysis/tenor_correlation_matrix.png" class="" title="Correlation Matrix">
 <p>The rates are in general highly correlated; and as tenor points become further apart, the correlation decreases.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA().fit(df)</span><br><span class="line"></span><br><span class="line">plt.plot(pca.explained_variance_ratio_.cumsum())</span><br><span class="line">plt.xlabel(<span class="string">'number of components'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'cumulative explained variance'</span>)</span><br></pre></td></tr></table></figure>
-
-<img src="/principal-component-analysis/cumulative_explained_variance.png" class title="Cumulative Variance">
-
-<p>The first three principal components explained almost $99%$ of the total variance.</p>
-<p>Next, let’s look at the loadings or eigenvectors. It shows how the principal components are constructed from the original rates.</p>
+<img src="/principal-component-analysis/cumulative_explained_variance.png" class="" title="Cumulative Variance">
+<p>The first three principal components explained almost <span class="math inline">\(99\%\)</span> of the total variance.</p>
+<p>Next, let's look at the loadings or eigenvectors. It shows how the principal components are constructed from the original rates.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tenors_label = [<span class="string">'1M'</span>, <span class="string">'3M'</span>, <span class="string">'6M'</span>, <span class="string">'1Y'</span>, <span class="string">'2Y'</span>, <span class="string">'3Y'</span>, <span class="string">'5Y'</span>, <span class="string">'7Y'</span>, <span class="string">'10Y'</span>, <span class="string">'20Y'</span>, <span class="string">'30Y'</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">15</span>,<span class="number">4</span>))</span><br><span class="line">plt.subplot(<span class="number">131</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">0</span>, :])</span><br><span class="line">plt.subplot(<span class="number">132</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">1</span>, :])</span><br><span class="line">plt.subplot(<span class="number">133</span>)</span><br><span class="line">plt.plot(tenors_label, pca.components_[<span class="number">2</span>, :])</span><br></pre></td></tr></table></figure>
-
-<img src="/principal-component-analysis/eigenvalue_loadings.png" class title="Loadings">
-
+<img src="/principal-component-analysis/eigenvalue_loadings.png" class="" title="Loadings">
 <p>From the graph, it is easy to see that the first pc is level shift; the second pc is spread; and the third pc is butterfly.</p>
-<p>If we dont’ want to trade on the exact portfolio, it’s possible to construct an approximate trade. For example on the spread trade, we can choose 3M-10Y*2 as the approximate to the loadings. </p>
-<img src="/principal-component-analysis/6M_10Y.png" class title="Spread Trade">
-
-<p>Notice that the curves on the left resemble each other. If we expect the curve will start steepening soon,  we can short the spread by holding 10Y twice of the duration neutral amount.</p>
+<p>If we dont' want to trade on the exact portfolio, it's possible to construct an approximate trade. For example on the spread trade, we can choose 3M-10Y*2 as the approximate to the loadings.</p>
+<img src="/principal-component-analysis/6M_10Y.png" class="" title="Spread Trade">
+<p>Notice that the curves on the left resemble each other. If we expect the curve will start steepening soon, we can short the spread by holding 10Y twice of the duration neutral amount.</p>
 
     </div>
 
@@ -365,14 +364,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Treasury-Curves"><span class="nav-number">2.</span> <span class="nav-text">Treasury Curves</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#treasury-curves"><span class="nav-number">2.</span> <span class="nav-text">Treasury Curves</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -381,20 +380,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -437,7 +433,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -463,7 +459,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

@@ -17,20 +17,20 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IntroductionMean reversion processes are widely observed in finance. As opposed to trend following, it assumes that the process has a tendency to revert to its average level over time. This average le">
+  <meta name="description" content="Introduction Mean reversion processes are widely observed in finance. As opposed to trend following, it assumes that the process has a tendency to revert to its average level over time. This average">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mean Reversion">
 <meta property="og:url" content="https://letianzj.github.io/mean-reversion.html">
 <meta property="og:site_name" content="Systematic Investing">
-<meta property="og:description" content="IntroductionMean reversion processes are widely observed in finance. As opposed to trend following, it assumes that the process has a tendency to revert to its average level over time. This average le">
+<meta property="og:description" content="Introduction Mean reversion processes are widely observed in finance. As opposed to trend following, it assumes that the process has a tendency to revert to its average level over time. This average">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/mean-reversion/usdcad.png">
 <meta property="og:image" content="https://letianzj.github.io/mean-reversion/simple_linear_scaling.png">
 <meta property="article:published_time" content="2018-03-19T03:10:00.000Z">
-<meta property="article:modified_time" content="2020-07-02T02:14:07.149Z">
+<meta property="article:modified_time" content="2020-06-30T03:48:29.383Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Time Series">
 <meta property="article:tag" content="Mean Reversion">
@@ -184,7 +184,7 @@
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/mean-reversion.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Letian Wang">
       <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-01 22:14:07" itemprop="dateModified" datetime="2020-07-01T22:14:07-04:00">2020-07-01</time>
+                <time title="Modified: 2020-06-29 23:48:29" itemprop="dateModified" datetime="2020-06-29T23:48:29-04:00">2020-06-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,85 +248,100 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><a href="https://en.wikipedia.org/wiki/Mean_reversion_(finance)" target="_blank" rel="noopener">Mean reversion</a> processes are widely observed in finance. As opposed to <a href="https://en.wikipedia.org/wiki/Trend_following" target="_blank" rel="noopener">trend following</a>, it assumes that the process has a tendency to revert to its average level over time. This average level is usually determined by physical or economical forces such as long term supply and demand. Prices might deviate from that long term mean due to sentimental or short-term disturbances on the market but eventually will revert back to its intrinsic value.</p>
-<p>A continuous mean-reverting time series can be represented by an <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank" rel="noopener">Ornstein-Uhlenbeck</a> process or <a href="https://en.wikipedia.org/wiki/Vasicek_model" target="_blank" rel="noopener">Vasicek model</a> in interest rate field, which is a special case of <a href="https://en.wikipedia.org/wiki/Hull%E2%80%93White_model" target="_blank" rel="noopener">Hull-White model</a> with constant volatility. It is also the continuous-time analogue of the discrete-time <a href="https://en.wikipedia.org/wiki/Autoregressive_model" target="_blank" rel="noopener">AR(1)<br>process</a>. I relegate the mathematical details to appendix.</p>
+        <h2 id="introduction">Introduction</h2>
+<p><a href="https://en.wikipedia.org/wiki/Mean_reversion_(finance)" target="_blank" rel="noopener">Mean reversion</a> processes are widely observed in finance. As opposed to <a href="https://en.wikipedia.org/wiki/Trend_following" target="_blank" rel="noopener">trend following</a>, it assumes that the process has a tendency to revert to its average level over time. This average level is usually determined by physical or economical forces such as long term supply and demand. Prices might deviate from that long term mean due to sentimental or short-term disturbances on the market but eventually will revert back to its intrinsic value.</p>
+<p>A continuous mean-reverting time series can be represented by an <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank" rel="noopener">Ornstein-Uhlenbeck</a> process or <a href="https://en.wikipedia.org/wiki/Vasicek_model" target="_blank" rel="noopener">Vasicek model</a> in interest rate field, which is a special case of <a href="https://en.wikipedia.org/wiki/Hull%E2%80%93White_model" target="_blank" rel="noopener">Hull-White model</a> with constant volatility. It is also the continuous-time analogue of the discrete-time <a href="https://en.wikipedia.org/wiki/Autoregressive_model" target="_blank" rel="noopener">AR(1) process</a>. I relegate the mathematical details to appendix.</p>
 <p>To calibrate the OU process, there are generally two approaches based on formula (A9), i.e., the Least square and Maximum Likelihood Estimation. <a href="https://commoditymodels.files.wordpress.com/2010/02/estimating-the-parameters-of-a-mean-reverting-ornstein-uhlenbeck-process1.pdf" target="_blank" rel="noopener">This document</a> gives a good summary and comparison of results.</p>
 <p>The backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
 <a id="more"></a>
-
-<h2 id="Statistical-Testing"><a href="#Statistical-Testing" class="headerlink" title="Statistical Testing"></a>Statistical Testing</h2><p>Comparing to backtesting, [1] made a valid point about the importance of statistical testing in that it consists of full information of the time series instead of just a number of completed trades dependent on chosen parameters. In addition, we can be more confident that a profitable strategy is not just based on luck if it passes statistical tests.</p>
-<h3 id="Augmented-Dickey-Fuller-Test"><a href="#Augmented-Dickey-Fuller-Test" class="headerlink" title="Augmented Dickey-Fuller Test"></a>Augmented Dickey-Fuller Test</h3><p><a href="https://en.wikipedia.org/wiki/Augmented_Dickey%E2%80%93Fuller_test" target="_blank" rel="noopener">Augmented Dickey–Fuller test (ADF)</a> detects if a time series contains <a href="https://en.wikipedia.org/wiki/Unit_root" target="_blank" rel="noopener">unit root</a>. Technically the name of unit root comes from the fact that the autoregressive polynomial has a root on the unit circle but basically it implies nonstationary.</p>
-<p>Wikipedia and reference books have good coverage on the formulas so I just go with intuitions. Notice that Formula (A9) is a linear regression equation. Therefore the test essentially tests if $b-1==0$ or $b==1$, which becomes standard test for linear regression coefficients. If $b$ doesn not equal to 1, $\Delta x(t_{i+1})$ will depend on the current level of $x(t_i)$, and therefore not a random walk. All the other lagging $\Delta x$ items listed on <a href="https://en.wikipedia.org/wiki/Augmented_Dickey%E2%80%93Fuller_test" target="_blank" rel="noopener">wikipedia</a> are just controls for serial correlations. </p>
-<p>ADF test in Python is straightforward. Let’s test historical USDCAD exchange rate,</p>
-<img src="/mean-reversion/usdcad.png" class title="USDCAD History">
-
+<h2 id="statistical-testing">Statistical Testing</h2>
+<p>Comparing to backtesting, [1] made a valid point about the importance of statistical testing in that it consists of full information of the time series instead of just a number of completed trades dependent on chosen parameters. In addition, we can be more confident that a profitable strategy is not just based on luck if it passes statistical tests.</p>
+<h3 id="augmented-dickey-fuller-test">Augmented Dickey-Fuller Test</h3>
+<p><a href="https://en.wikipedia.org/wiki/Augmented_Dickey%E2%80%93Fuller_test" target="_blank" rel="noopener">Augmented Dickey–Fuller test (ADF)</a> detects if a time series contains <a href="https://en.wikipedia.org/wiki/Unit_root" target="_blank" rel="noopener">unit root</a>. Technically the name of unit root comes from the fact that the autoregressive polynomial has a root on the unit circle but basically it implies nonstationary.</p>
+<p>Wikipedia and reference books have good coverage on the formulas so I just go with intuitions. Notice that Formula (A9) is a linear regression equation. Therefore the test essentially tests if <span class="math inline">\(b-1==0\)</span> or <span class="math inline">\(b==1\)</span>, which becomes standard test for linear regression coefficients. If <span class="math inline">\(b\)</span> doesn not equal to 1, <span class="math inline">\(\Delta x(t_{i+1})\)</span> will depend on the current level of <span class="math inline">\(x(t_i)\)</span>, and therefore not a random walk. All the other lagging <span class="math inline">\(\Delta x\)</span> items listed on <a href="https://en.wikipedia.org/wiki/Augmented_Dickey%E2%80%93Fuller_test" target="_blank" rel="noopener">wikipedia</a> are just controls for serial correlations.</p>
+<p>ADF test in Python is straightforward. Let's test historical USDCAD exchange rate,</p>
+<img src="/mean-reversion/usdcad.png" class="" title="USDCAD History">
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ADF test</span></span><br><span class="line"><span class="keyword">import</span> statsmodels.tsa.stattools <span class="keyword">as</span> ts</span><br><span class="line"><span class="comment"># H0: beta==1 or random walk</span></span><br><span class="line">adf_statistic = ts.adfuller(usd_cad, <span class="number">1</span>)           <span class="comment"># lag = 1</span></span><br><span class="line">print(<span class="string">'Augmented Dickey Fuller test statistic ='</span>,adf_statistic[<span class="number">0</span>])   <span class="comment">#  -2.0188553406859833</span></span><br><span class="line">print(<span class="string">'Augmented Dickey Fuller p-value ='</span>,adf_statistic[<span class="number">1</span>])   <span class="comment"># 0.27836737105308673</span></span><br><span class="line">print(<span class="string">'Augmented Dickey Fuller # of samples ='</span>,adf_statistic[<span class="number">3</span>])  <span class="comment"># 1599</span></span><br><span class="line"><span class="comment"># &#123;'1%': -3.4344462031760283, '5%': -2.8633492329988335, '10%': -2.5677331999518147&#125;</span></span><br><span class="line">print(<span class="string">'Augmented Dickey Fuller 1%, 5% and 10% critical values ='</span>,adf_statistic[<span class="number">4</span>])</span><br></pre></td></tr></table></figure>
-
-<p>Based on the results, we cannot reject the null hypothesis of $\beta==1$. In other words, USDCAD, containing unit root, is not mean reverting during this period. In fact, the figure above suggests an upward trend for USD, as Loonie lost about 30%.</p>
-<h3 id="Hurst-Exponent"><a href="#Hurst-Exponent" class="headerlink" title="Hurst Exponent"></a>Hurst Exponent</h3><p>Another way of looking at stationarity is to compare it with <a href="https://en.wikipedia.org/wiki/Geometric_Brownian_motion" target="_blank" rel="noopener">Geometric Brownian Motion (GBM)</a>. A stationary price series is meant to diffuse more slowly than GBM. This is the theory behind <a href="https://en.wikipedia.org/wiki/Hurst_exponent" target="_blank" rel="noopener">Hurst exponent</a> test. Considering GBM, the <a href="https://en.wikipedia.org/wiki/Quadratic_variation" target="_blank" rel="noopener">quadratic variation</a> of its log value exhibits</p>
-<p>$$<br>&lt;|ln(S_{t+\tau})-ln(S_t)|^2&gt;=\sigma^2\tau \sim \tau = \tau^{2H}<br>\tag{2.1}<br>$$</p>
-<p>where $\sim$ means proportional and $H$ is Hurst Exponent. Apparently to make the last equation in (2.1) hold, H must be 0.5. Therefore we have the following rule for a price series,</p>
+<p>Based on the results, we cannot reject the null hypothesis of <span class="math inline">\(\beta==1\)</span>. In other words, USDCAD, containing unit root, is not mean reverting during this period. In fact, the figure above suggests an upward trend for USD, as Loonie lost about 30%.</p>
+<h3 id="hurst-exponent">Hurst Exponent</h3>
+<p>Another way of looking at stationarity is to compare it with <a href="https://en.wikipedia.org/wiki/Geometric_Brownian_motion" target="_blank" rel="noopener">Geometric Brownian Motion (GBM)</a>. A stationary price series is meant to diffuse more slowly than GBM. This is the theory behind <a href="https://en.wikipedia.org/wiki/Hurst_exponent" target="_blank" rel="noopener">Hurst exponent</a> test. Considering GBM, the <a href="https://en.wikipedia.org/wiki/Quadratic_variation" target="_blank" rel="noopener">quadratic variation</a> of its log value exhibits</p>
+<p><span class="math display">\[
+&lt;|ln(S_{t+\tau})-ln(S_t)|^2&gt;=\sigma^2\tau \sim \tau = \tau^{2H}
+\tag{2.1}
+\]</span></p>
+<p>where <span class="math inline">\(\sim\)</span> means proportional and <span class="math inline">\(H\)</span> is Hurst Exponent. Apparently to make the last equation in (2.1) hold, H must be 0.5. Therefore we have the following rule for a price series,</p>
 <ul>
-<li>$H&lt;0.5$: mean reverting</li>
-<li>$H=0.5$: geometric random walk</li>
-<li>$H&gt;0.5$: trending</li>
+<li><span class="math inline">\(H&lt;0.5\)</span>: mean reverting</li>
+<li><span class="math inline">\(H=0.5\)</span>: geometric random walk</li>
+<li><span class="math inline">\(H&gt;0.5\)</span>: trending</li>
 </ul>
-<p>Let’s test the Hurst exponent on USDCAD prices.</p>
+<p>Let's test the Hurst exponent on USDCAD prices.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hurst</span><span class="params">(ts)</span>:</span></span><br><span class="line">    <span class="string">"""Returns the Hurst Exponent of the time series vector ts"""</span></span><br><span class="line">    <span class="comment"># Create the range of lag values</span></span><br><span class="line">    lags = range(<span class="number">2</span>, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Calculate the array of the variances of the lagged differences</span></span><br><span class="line">    tau = [np.sqrt(np.std(np.subtract(ts[lag:], ts[:-lag]))) <span class="keyword">for</span> lag <span class="keyword">in</span> lags]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Use a linear fit to estimate the Hurst Exponent</span></span><br><span class="line">    poly = np.polyfit(np.log(lags), np.log(tau), <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Return the Hurst exponent from the polyfit output</span></span><br><span class="line">    <span class="keyword">return</span> poly[<span class="number">0</span>] * <span class="number">2.0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"Hurst(USDCAD):   %s"</span> % hurst(np.log(usd_cad)))</span><br></pre></td></tr></table></figure>
-
-<p>The Hurst function is adapted from <a href="https://www.quantstart.com/articles/Basics-of-Statistical-Mean-Reversion-Testing" target="_blank" rel="noopener">QuantStart</a>. The code logic is short and straightforward. From equation (2.1), if we take $\tau=1,2,3,…$ etc, then the variance forms a straight line against this series of $\tau$ values under GBM case. Therefore we can fit a regression line between them and use the slope to estimate Hurst exponent $H$. One confusion one might have is that there is no variance calculation in the code. This comes from the fact variance and standard deviation (and square root) are log proportional, i.e.,</p>
-<p>$$<br>ln(Var(Y))=ln(Std(Y)^2)=2ln(Std(Y)) \sim log(Std(Y))<br>\tag{2.2}<br>$$</p>
-<p>If you are interested in how many lags of $\tau$ to be choosen, <a href="https://robotwealth.com/demystifying-the-hurst-exponent-part-2/" target="_blank" rel="noopener">Robotwealth</a> has a post to discuss the sensitivity of Hurst statistic on the choice of $\tau$. </p>
-<p>The Hurst statistic result $0.555442813408275$ indicates USDCAD was in general (upward) trending during this time window.</p>
-<h2 id="Variance-Ratio-Test"><a href="#Variance-Ratio-Test" class="headerlink" title="Variance Ratio Test"></a>Variance Ratio Test</h2><p>Because of finite sample size, we need to know the statistical significance of Hurst statistic. In other words, we want a statistical test to tell us whether we can reject its null hypothesis of H equals 0.5. This hypothesis test is called Variance Ratio test ([1]).</p>
+<p>The Hurst function is adapted from <a href="https://www.quantstart.com/articles/Basics-of-Statistical-Mean-Reversion-Testing" target="_blank" rel="noopener">QuantStart</a>. The code logic is short and straightforward. From equation (2.1), if we take <span class="math inline">\(\tau=1,2,3,...\)</span> etc, then the variance forms a straight line against this series of <span class="math inline">\(\tau\)</span> values under GBM case. Therefore we can fit a regression line between them and use the slope to estimate Hurst exponent <span class="math inline">\(H\)</span>. One confusion one might have is that there is no variance calculation in the code. This comes from the fact variance and standard deviation (and square root) are log proportional, i.e.,</p>
+<p><span class="math display">\[
+ln(Var(Y))=ln(Std(Y)^2)=2ln(Std(Y)) \sim log(Std(Y))
+\tag{2.2}
+\]</span></p>
+<p>If you are interested in how many lags of <span class="math inline">\(\tau\)</span> to be choosen, <a href="https://robotwealth.com/demystifying-the-hurst-exponent-part-2/" target="_blank" rel="noopener">Robotwealth</a> has a post to discuss the sensitivity of Hurst statistic on the choice of <span class="math inline">\(\tau\)</span>.</p>
+<p>The Hurst statistic result <span class="math inline">\(0.555442813408275\)</span> indicates USDCAD was in general (upward) trending during this time window.</p>
+<h2 id="variance-ratio-test">Variance Ratio Test</h2>
+<p>Because of finite sample size, we need to know the statistical significance of Hurst statistic. In other words, we want a statistical test to tell us whether we can reject its null hypothesis of H equals 0.5. This hypothesis test is called Variance Ratio test ([1]).</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  (1.043812391881447, 0.23398177899239425, 0.5925003942830439)</span></span><br><span class="line">vratio(np.log(usd_cad.values), cor=<span class="string">'het'</span>, lag=<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
-
-<p>The code is credited to <a href="https://web.archive.org/web/20140612041028/http://drtomstarke.com/index.php/variance-ratio-test/" target="_blank" rel="noopener">drtomstarke</a>. It’s a bit too long to fit into this article, so I save it to the source code on github repo.</p>
+<p>The code is credited to <a href="https://web.archive.org/web/20140612041028/http://drtomstarke.com/index.php/variance-ratio-test/" target="_blank" rel="noopener">drtomstarke</a>. It's a bit too long to fit into this article, so I save it to the source code on github repo.</p>
 <p>The p-value says there is 59% chance that it is not a random walk.</p>
-<h2 id="Half-Life"><a href="#Half-Life" class="headerlink" title="Half-Life"></a>Half-Life</h2><p>The half life is calculated based on equation (A7); and use the estimated slope from (A8) as an approximate of $\theta$.</p>
+<h2 id="half-life">Half-Life</h2>
+<p>The half life is calculated based on equation (A7); and use the estimated slope from (A8) as an approximate of <span class="math inline">\(\theta\)</span>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># half life</span></span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model</span><br><span class="line">df_close = usd_cad.to_frame()</span><br><span class="line">df_lag = df_close.shift(<span class="number">1</span>)</span><br><span class="line">df_delta = df_close - df_lag</span><br><span class="line">lin_reg_model = linear_model.LinearRegression()</span><br><span class="line">df_delta = df_delta.values.reshape(len(df_delta),<span class="number">1</span>)                    <span class="comment"># sklearn needs (row, 1) instead of (row,)</span></span><br><span class="line">df_lag = df_lag.values.reshape(len(df_lag),<span class="number">1</span>)</span><br><span class="line">lin_reg_model.fit(df_lag[<span class="number">1</span>:], df_delta[<span class="number">1</span>:])                           <span class="comment"># skip first line nan</span></span><br><span class="line">half_life = -np.log(<span class="number">2</span>) / lin_reg_model.coef_.item()</span><br><span class="line"><span class="keyword">print</span> (<span class="string">'Half life:       %s'</span> % half_life)           <span class="comment">#  260.65118856658813</span></span><br></pre></td></tr></table></figure>
-
 <p>It shows half life of 260 business days, roughly a year to come back half way toward its equilibrium level.</p>
-<h2 id="A-linear-scaling-in-strategy"><a href="#A-linear-scaling-in-strategy" class="headerlink" title="A linear scaling-in strategy"></a>A linear scaling-in strategy</h2><p>Inspired by [1], let’s look at a simple linear mean-reversion strategy for USDCAD. The strategy is described as follows.</p>
-<ul>
-<li>Use half-life as look-back window, find rolling mean and rolling standard deviation.</li>
-<li>scaling-in and out by keep the posistiion size negatively porportional to the <a href="https://en.wikipedia.org/wiki/Standard_score" target="_blank" rel="noopener">z-score</a>.</li>
-</ul>
+<h2 id="a-linear-scaling-in-strategy">A linear scaling-in strategy</h2>
+<p>Inspired by [1], let's look at a simple linear mean-reversion strategy for USDCAD. The strategy is described as follows. * Use half-life as look-back window, find rolling mean and rolling standard deviation. * scaling-in and out by keep the posistiion size negatively porportional to the <a href="https://en.wikipedia.org/wiki/Standard_score" target="_blank" rel="noopener">z-score</a>.</p>
 <p>The following code is self-explanatory. It finds rolling z-score and then trades negatively proportional to it.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_bar</span><span class="params">(self, bar_event)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># retrieve price history up to now</span></span><br><span class="line">    hist_data_to_date = self._data_board.get_hist_price(self.symbols[<span class="number">0</span>], bar_event.bar_end_time())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> hist_data_to_date.shape[<span class="number">0</span>] &lt; self.lookback_window:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    rolling_avg = np.average(hist_data_to_date.iloc[-self.lookback_window:][<span class="string">'Price'</span>])</span><br><span class="line">    rolling_sd = np.std(hist_data_to_date.iloc[-self.lookback_window:][<span class="string">'Price'</span>])</span><br><span class="line">    rolling_z_score = (hist_data_to_date.iloc[<span class="number">-1</span>] - rolling_avg) / rolling_sd</span><br><span class="line">    rolling_z_score = rolling_z_score.values[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># size is negatively proportional to z-score</span></span><br><span class="line">    target_size = <span class="number">-1</span> * int(rolling_z_score * <span class="number">10000</span>)  <span class="comment"># integer lots only</span></span><br><span class="line">    lots_to_trade = target_size - self._current_size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> lots_to_trade != <span class="number">0</span>:</span><br><span class="line">        o = OrderEvent()</span><br><span class="line">        o.full_symbol = self.symbols[<span class="number">0</span>]</span><br><span class="line">        o.order_type = OrderType.MARKET</span><br><span class="line">        o.order_size = lots_to_trade</span><br><span class="line">        print(<span class="string">'&#123;&#125; traded &#123;&#125; on z-score &#123;&#125;'</span>.format(bar_event.bar_end_time(), lots_to_trade, rolling_z_score))</span><br><span class="line">        self.place_order(o)</span><br><span class="line"></span><br><span class="line">    self._current_size = target_size</span><br></pre></td></tr></table></figure>
-
-<img src="/mean-reversion/simple_linear_scaling.png" class title="Backtest Results">
-
-<p>The benchmark is USDCAD exchange rate. It seems that between Oct-2015 and Jan-2016 when USD trending up, mean reversion strategies don’t do well in their primitive settings. It came back right after until Apr-2016 when USD pulled back from 1.45 to 1.25. In the future we’ll use Hidden Markov Chain to improve the performance by detecting if the market is in trending or mean-reverting phase.</p>
+<img src="/mean-reversion/simple_linear_scaling.png" class="" title="Backtest Results">
+<p>The benchmark is USDCAD exchange rate. It seems that between Oct-2015 and Jan-2016 when USD trending up, mean reversion strategies don't do well in their primitive settings. It came back right after until Apr-2016 when USD pulled back from 1.45 to 1.25. In the future we'll use Hidden Markov Chain to improve the performance by detecting if the market is in trending or mean-reverting phase.</p>
 <p>The full code can be found in <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/strategy/mystrategy/moving_average_cross_strategy.py" target="_blank" rel="noopener">github repo</a>.</p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>In sum, this post considers one single time series. Next post we will look at two time series or pairs trading.</p>
-<p><strong>Reference</strong></p>
-<ul>
-<li>[1] Chan, Ernie. Algorithmic trading: winning strategies and their rationale. Vol. 625. John Wiley &amp; Sons, 2013.</li>
-<li>[2] Tsay, Ruey S. Analysis of financial time series. Vol. 543. John Wiley &amp; Sons, 2005.</li>
-<li>[3] <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank" rel="noopener">Ornstein–Uhlenbeck process, Wikipedia</a></li>
-<li>[4] <a href="https://www.quantstart.com/articles/Basics-of-Statistical-Mean-Reversion-Testing" target="_blank" rel="noopener">QuantStart</a></li>
-</ul>
-<h2 id="Appendix-–-Ornstein–Uhlenbeck-process"><a href="#Appendix-–-Ornstein–Uhlenbeck-process" class="headerlink" title="Appendix – Ornstein–Uhlenbeck process"></a>Appendix – Ornstein–Uhlenbeck process</h2><p>An Ornstein–Uhlenbeck process is governed by the following <a href="https://en.wikipedia.org/wiki/Stochastic_differential_equation" target="_blank" rel="noopener">stochastic differential equation</a></p>
-<p>$$<br>dx_t=\theta (\mu-x_t)dt+\sigma dW_t<br>\tag{A1}<br>$$</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In sum, this post considers one single time series. Next post we will look at two time series or pairs trading.</p>
+<p><strong>Reference</strong> * [1] Chan, Ernie. Algorithmic trading: winning strategies and their rationale. Vol. 625. John Wiley &amp; Sons, 2013. * [2] Tsay, Ruey S. Analysis of financial time series. Vol. 543. John Wiley &amp; Sons, 2005. * [3] <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank" rel="noopener">Ornstein–Uhlenbeck process, Wikipedia</a> * [4] <a href="https://www.quantstart.com/articles/Basics-of-Statistical-Mean-Reversion-Testing" target="_blank" rel="noopener">QuantStart</a></p>
+<h2 id="appendix----ornsteinuhlenbeck-process">Appendix -- Ornstein–Uhlenbeck process</h2>
+<p>An Ornstein–Uhlenbeck process is governed by the following <a href="https://en.wikipedia.org/wiki/Stochastic_differential_equation" target="_blank" rel="noopener">stochastic differential equation</a></p>
+<p><span class="math display">\[
+dx_t=\theta (\mu-x_t)dt+\sigma dW_t
+\tag{A1}
+\]</span></p>
 <p>With the help of <a href="https://en.wikipedia.org/wiki/It%C3%B4%27s_lemma" target="_blank" rel="noopener">Ito lemma</a>, <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank" rel="noopener">Wikipedia</a> solves its solution as</p>
-<p>$$<br>x_t = x_0e^{-\theta t}+\mu(1-e^{-\theta t})+\sigma \int_{0}^{t} e^{-\theta (t-s)}dW_s<br>\tag{A2}<br>$$</p>
+<p><span class="math display">\[
+x_t = x_0e^{-\theta t}+\mu(1-e^{-\theta t})+\sigma \int_{0}^{t} e^{-\theta (t-s)}dW_s
+\tag{A2}
+\]</span></p>
 <p>Therefore, its first two moments of its equilibrium distribution become</p>
-<p>$$<br>E[x_t]=x_0 e^{-\theta t}+\mu(1-e^{-\theta t}) \rightarrow \mu<br>\tag{A3}<br>$$</p>
-<p>$$<br>Var[x_t]=\frac{\sigma^2}{2\theta}(1-e^{-2\theta t})\rightarrow\frac{\sigma^2}{2\theta}<br>\tag{A4}<br>$$</p>
-<p>It’s half life is defined as the (expected) time to return half way to its mean, or</p>
-<p>$$E[x(t_{0.5})]-\mu=\frac{x_0-\mu}{2} \tag{A5}$$</p>
+<p><span class="math display">\[ 
+E[x_t]=x_0 e^{-\theta t}+\mu(1-e^{-\theta t}) \rightarrow \mu
+\tag{A3}
+\]</span></p>
+<p><span class="math display">\[
+Var[x_t]=\frac{\sigma^2}{2\theta}(1-e^{-2\theta t})\rightarrow\frac{\sigma^2}{2\theta}
+\tag{A4}
+\]</span></p>
+<p>It's half life is defined as the (expected) time to return half way to its mean, or</p>
+<p><span class="math display">\[E[x(t_{0.5})]-\mu=\frac{x_0-\mu}{2} \tag{A5}\]</span></p>
 <p>Then plus (A3) into (A5), the left-hand-side of (A5) becomes</p>
-<p> $$<br> \begin{matrix}<br>E[x(t_{0.5})]-\mu &amp;=&amp; x_0 e^{-\theta t_{0.5}}+\mu(1-e^{-\theta t_{0.5}})-\mu \\<br>&amp;=&amp; e^{-\theta t_{0.5}}(x_0-\mu)<br> \end{matrix}<br>\tag{A6}<br> $$</p>
-<p> Solving it with right-hand-side gives the half-life</p>
-<p>$$e^{-\theta t_{0.5}}(x_0-\mu)=\frac{x_0-\mu}{2} \Rightarrow t_{0.5}=\frac{ln2}{\theta} \tag{A7}$$</p>
-<p>It’s obvious that the larger $\theta$ is, the shorter is half life and thus stronger the mean-reversion effect.</p>
+<p><span class="math display">\[
+ \begin{matrix}
+E[x(t_{0.5})]-\mu &amp;=&amp; x_0 e^{-\theta t_{0.5}}+\mu(1-e^{-\theta t_{0.5}})-\mu \\\\
+&amp;=&amp; e^{-\theta t_{0.5}}(x_0-\mu)
+ \end{matrix}
+\tag{A6}
+ \]</span></p>
+<p>Solving it with right-hand-side gives the half-life</p>
+<p><span class="math display">\[e^{-\theta t_{0.5}}(x_0-\mu)=\frac{x_0-\mu}{2} \Rightarrow t_{0.5}=\frac{ln2}{\theta} \tag{A7}\]</span></p>
+<p>It's obvious that the larger <span class="math inline">\(\theta\)</span> is, the shorter is half life and thus stronger the mean-reversion effect.</p>
 <p>The relationship with AR(1) can be seen by discretizing (A1)</p>
-<p>$$ \Delta x({t_i})=x(t_{i+1})-x({t_i})=a+(b-1)x(t_i)+\delta \epsilon_{t_{i+1}} \tag{A8}$$</p>
+<p><span class="math display">\[ \Delta x({t_i})=x(t_{i+1})-x({t_i})=a+(b-1)x(t_i)+\delta \epsilon_{t_{i+1}} \tag{A8}\]</span></p>
 <p>or in ARMA representation</p>
-<p>$$ x(t_{i+1})=a+bx(t_i)+\delta \epsilon_{t_{i+1}} \tag{A9}$$</p>
+<p><span class="math display">\[ x(t_{i+1})=a+bx(t_i)+\delta \epsilon_{t_{i+1}} \tag{A9}\]</span></p>
 <p>and the stationarity condition becomes</p>
-<p>$$|b|&lt;1 \rightarrow \theta &gt; 0 \tag{A10}$$</p>
+<p><span class="math display">\[|b|&lt;1 \rightarrow \theta &gt; 0 \tag{A10}\]</span></p>
 
     </div>
 
@@ -418,14 +433,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statistical-Testing"><span class="nav-number">2.</span> <span class="nav-text">Statistical Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Augmented-Dickey-Fuller-Test"><span class="nav-number">2.1.</span> <span class="nav-text">Augmented Dickey-Fuller Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hurst-Exponent"><span class="nav-number">2.2.</span> <span class="nav-text">Hurst Exponent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Variance-Ratio-Test"><span class="nav-number">3.</span> <span class="nav-text">Variance Ratio Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Half-Life"><span class="nav-number">4.</span> <span class="nav-text">Half-Life</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-linear-scaling-in-strategy"><span class="nav-number">5.</span> <span class="nav-text">A linear scaling-in strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix-–-Ornstein–Uhlenbeck-process"><span class="nav-number">7.</span> <span class="nav-text">Appendix – Ornstein–Uhlenbeck process</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#statistical-testing"><span class="nav-number">2.</span> <span class="nav-text">Statistical Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#augmented-dickey-fuller-test"><span class="nav-number">2.1.</span> <span class="nav-text">Augmented Dickey-Fuller Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hurst-exponent"><span class="nav-number">2.2.</span> <span class="nav-text">Hurst Exponent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#variance-ratio-test"><span class="nav-number">3.</span> <span class="nav-text">Variance Ratio Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#half-life"><span class="nav-number">4.</span> <span class="nav-text">Half-Life</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-linear-scaling-in-strategy"><span class="nav-number">5.</span> <span class="nav-text">A linear scaling-in strategy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number">6.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#appendix----ornsteinuhlenbeck-process"><span class="nav-number">7.</span> <span class="nav-text">Appendix -- Ornstein–Uhlenbeck process</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Letian Wang"
-      src="/images/avatar.png">
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Letian Wang</p>
   <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
 </div>
@@ -434,20 +449,17 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span></a>
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span></a>
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
       </div>
   </nav>
 </div>
@@ -490,7 +502,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Letian Wang</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
   </div>
 
         
@@ -516,7 +528,7 @@
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
