@@ -1,373 +1,247 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="en">
+<html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Cointegration,Error-Correction Model,Pairs Trading,Johansen Test,Quantitative Trading" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
-<meta name="keywords" content="Cointegration,Error-Correction Model,Pairs Trading,Johansen Test,Quantitative Trading">
+  <meta name="description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cointegration and Pairs Trading">
 <meta property="og:url" content="https://letianzj.github.io/cointegration-pairs-trading.html">
 <meta property="og:site_name" content="Systematic Investing">
 <meta property="og:description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/cointegration-pairs-trading/ewa_ewc.png">
 <meta property="og:image" content="https://letianzj.github.io/cointegration-pairs-trading/backtest_results.png">
-<meta property="og:updated_time" content="2020-06-30T16:17:00.194Z">
+<meta property="article:published_time" content="2018-03-24T22:40:00.000Z">
+<meta property="article:modified_time" content="2020-07-02T02:14:42.406Z">
+<meta property="article:author" content="Letian Wang">
+<meta property="article:tag" content="Cointegration">
+<meta property="article:tag" content="Error-Correction Model">
+<meta property="article:tag" content="Pairs Trading">
+<meta property="article:tag" content="Johansen Test">
+<meta property="article:tag" content="Quantitative Trading">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cointegration and Pairs Trading">
-<meta name="twitter:description" content="IntroductionIn last post we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially c">
 <meta name="twitter:image" content="https://letianzj.github.io/cointegration-pairs-trading/ewa_ewc.png">
 
+<link rel="canonical" href="https://letianzj.github.io/cointegration-pairs-trading.html">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
   };
 </script>
 
-
-
-  <link rel="canonical" href="https://letianzj.github.io/cointegration-pairs-trading.html"/>
-
-
-
-
-
-  <title>Cointegration and Pairs Trading | Cointegration,Error-Correction Model,Pairs Trading,Johansen Test,Quantitative Trading | Systematic Investing</title>
+  <title>Cointegration and Pairs Trading | Systematic Investing</title>
   
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-109341958-2');
+      }
+    </script>
 
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-109341958-2', 'auto');
-  ga('send', 'pageview');
-</script>
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Systematic Investing</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <h1 class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</h1>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Systematic Investing</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quant Trading and Portfolio Management</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
         <li class="menu-item menu-item-sitemap">
-          <a href="/sitemap.xml" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
-            
-            Sitemap
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/cointegration-pairs-trading.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Letian Wang">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="Quantitative Finance Blog">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Systematic Investing">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">Cointegration and Pairs Trading</h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          Cointegration and Pairs Trading
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-24T18:40:00-04:00">
-                2018-03-24
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Systematic-Investment/" itemprop="url" rel="index">
-                    <span itemprop="name">Systematic Investment</span>
-                  </a>
-                </span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Systematic-Investment/Quantitative-Trading/" itemprop="url" rel="index">
-                    <span itemprop="name">Quantitative Trading</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="Created: 2018-03-24 18:40:00" itemprop="dateCreated datePublished" datetime="2018-03-24T18:40:00-04:00">2018-03-24</time>
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
+              <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
-                <a href="/cointegration-pairs-trading.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="cointegration-pairs-trading.html" itemprop="commentCount"></span>
-                </a>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-01 22:14:42" itemprop="dateModified" datetime="2020-07-01T22:14:42-04:00">2020-07-01</time>
               </span>
-            
-          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Systematic-Investment/" itemprop="url" rel="index"><span itemprop="name">Systematic Investment</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Systematic-Investment/Quantitative-Trading/" itemprop="url" rel="index"><span itemprop="name">Quantitative Trading</span></a>
+                </span>
+            </span>
 
           
-          
-
-          
-
-          
-
-          
-		  
-		  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/cointegration-pairs-trading.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cointegration-pairs-trading.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
       </header>
-    
 
     
     
@@ -375,26 +249,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>In <a href="/mean-reversion.html" title="last post">last post</a> we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a portfolio of stocks that is mean-reverting. If the portfolio has only two stocks, it is known as <a href="https://en.wikipedia.org/wiki/Pairs_trade" target="_blank" rel="noopener">pairs trading</a>, a special form of <a href="https://en.wikipedia.org/wiki/Statistical_arbitrage" target="_blank" rel="noopener">statistical arbitrage</a>. By combining two <a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">cointegrated</a> stocks, we can construct a spread that is mean-reverting, even when these two stocks themselves are not. Please refer to the appendix if you want to check out cointegration first.</p>
 <p><a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">Cointegration</a> and <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank" rel="noopener">correlation</a> talk abouot different things. For example, if two stock prices follow two straight lines with differennt slopes, then they are positively correlated but not cointegrated, as illustrated in <a href="https://www.quora.com/What-is-the-difference-between-correlation-and-cointegration-Is-cointegration-a-good-measure-of-risk" target="_blank" rel="noopener">this quora post</a>. The mathematical formulas are relegated in the appendix.</p>
 <p>The backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
 <a id="more"></a>
+
 <h2 id="Statistical-Testing"><a href="#Statistical-Testing" class="headerlink" title="Statistical Testing"></a>Statistical Testing</h2><p>Let’s look at Ernie Chan’s ([2]) EWA and EWC trade. The reasoning behind this trade is that both Canada and Australia’s GDP rely heavily on natural resources, therefore their stock market performance are expected to be correlated through natural resources’ prices.</p>
 <!--<img src="cointegration-pairs-trading/ewa_ewc.png" align="center" width="100%" height="100%">-->
-<img src="/cointegration-pairs-trading/ewa_ewc.png" title="EWA vs EWC">
+
+
 <p>EWA and EWC visually appear to be highly correlated with pearson correlation coefficient of 95%. The residual seems mean-reverting. Let’s verify it with statistical tests.</p>
 <h3 id="Cointegrated-Augmented-Dickey-Fuller-Test"><a href="#Cointegrated-Augmented-Dickey-Fuller-Test" class="headerlink" title="Cointegrated Augmented Dickey Fuller Test"></a>Cointegrated Augmented Dickey Fuller Test</h3><p>In order to perform ADF test as in <a href="/mean-reversion.html" title="last post">last post</a>, we need to know the hedging ratio between the two stocks. Cointegrated Augmented Dickey-Fuller (CADF) test determines the optimal hedge ratio by linear regression against the two stocks and then tests for stationarity of the residuals. CADF is also known as <a href="https://en.wikipedia.org/wiki/Cointegration#Engle%E2%80%93Granger_two-step_method" target="_blank" rel="noopener">Engle-Granger two-step method</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> statsmodels.tsa.stattools <span class="keyword">as</span> ts</span><br><span class="line">ts.adfuller(y_residual, <span class="number">1</span>)           <span class="comment"># lag = 1</span></span><br><span class="line"><span class="comment"># (-3.667485117146333,</span></span><br><span class="line"><span class="comment">#  0.0045944586170011716,</span></span><br><span class="line"><span class="comment">#  1,</span></span><br><span class="line"><span class="comment">#  4560,</span></span><br><span class="line"><span class="comment">#  &#123;'1%': -3.431784865122899,</span></span><br><span class="line"><span class="comment">#   '5%': -2.8621740417619224,</span></span><br><span class="line"><span class="comment">#   '10%': -2.5671075035106954&#125;,</span></span><br><span class="line"><span class="comment">#  625.5003218990623)</span></span><br></pre></td></tr></table></figure>
 <p>The result indicates that the calculated test statistic of -3.667, smaller than the 5% critical value of -2.86; the p-value is 0.00459. This means that we can reject the null hypothesis of unit root or no cointegration. In other words, we accept that EWA and EWC are cointegrated with the hedging ratio given by the linear regression.</p>
 <p>One undesired feature of the ordinary least square is that it is asymmetric, by switching the dependent and independent variables it will result in a differnet hedging ratio. A common solution is to do both sides, and choose the one with most negative / statistically significant test-statistic.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lm_model = LinearRegression(copy_X=<span class="keyword">True</span>, fit_intercept=<span class="keyword">True</span>, normalize=<span class="keyword">False</span>)</span><br><span class="line">lm_model.fit(data[<span class="string">'EWC US Equity'</span>].values.reshape(<span class="number">-1</span>,<span class="number">1</span>), data[<span class="string">'EWA US Equity'</span>].values)        <span class="comment"># fit() expects 2D array</span></span><br><span class="line">print(<span class="string">'pamameters: %.7f, %.7f'</span> %(lm_model.intercept_, lm_model.coef_))</span><br><span class="line">yfit = lm_model.coef_ * data[<span class="string">'EWC US Equity'</span>] + lm_model.intercept_</span><br><span class="line">y_residual = data[<span class="string">'EWA US Equity'</span>] - yfit</span><br><span class="line">ts.adfuller(y_residual, <span class="number">1</span>)           <span class="comment"># lag = 1</span></span><br><span class="line"><span class="comment"># statistic = -3.797221868633519</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">lm_model = LinearRegression(copy_X=<span class="literal">True</span>, fit_intercept=<span class="literal">True</span>, normalize=<span class="literal">False</span>)</span><br><span class="line">lm_model.fit(data[<span class="string">'EWC US Equity'</span>].values.reshape(<span class="number">-1</span>,<span class="number">1</span>), data[<span class="string">'EWA US Equity'</span>].values)        <span class="comment"># fit() expects 2D array</span></span><br><span class="line">print(<span class="string">'pamameters: %.7f, %.7f'</span> %(lm_model.intercept_, lm_model.coef_))</span><br><span class="line">yfit = lm_model.coef_ * data[<span class="string">'EWC US Equity'</span>] + lm_model.intercept_</span><br><span class="line">y_residual = data[<span class="string">'EWA US Equity'</span>] - yfit</span><br><span class="line">ts.adfuller(y_residual, <span class="number">1</span>)           <span class="comment"># lag = 1</span></span><br><span class="line"><span class="comment"># statistic = -3.797221868633519</span></span><br></pre></td></tr></table></figure>
+
 <p>Because the second regression has test-statistic of $-3.79&lt;-3.667$, we use EWC as independent variable and EWA as dependent variable. The coefficient is $0.8328531$.</p>
 <h3 id="Johansen-Test"><a href="#Johansen-Test" class="headerlink" title="Johansen Test"></a>Johansen Test</h3><p>It’s understandable that if we do the test in two steps like in CADF, error accumulates between steps. <a href="https://en.wikipedia.org/wiki/Johansen_test" target="_blank" rel="noopener">Johansen test</a> overcomes this by allowing us find hedge ratio and test cointegration at the same time. Another advantage of Johansen test is that it can be extended to more than two stocks. </p>
 <p>Johansen test checks the rank $r$ of $\Pi$ in equation (A6). It gives statistical significance for $r=0,1,2,…,n-1$ sequentially, where $n$ is the full rank. The null hypothesis of $r=0$ means no cointegration relationship; $r \leq 1$ means up to one cointegration relationship, and so on. As a by product, the the eigenvectors of $\Pi$ serves as hedge ratios for the stock portfolio.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.vector_ar.vecm <span class="keyword">import</span> coint_johansen</span><br><span class="line"></span><br><span class="line">jh_results = coint_johansen(data, <span class="number">0</span>, <span class="number">1</span>)             <span class="comment"># 0 - constant term; 1 - log 1</span></span><br><span class="line">print(jh_results.lr1)                           <span class="comment"># dim = (n,) Trace statistic</span></span><br><span class="line">print(jh_results.cvt)                           <span class="comment"># dim = (n,3) critical value table (90%, 95%, 99%)</span></span><br><span class="line">print(jh_results.evec)                          <span class="comment"># dim = (n, n), columnwise eigen-vectors</span></span><br><span class="line">v1 = jh_results.evec[:, <span class="number">0</span>]</span><br><span class="line">v2 = jh_results.evec[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># [21.44412674  3.64194243]                 # trace statistic</span></span><br><span class="line"><span class="comment"># [[13.4294 15.4943 19.9349]                # r = 0 critical values</span></span><br><span class="line"><span class="comment">#  [ 2.7055  3.8415  6.6349]]               # r &lt;= 1 critical values</span></span><br><span class="line"><span class="comment"># [[ 0.53474958  0.02398649]                # eigenvectors</span></span><br><span class="line"><span class="comment">#  [-0.45169106  0.12036402]]</span></span><br></pre></td></tr></table></figure>
+
 <p>From the test results above, we will reject null hypothesis of $r=0$ easily. We can reject $r\leq1$ up to 90% confidence level. There’s another 10% of chance that $r$ is 1 or based on (A6), they are cointegrated. It seems that Johansen test is more strict than the CDAF test regarding to accepting pairs. The first eigenvector can be normalized to $-0.45169/0.534749=-0.84467$, which is pretty close to $0.83285314$ from CADF section.</p>
 <h2 id="Pairs-Trading"><a href="#Pairs-Trading" class="headerlink" title="Pairs Trading"></a>Pairs Trading</h2><p>It is time to backtest the EWA-EWC pairs trading on the <a href="https://en.wikipedia.org/wiki/Bollinger_Bands" target="_blank" rel="noopener">Bollinger-bands strategy</a>. The strategy is very simple.</p>
 <ul>
@@ -405,8 +280,10 @@
 <p>In order to avoid the <a href="https://www.investopedia.com/terms/l/lookaheadbias.asp" target="_blank" rel="noopener">look-ahead bias</a> caused by using whole dataset for regression, we use a rolling window and re-estimate the linear regression at every step. This is also known as <a href="https://en.wikipedia.org/wiki/Walk_forward_optimization" target="_blank" rel="noopener">walk forward analysis</a>. Another approach is to use online regression mechanism such as <a href="https://en.wikipedia.org/wiki/Kalman_filter" target="_blank" rel="noopener">Kalman filter</a>, which will be covered in the next post.</p>
 <p>The trading logic is posted below. Full code can be found <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/strategy/mystrategy/mean_reversion_spread_strategy.py" target="_blank" rel="noopener">here on github</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (spread[<span class="number">-1</span>] &gt; bollinger_ub) <span class="keyword">and</span> (self.current_ewa_size &gt;= <span class="number">0</span>):</span><br><span class="line">	<span class="keyword">print</span> (<span class="string">'Hit upper band, short spread.'</span>)</span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">0</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size = int(<span class="number">-1000</span>*coeff) - self.current_ewa_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewa_size = int(<span class="number">-1000</span>*coeff)</span><br><span class="line"></span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">1</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size = <span class="number">1000</span> - self.current_ewc_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewc_size = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> (spread[<span class="number">-1</span>] &lt; bollinger_lb) <span class="keyword">and</span> (self.current_ewa_size &lt;= <span class="number">0</span>):</span><br><span class="line">	print(<span class="string">'Hit lower band, long spread.'</span>)</span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">0</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size = int(<span class="number">1000</span> * coeff) - self.current_ewa_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewa_size = int(<span class="number">1000</span> * coeff)</span><br><span class="line"></span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">1</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size = <span class="number">-1000</span> - self.current_ewc_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewc_size = <span class="number">-1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> (spread[<span class="number">-1</span>] &lt; <span class="number">0</span>) <span class="keyword">and</span> (spread[<span class="number">-1</span>] &gt; bollinger_lb) <span class="keyword">and</span> (self.current_ewa_size &lt; <span class="number">0</span>):</span><br><span class="line">	print(<span class="string">'spread crosses below average.cover short spread'</span>)</span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">0</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size =  - self.current_ewa_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewa_size = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">1</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size =  - self.current_ewc_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewc_size = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">elif</span> (spread[<span class="number">-1</span>] &gt; <span class="number">0</span>) <span class="keyword">and</span> (spread[<span class="number">-1</span>] &lt; bollinger_ub) <span class="keyword">and</span> (self.current_ewa_size &gt; <span class="number">0</span>):</span><br><span class="line">	print(<span class="string">'spread crosses above average.cover long spread'</span>)</span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">0</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size =  - self.current_ewa_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewa_size = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">	o = OrderEvent()</span><br><span class="line">	o.full_symbol = self.symbols[<span class="number">1</span>]</span><br><span class="line">	o.order_type = OrderType.MARKET</span><br><span class="line">	o.order_size =  - self.current_ewc_size</span><br><span class="line">	self.place_order(o)</span><br><span class="line">	self.current_ewc_size = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
 <!--<img src="cointegration-pairs-trading/backtest_results.png" align="center" width="100%" height="100%">-->
-<img src="/cointegration-pairs-trading/backtest_results.png" title="Backtest Results">
+
+
 <p><strong>Reference</strong></p>
 <ul>
 <li>[1] Tsay, Ruey S. Analysis of financial time series. Vol. 543. John Wiley &amp; Sons, 2005.</li>
@@ -432,318 +309,203 @@
 <p>This is the well-known <a href="https://en.wikipedia.org/wiki/Error_correction_model" target="_blank" rel="noopener">Engle and Granger (1987) Error-Correction representation</a>. Notice that formula (A5) indicates stock one has a tendency to pull down ($-0.2&lt;0$) and stock two has a tendency to pull up ($0.4&gt;0$), when the distance between them ($x_{1,t-1}-2x_{2,t-1}$) becomes bigger.</p>
 <p>The first term on the right-hand side of (A5) is referred to as error-correction term. Let </p>
 <p>$$<br>\Pi=\left[ \begin {array}{c} -0.2 \\ 0.4 \end{array} \right]\left[ \begin {array}{cc} 1 &amp; -2 \end{array} \right]=\begin{bmatrix} -0.2 &amp; 0.4 \\ 0.4 &amp; -0.8 \end{bmatrix}<br>\tag{A6}<br>$$</p>
-<p><a href="https://en.wikipedia.org/wiki/Johansen_test" target="_blank" rel="noopener">Johansen test</a> first estimates $\Pi$ and then check if it is full <a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra" target="_blank" rel="noopener">rank</a>). Particularly in this example it will find coefficent as $[1, -2]$ and rank = 1 (not full rank).</p>
+<p><a href="https://en.wikipedia.org/wiki/Johansen_test" target="_blank" rel="noopener">Johansen test</a> first estimates $\Pi$ and then check if it is full <a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra)" target="_blank" rel="noopener">rank</a>. Particularly in this example it will find coefficent as $[1, -2]$ and rank = 1 (not full rank).</p>
 <h3 id="ECM-two-step-Approach"><a href="#ECM-two-step-Approach" class="headerlink" title="ECM two-step Approach"></a>ECM two-step Approach</h3><p>To estimate the model in two steps is because one-step regression upon differences will miss the long-term relationship. Consider a simple system<br>$$<br>\begin{aligned}<br>x_t&amp;=x_{t-1}+u_t \<br>y_t&amp;=y_{t-1}+v_t<br>\end{aligned}<br>$$</p>
 <p>If we know $x$ and $y$ have a long term relationship $y=ax+\epsilon$, then<br>$$<br>\Delta y_t = y_t-y_{t-1}=ax_t-y_{t-1}+\epsilon_t=a\Delta x_t+ \left(ax_{t-1}-y_{t-1}\right)+\epsilon_t<br>$$</p>
 <p>It is clear now that first step is to regression $\left(ax_{t-1}-y_{t-1}\right)$ and then put that into the second step regression. Also note that this is to find the VAR representation in ECM format. To test for cointegration, it usually performs ADF test on residuals from first step regression.</p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-      <div>
-        <ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>Post author:</strong>
-    Letian Wang
-  </li>
-  <li class="post-copyright-link">
-    <strong>Post link:</strong>
-    <a href="https://letianzj.github.io/cointegration-pairs-trading.html" title="Cointegration and Pairs Trading">https://letianzj.github.io/cointegration-pairs-trading.html</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>Copyright Notice: </strong>
-    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
-  </li>
-</ul>
-
-      </div>
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Systematic-Investment/" rel="tag"># Systematic Investment</a>
-          
-            <a href="/tags/Quantitative-Trading/" rel="tag"># Quantitative Trading</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/mean-reversion.html" rel="next" title="Mean Reversion">
-                <i class="fa fa-chevron-left"></i> Mean Reversion
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Systematic-Investment/" rel="tag"># Systematic Investment</a>
+              <a href="/tags/Quantitative-Trading/" rel="tag"># Quantitative Trading</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kalman-filter-pairs-trading.html" rel="prev" title="Kalman Filter and Pairs Trading">
-                Kalman Filter and Pairs Trading <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/mean-reversion.html" rel="prev" title="Mean Reversion">
+      <i class="fa fa-chevron-left"></i> Mean Reversion
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/kalman-filter-pairs-trading.html" rel="next" title="Kalman Filter and Pairs Trading">
+      Kalman Filter and Pairs Trading <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
-
-
-          
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
     </div>
   </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/avatar.png"
-                alt="Letian Wang" />
-            
-              <p class="site-author-name" itemprop="name">Letian Wang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">16</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
-                  <span class="site-state-item-name">categories</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
-                  <span class="site-state-item-name">tags</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/letianzj" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:letian.zj@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" target="_blank" title="Linkedin">
-                      
-                        <i class="fa fa-fw fa-linkedin"></i>Linkedin</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statistical-Testing"><span class="nav-number">2.</span> <span class="nav-text">Statistical Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegrated-Augmented-Dickey-Fuller-Test"><span class="nav-number">2.1.</span> <span class="nav-text">Cointegrated Augmented Dickey Fuller Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Johansen-Test"><span class="nav-number">2.2.</span> <span class="nav-text">Johansen Test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pairs-Trading"><span class="nav-number">3.</span> <span class="nav-text">Pairs Trading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">4.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegration-and-Error-Correction-Model"><span class="nav-number">4.1.</span> <span class="nav-text">Cointegration and Error-Correction Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECM-two-step-Approach"><span class="nav-number">4.2.</span> <span class="nav-text">ECM two-step Approach</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Letian Wang</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
   
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statistical-Testing"><span class="nav-number">2.</span> <span class="nav-text">Statistical Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegrated-Augmented-Dickey-Fuller-Test"><span class="nav-number">2.1.</span> <span class="nav-text">Cointegrated Augmented Dickey Fuller Test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Johansen-Test"><span class="nav-number">2.2.</span> <span class="nav-text">Johansen Test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pairs-Trading"><span class="nav-number">3.</span> <span class="nav-text">Pairs Trading</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appendix"><span class="nav-number">4.</span> <span class="nav-text">Appendix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cointegration-and-Error-Correction-Model"><span class="nav-number">4.1.</span> <span class="nav-text">Cointegration and Error-Correction Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECM-two-step-Approach"><span class="nav-number">4.2.</span> <span class="nav-text">ECM two-step Approach</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Letian Wang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Letian Wang</p>
+  <div class="site-description" itemprop="description">Quantitative Finance Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/letianzj" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;letianzj" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:letian.zj@gmail.com" title="E-Mail → mailto:letian.zj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/letian-wang-phd-cfa-frm-75b53312/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;letian-wang-phd-cfa-frm-75b53312&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Letian Wang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
 
 
 
 
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -761,160 +523,98 @@
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-    
-      <script id="dsq-count-scr" src="https://https-letianzj-github-io.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://letianzj.github.io/cointegration-pairs-trading.html';
-          this.page.identifier = 'cointegration-pairs-trading.html';
-          this.page.title = 'Cointegration and Pairs Trading';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
 
 
 
   
 
   
+      
 
-  
-
-  
-  
-
-  
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
         }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
         }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://https-letianzj-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://letianzj.github.io/cointegration-pairs-trading.html";
+    this.page.identifier = "cointegration-pairs-trading.html";
+    this.page.title = "Cointegration and Pairs Trading";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
       });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
-
-
-  
-
-  
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://https-letianzj-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
