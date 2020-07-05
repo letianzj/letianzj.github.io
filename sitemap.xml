@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
+    
+    <lastmod>2020-07-05T19:50:20.208Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/hidden-markov-chain.html</loc>
+    
+    <lastmod>2020-07-05T19:48:22.439Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    
+    <lastmod>2020-07-05T19:47:50.934Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/mean-reversion.html</loc>
+    
+    <lastmod>2020-07-05T19:47:22.606Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
+    
+    <lastmod>2020-07-05T19:46:38.145Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/arima-garch-model.html</loc>
     
     <lastmod>2020-07-03T00:31:51.348Z</lastmod>
@@ -23,30 +58,9 @@
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
-    
-    <lastmod>2020-06-30T16:17:00.194Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/mean-reversion.html</loc>
-    
-    <lastmod>2020-06-30T03:48:29.383Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
     
     <lastmod>2020-06-30T03:46:19.557Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
-    
-    <lastmod>2019-01-07T00:26:47.118Z</lastmod>
     
   </url>
   
@@ -79,13 +93,6 @@
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/hidden-markov-chain.html</loc>
-    
-    <lastmod>2018-10-16T03:05:52.833Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
     
     <lastmod>2018-10-16T00:31:23.106Z</lastmod>
@@ -96,13 +103,6 @@
     <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
     
     <lastmod>2018-10-16T00:27:16.336Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
-    
-    <lastmod>2018-10-16T00:26:28.118Z</lastmod>
     
   </url>
   

@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://letianzj.github.io/backtest_results.png">
 <meta property="og:image" content="https://letianzj.github.io/kalman-filter-pairs-trading/backtest_results.png">
 <meta property="article:published_time" content="2018-03-30T23:25:00.000Z">
-<meta property="article:modified_time" content="2018-10-16T00:26:28.118Z">
+<meta property="article:modified_time" content="2020-07-05T19:50:20.208Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Kalman Filter">
 <meta property="article:tag" content="Machine Learning">
@@ -215,7 +215,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-10-15 20:26:28" itemprop="dateModified" datetime="2018-10-15T20:26:28-04:00">2018-10-15</time>
+                <time title="Modified: 2020-07-05 15:50:20" itemprop="dateModified" datetime="2020-07-05T15:50:20-04:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
       
         <h2 id="introduction">Introduction</h2>
 <p>In <a href="/kalman-filter-linear-regression.html" title="previous post">previous post</a> we have seen Kalman Filter and its ability to online train a linear regression model. In <a href="/cointegration-pairs-trading.html" title="last post">last post</a> we have also seen the idea of cointegration and pairs trading. As pointed out at the end of last post, one way to avoid <a href="https://www.investopedia.com/terms/l/lookaheadbias.asp" target="_blank" rel="noopener">look-ahead bias</a> and gain <a href="https://en.wikipedia.org/wiki/Walk_forward_optimization" target="_blank" rel="noopener">walk forward analysis</a> is through Bayesian online training mechanism such as Kalman Filter. Today we'll apply this idea to pairs trading.</p>
-<p>As usual, the backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
+<p>As usual, the backtest codes in this post is located <a href="https://github.com/letianzj/QuantResearch/tree/master/backtest" target="_blank" rel="noopener">here on Github</a>.</p>
 <a id="more"></a>
 <h2 id="pairs-trading-via-kalman-filter">Pairs Trading via Kalman Filter</h2>
 <p>The idea is simple. Because we can obtain pairs trading hedge coefifcient through linear regression, and linear regression can be solved by Kalman Filter as in <a href="/kalman-filter-linear-regression.html" title="this post">this post</a>, therefore we can link the pairs through Kalman Filter. In this post we are going to use <a href="https://github.com/pykalman/pykalman" target="_blank" rel="noopener">PyKalman package</a>, so the only thing you need to do is to understand the concept and then express the problem in Bayesian format. Let's inherit the notations from previous post (refer to as Prev).</p>
@@ -291,7 +291,7 @@ F_t&amp;=&amp;[1,x_t]
 <p>We can see how the regression line evolves over time, and relative to the line in black, which is the OLS line fitted to the whole dataset.</p>
 <!--<img src="time_varying_regression.png" align="center" width="80%" height="80%">-->
 <img src="/kalman-filter-pairs-trading/time_varying_regression.png" class="" title="Time Varying Regression">
-<p>Last but not least, above codes work correctly but if we want to use Kalman filter in practce we have to take a different approach. That is, we want it to be updated step by step. Fortunately PyKalman also prvoides a function called <strong>kf.filter_update</strong> that serves this purpose. The code is a bit too long to fit here so I relegate it to <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/research/pairs_trading_kalman_filter.py" target="_blank" rel="noopener">github</a>. You are encouraged to run it to see the equivalence but the latter allows for model updates every day upon new EWA and EWC prices, which will in turn be used in the next section.</p>
+<p>Last but not least, above codes work correctly but if we want to use Kalman filter in practce we have to take a different approach. That is, we want it to be updated step by step. Fortunately PyKalman also prvoides a function called <strong>kf.filter_update</strong> that serves this purpose. The code is a bit too long to fit here so I relegate it on <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/pairs_trading_kalman_filter.py" target="_blank" rel="noopener">github</a>. You are encouraged to run it to see the equivalence but the latter allows for model updates every day upon new EWA and EWC prices, which will in turn be used in the next section.</p>
 <h2 id="pairs-trading-backtest">Pairs Trading Backtest</h2>
 <p>It is time to backtest the EWA-EWC pairs trading on the <a href="https://en.wikipedia.org/wiki/Bollinger_Bands" target="_blank" rel="noopener">Bollinger-bands strategy</a> via Kalman Filter updates. The strategy is the same as <a href="/cointegration-pairs-trading.html" title="last post">last post</a>. This allows us to compare the results with simple linear regression.</p>
 <p>There is one thing needs to be pointed out in order to better understand the code, that is, <strong>the measurement error given in Pre<span class="math inline">\((A.5)\)</span> is actually the spread at time k</strong>. To see this, notice that the first item on the right-hand side, <span class="math inline">\(y_k\)</span>, is the EWC price, and the second item,</p>
@@ -301,7 +301,7 @@ F_k\hat{\theta}_{k|k-1}=a_k+b_k*x_k
 \]</span></p>
 <p>is the hedge side of EWA.</p>
 <p>By the same logic, <strong>Pre<span class="math inline">\((A.6)\)</span> is the variance of spread</strong>. In addition, Pre<span class="math inline">\((A.2)\)</span> assumes the spread/eror term is normally distributed with zero mean and variance of Pre<span class="math inline">\((A.6)\)</span>. Therefore Pre<span class="math inline">\((A.5)\)</span> and Pre<span class="math inline">\((A.6)\)</span> provide the moving average and moving standard deviation (as sqaure root of variance) for Bollinger bands.</p>
-<p>Unfortunately PyKalman package doesn't return them directly so we have to calculate them manually in the strategy. Here is the trading logic (also see [1]). Full code can be found <a href="https://github.com/EliteQuant/EliteQuant_Python/blob/master/source/strategy/mystrategy/kalman_filter_pairs_trading_strategy.py" target="_blank" rel="noopener">here on github</a>.</p>
+<p>Unfortunately PyKalman package doesn't return them directly so we have to calculate them manually in the strategy. Here is the trading logic (also see [1]). Full code can be found <a href="https://github.com/letianzj/QuantResearch/tree/master/backtest" target="_blank" rel="noopener">here on github</a>.</p>
 <ol type="1">
 <li>On each day, observe EWA price <span class="math inline">\(x_t\)</span> and EWC price <span class="math inline">\(y_t\)</span></li>
 <li>Calculate Pre<span class="math inline">\(A.5\)</span> and Pre<span class="math inline">\(A.6\)</span> as current spread and its variance</li>

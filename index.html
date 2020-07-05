@@ -519,7 +519,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-01-06 19:26:47" itemprop="dateModified" datetime="2019-01-06T19:26:47-05:00">2019-01-06</time>
+                <time title="Modified: 2020-07-05 15:46:38" itemprop="dateModified" datetime="2020-07-05T15:46:38-04:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -562,7 +562,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
       
           <h2 id="introduction">Introduction</h2>
 <p>Finanical time series are time stamped sequential data where traditional <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network" target="_blank" rel="noopener">feed-forward neural network</a> doesn't handle well. <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" target="_blank" rel="noopener">Recurrent neural network (RNN)</a> solves this issue by feeding output neurons back into the input to provide memories of previous states. This turns out to be a huge success, especially in Natural Language Processing. Later on, <a href="https://en.wikipedia.org/wiki/Long_short-term_memory" target="_blank" rel="noopener">Long short-term memory (LSTM)</a> and <a href="https://en.wikipedia.org/wiki/Gated_recurrent_unit" target="_blank" rel="noopener">Gated Recurrent Unit(GRU)</a> are designed to alleviate the so-called vanishing/exploding gradients issues in the back-propagation phase of RNNs.</p>
-<p>In this post, I will build an RNN model with LSTM or GRU cell to predict the prices of S&amp;P 500. To be specific, a <a href="https://en.wikipedia.org/wiki/Supervised_learning" target="_blank" rel="noopener">supervised machine learning</a> model will be calibrated to predict tomorrow's S&amp;P 500 close price based on the prices from the previous 20 business days. This is a regression problem; yet the codes can be easily adapted to handle classification problem such as simply predicting tomorrow's market direction. The code is located on <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">Github</a>.</p>
+<p>In this post, I will build an RNN model with LSTM or GRU cell to predict the prices of S&amp;P 500. To be specific, a <a href="https://en.wikipedia.org/wiki/Supervised_learning" target="_blank" rel="noopener">supervised machine learning</a> model will be calibrated to predict tomorrow's S&amp;P 500 close price based on the prices from the previous 20 business days. This is a regression problem; yet the codes can be easily adapted to handle classification problem such as simply predicting tomorrow's market direction. The code is located on <a href="https://github.com/letianzj/QuantResearch/tree/master/notebooks" target="_blank" rel="noopener">Github</a>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/rnn-stock-prediction.html#more" rel="contents">
@@ -620,7 +620,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-10-15 23:05:52" itemprop="dateModified" datetime="2018-10-15T23:05:52-04:00">2018-10-15</time>
+                <time title="Modified: 2020-07-05 15:48:22" itemprop="dateModified" datetime="2020-07-05T15:48:22-04:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -720,7 +720,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-10-15 20:26:28" itemprop="dateModified" datetime="2018-10-15T20:26:28-04:00">2018-10-15</time>
+                <time title="Modified: 2020-07-05 15:50:20" itemprop="dateModified" datetime="2020-07-05T15:50:20-04:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -763,7 +763,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
       
           <h2 id="introduction">Introduction</h2>
 <p>In <a href="/kalman-filter-linear-regression.html" title="previous post">previous post</a> we have seen Kalman Filter and its ability to online train a linear regression model. In <a href="/cointegration-pairs-trading.html" title="last post">last post</a> we have also seen the idea of cointegration and pairs trading. As pointed out at the end of last post, one way to avoid <a href="https://www.investopedia.com/terms/l/lookaheadbias.asp" target="_blank" rel="noopener">look-ahead bias</a> and gain <a href="https://en.wikipedia.org/wiki/Walk_forward_optimization" target="_blank" rel="noopener">walk forward analysis</a> is through Bayesian online training mechanism such as Kalman Filter. Today we'll apply this idea to pairs trading.</p>
-<p>As usual, the backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
+<p>As usual, the backtest codes in this post is located <a href="https://github.com/letianzj/QuantResearch/tree/master/backtest" target="_blank" rel="noopener">here on Github</a>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/kalman-filter-pairs-trading.html#more" rel="contents">
@@ -821,7 +821,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-30 12:17:00" itemprop="dateModified" datetime="2020-06-30T12:17:00-04:00">2020-06-30</time>
+                <time title="Modified: 2020-07-05 15:47:50" itemprop="dateModified" datetime="2020-07-05T15:47:50-04:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -865,7 +865,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
           <h2 id="introduction">Introduction</h2>
 <p>In <a href="/mean-reversion.html" title="last post">last post</a> we examined the mean reversion statistical test and traded on a single name time series. Often times single stock price is not mean-reverting but we are able to artificially create a portfolio of stocks that is mean-reverting. If the portfolio has only two stocks, it is known as <a href="https://en.wikipedia.org/wiki/Pairs_trade" target="_blank" rel="noopener">pairs trading</a>, a special form of <a href="https://en.wikipedia.org/wiki/Statistical_arbitrage" target="_blank" rel="noopener">statistical arbitrage</a>. By combining two <a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">cointegrated</a> stocks, we can construct a spread that is mean-reverting, even when these two stocks themselves are not. Please refer to the appendix if you want to check out cointegration first.</p>
 <p><a href="https://en.wikipedia.org/wiki/Cointegration" target="_blank" rel="noopener">Cointegration</a> and <a href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank" rel="noopener">correlation</a> talk abouot different things. For example, if two stock prices follow two straight lines with differennt slopes, then they are positively correlated but not cointegrated, as illustrated in <a href="https://www.quora.com/What-is-the-difference-between-correlation-and-cointegration-Is-cointegration-a-good-measure-of-risk" target="_blank" rel="noopener">this quora post</a>. The mathematical formulas are relegated in the appendix.</p>
-<p>The backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
+<p>The backtest codes in this post is located on <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/cointegration_pairs_trading.py" target="_blank" rel="noopener">Github</a>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/cointegration-pairs-trading.html#more" rel="contents">
@@ -923,7 +923,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-29 23:48:29" itemprop="dateModified" datetime="2020-06-29T23:48:29-04:00">2020-06-29</time>
+                <time title="Modified: 2020-07-05 15:47:22" itemprop="dateModified" datetime="2020-07-05T15:47:22-04:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -964,7 +964,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
 <p><a href="https://en.wikipedia.org/wiki/Mean_reversion_(finance)" target="_blank" rel="noopener">Mean reversion</a> processes are widely observed in finance. As opposed to <a href="https://en.wikipedia.org/wiki/Trend_following" target="_blank" rel="noopener">trend following</a>, it assumes that the process has a tendency to revert to its average level over time. This average level is usually determined by physical or economical forces such as long term supply and demand. Prices might deviate from that long term mean due to sentimental or short-term disturbances on the market but eventually will revert back to its intrinsic value.</p>
 <p>A continuous mean-reverting time series can be represented by an <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank" rel="noopener">Ornstein-Uhlenbeck</a> process or <a href="https://en.wikipedia.org/wiki/Vasicek_model" target="_blank" rel="noopener">Vasicek model</a> in interest rate field, which is a special case of <a href="https://en.wikipedia.org/wiki/Hull%E2%80%93White_model" target="_blank" rel="noopener">Hull-White model</a> with constant volatility. It is also the continuous-time analogue of the discrete-time <a href="https://en.wikipedia.org/wiki/Autoregressive_model" target="_blank" rel="noopener">AR(1) process</a>. I relegate the mathematical details to appendix.</p>
 <p>To calibrate the OU process, there are generally two approaches based on formula (A9), i.e., the Least square and Maximum Likelihood Estimation. <a href="https://commoditymodels.files.wordpress.com/2010/02/estimating-the-parameters-of-a-mean-reverting-ornstein-uhlenbeck-process1.pdf" target="_blank" rel="noopener">This document</a> gives a good summary and comparison of results.</p>
-<p>The backtest codes in this post is located in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/source/strategy/mystrategy" target="_blank" rel="noopener">strategy folder</a>. All other codes can be found in the <a href="https://github.com/EliteQuant/EliteQuant_Python/tree/master/research" target="_blank" rel="noopener">research folder</a>.</p>
+<p>The backtest codes can be found on <a href="https://github.com/letianzj/QuantResearch/tree/master/notebooks" target="_blank" rel="noopener">Github</a>.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/mean-reversion.html#more" rel="contents">
