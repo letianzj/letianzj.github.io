@@ -23,7 +23,7 @@
 
   <meta name="description" content="Introduction In previous post we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular prac">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Portfolio Management Two -- Comparison of Allocation Schemes">
+<meta property="og:title" content="Portfolio Management Two -- Backtest Monthly Rebalance">
 <meta property="og:url" content="https://letianzj.github.io/portfolio-management-two.html">
 <meta property="og:site_name" content="Systematic Investing">
 <meta property="og:description" content="Introduction In previous post we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular prac">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://letianzj.github.io/portfolio-management-two/monthly_return.png">
 <meta property="og:image" content="https://letianzj.github.io/portfolio-management-two/holdings.png">
 <meta property="article:published_time" content="2019-12-23T23:00:00.000Z">
-<meta property="article:modified_time" content="2020-07-11T03:20:09.347Z">
+<meta property="article:modified_time" content="2020-07-11T11:25:43.116Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Portfolio Management">
 <meta property="article:tag" content="Portfolio Optimization">
@@ -53,7 +53,7 @@
   };
 </script>
 
-  <title>Portfolio Management Two -- Comparison of Allocation Schemes | Systematic Investing</title>
+  <title>Portfolio Management Two -- Backtest Monthly Rebalance | Systematic Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -191,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Portfolio Management Two -- Comparison of Allocation Schemes
+          Portfolio Management Two -- Backtest Monthly Rebalance
         </h1>
 
         <div class="post-meta">
@@ -208,7 +208,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-10 23:20:09" itemprop="dateModified" datetime="2020-07-10T23:20:09-04:00">2020-07-10</time>
+                <time title="Modified: 2020-07-11 07:25:43" itemprop="dateModified" datetime="2020-07-11T07:25:43-04:00">2020-07-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,7 @@
 
       
         <h2 id="introduction">Introduction</h2>
-<p>In <a href="/portfolio-management-one.html" title="previous post">previous post</a> we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular practices in asset allocation, namely risk parity and maximum diversification. Then we evaluate these allocation schemes using historical market data.</p>
+<p>In <a href="/portfolio-management-one.html" title="previous post">previous post</a> we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular practices in asset allocation, namely risk parity and maximum diversification. Then we evaluate these allocation strategies using historical market data.</p>
 <p>It is known that all these portfolios are special cases of MVO under some conditions. For example, MVO becomes minimum variance if expected reutrns are equal; it coincides with maximum diversification if return-risk ratios are the same across assets ([2]). The portfolio selection depends on our information and knowledge about the market. If expected return and risks are known with certainty, a maximum sharpe ratio is good choice. If expected return is hard to measure, covariance knowledge can be leveraged to construct minimum variance or risk parity portfolios. If we have no knowledge at all about the market, a naive equal-weighting portfolio will be a default option, which is also served as benchmark in our backtest.</p>
 <a id="more"></a>
 <h2 id="risk-parity-and-maximum-diversification">Risk Parity and Maximum Diversification</h2>
@@ -267,8 +267,8 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
 \]</span></p>
 <p>which can also be solved numerically.</p>
 <h2 id="assessments">Assessments</h2>
-<p>Let's compare long-only portfolios consist of five stocks, SPY, EFA, TIP, GSG, and VNQ, to represent US, international, treasury, commodity, real estates, respectively, between 2011-2019. The portfolios include minimum variance, maximum sharpe, risk parity, and maximum diversification. Benchmark is equal-weights. The code can be found on <a href="https://github.com/letianzj/QuantResearch/blob/master/backtest/portfolio_optimization.py" target="_blank" rel="noopener">Github</a>.</p>
-<p>First of all, results below show none of them have CAGR above equal weights. It may well be due to the hostorical long pull market. GMV has the lowest risk, which is expected, and the highest Sharpe ratio. The maximum diversified portfolio has the second lowest volatility, and second highest Sharpe. Controlling risk is a way to achieve higher Sharpe, but may comes with the cost of low returns, especially in the bull markets. Equal weights has the biggest drawdown among the five, but then fully recovered.</p>
+<p>Let's compare long-only portfolios consist of five stocks, SPY, EFA, TIP, GSG, and VNQ, to represent US, international, treasury, commodity, real estates, respectively, between 2011-2019. The portfolios include minimum variance, maximum sharpe, risk parity, and maximum diversification, rebalanced at month end. Benchmark is equal-weights. The code can be found on <a href="https://github.com/letianzj/QuantResearch/blob/master/backtest/portfolio_optimization.py" target="_blank" rel="noopener">Github</a>.</p>
+<p>First of all, results below show none of them have CAGR above equal weights. It may well be due to the hostorical long bull market after 2008-2009 financial crisis. GMV has the lowest risk, which is expected, and the highest Sharpe ratio. The maximum diversified portfolio has the second lowest volatility, and second highest Sharpe. Controlling risk is a feasible way to achieve high Sharpe, but may comes with the cost of low returns, especially in bull markets. Equal weights has the biggest drawdown among the five, dragged by commodity underperformance, but then fully recovered. Risk parity follows closely maximum diversified in the beginning, and then outperform marginally in Elliott wave 3 and 5.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">                          gmv    sharpe  diversified  risk_parity  equal_weights</span><br><span class="line">Annual returns       <span class="number">0.037149</span>  <span class="number">0.025520</span>     <span class="number">0.032405</span>     <span class="number">0.035254</span>       <span class="number">0.053769</span></span><br><span class="line">Cumulative returns   <span class="number">0.396035</span>  <span class="number">0.259229</span>     <span class="number">0.338708</span>     <span class="number">0.372879</span>       <span class="number">0.614532</span></span><br><span class="line">Annual volatility    <span class="number">0.040158</span>  <span class="number">0.075958</span>     <span class="number">0.046671</span>     <span class="number">0.054546</span>       <span class="number">0.106037</span></span><br><span class="line">Sharpe ratio         <span class="number">0.928454</span>  <span class="number">0.369845</span>     <span class="number">0.706706</span>     <span class="number">0.662512</span>       <span class="number">0.547052</span></span><br><span class="line">Calmar ratio         <span class="number">0.483256</span>  <span class="number">0.141066</span>     <span class="number">0.289862</span>     <span class="number">0.268421</span>       <span class="number">0.243159</span></span><br><span class="line">Stability            <span class="number">0.904098</span>  <span class="number">0.682156</span>     <span class="number">0.749033</span>     <span class="number">0.784332</span>       <span class="number">0.766989</span></span><br><span class="line">Max drawdown        <span class="number">-0.076872</span> <span class="number">-0.180910</span>    <span class="number">-0.111796</span>    <span class="number">-0.131339</span>      <span class="number">-0.221126</span></span><br><span class="line">Omega ratio          <span class="number">1.172122</span>  <span class="number">1.077346</span>     <span class="number">1.128652</span>     <span class="number">1.121542</span>       <span class="number">1.102723</span></span><br><span class="line">Sortino ratio        <span class="number">1.324288</span>  <span class="number">0.491857</span>     <span class="number">0.996348</span>     <span class="number">0.929500</span>       <span class="number">0.761159</span></span><br><span class="line">Skew                <span class="number">-0.263738</span> <span class="number">-0.839470</span>    <span class="number">-0.326846</span>    <span class="number">-0.362057</span>      <span class="number">-0.416300</span></span><br><span class="line">Kurtosis             <span class="number">3.390843</span>  <span class="number">8.208474</span>     <span class="number">3.745888</span>     <span class="number">4.529737</span>       <span class="number">5.457346</span></span><br><span class="line">Tail ratio           <span class="number">0.994677</span>  <span class="number">0.872240</span>     <span class="number">0.991897</span>     <span class="number">0.954949</span>       <span class="number">0.932250</span></span><br><span class="line">Daily value at risk <span class="number">-0.004911</span> <span class="number">-0.009458</span>    <span class="number">-0.005749</span>    <span class="number">-0.006729</span>      <span class="number">-0.013129</span></span><br></pre></td></tr></table></figure>
 <p>The portfolo values over time and monthly returns are shown as blows. During this period, domestic stocks went up the most, followed by real estates. Commodities is the only one that went south. GMV essentially dodged the market pull back at the end of 2018, yet it also missed the market recovery afterwards.</p>
 <img src="/portfolio-management-two/portfolio_value.png" class="" title="Portfolio Values">
@@ -299,7 +299,7 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/portfolio-management-two.html" title="Portfolio Management Two -- Comparison of Allocation Schemes">https://letianzj.github.io/portfolio-management-two.html</a>
+    <a href="https://letianzj.github.io/portfolio-management-two.html" title="Portfolio Management Two -- Backtest Monthly Rebalance">https://letianzj.github.io/portfolio-management-two.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -581,7 +581,7 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
   var disqus_config = function() {
     this.page.url = "https://letianzj.github.io/portfolio-management-two.html";
     this.page.identifier = "portfolio-management-two.html";
-    this.page.title = "Portfolio Management Two -- Comparison of Allocation Schemes";
+    this.page.title = "Portfolio Management Two -- Backtest Monthly Rebalance";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
