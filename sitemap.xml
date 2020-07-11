@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
+    
+    <lastmod>2020-07-11T03:20:09.347Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
+    
+    <lastmod>2020-07-10T00:31:04.549Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
     
     <lastmod>2020-07-05T19:50:20.208Z</lastmod>
@@ -47,13 +61,6 @@
     <loc>https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</loc>
     
     <lastmod>2020-07-01T23:57:04.587Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
-    
-    <lastmod>2020-06-30T20:55:31.593Z</lastmod>
     
   </url>
   

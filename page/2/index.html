@@ -174,6 +174,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/kalman-filter-linear-regression.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="Letian Wang quantitative trading blog, discuss topics includding trading strategies, portfolio management, risk premia, risk management, systematic trading, and machine learning, deep learning applications in Finance.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Systematic Investing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/kalman-filter-linear-regression.html" class="post-title-link" itemprop="url">Kalman Filter Linear Regression</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-01-07 19:20:00" itemprop="dateCreated datePublished" datetime="2018-01-07T19:20:00-05:00">2018-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-01-05 20:32:27" itemprop="dateModified" datetime="2019-01-05T20:32:27-05:00">2019-01-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/kalman-filter-linear-regression.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="kalman-filter-linear-regression.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="introduction">Introduction</h2>
+<p><a href="https://en.wikipedia.org/wiki/Kalman_filter" target="_blank" rel="noopener">Kalman Filter</a> is a <a href="https://en.wikipedia.org/wiki/State-space_representation" target="_blank" rel="noopener">state space model</a> that assumes the system state evolves by some hidden and unobservable pattern. Instead we can only observe some measurable features from the system, based on which we try to guess the current state of the system. An example would be without openning Bloomberg terminal, you try to guess stock market movement every day from the trader's mood. The graphical narrative can be found <a href="/hidden-markov-chain.html" title="in this post">in this post</a>.</p>
+<p><a href="https://www.amazon.com/Pairs-Trading-Quantitative-Methods-Analysis/dp/047146067" target="_blank" rel="noopener">This book</a> provides a simple random walk example where the hidden state is the true equilibrium stock price in some time interval while stock close price of that interval serves as an observation with errors. Then it proves that the true equilibrium price is the weighted average of close prices with the weights being Fibonacci sequence. <a href="https://www.amazon.com/Algorithmic-Trading-Winning-Strategies-Rationale/dp/1118460146" target="_blank" rel="noopener">Dr Chan</a> makes Kalman Filter popular to the online quantitative trading community with his EWA-EWC ETF pairs trading strategy.</p>
+<p>In this post we will continue with our simple linear regression example from <a href="/mcmc-linear-regression.html" title="last post">last post</a>, and follow the plain Kalman Filter logic without the help of Python packages such as <a href="https://pykalman.github.io/" target="_blank" rel="noopener">PyKalman</a>.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/kalman-filter-linear-regression.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/mcmc-linear-regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -630,7 +732,7 @@ Pr(Loss \le -VaR)=1-\alpha
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-30 16:55:31" itemprop="dateModified" datetime="2020-06-30T16:55:31-04:00">2020-06-30</time>
+                <time title="Modified: 2020-07-09 20:31:04" itemprop="dateModified" datetime="2020-07-09T20:31:04-04:00">2020-07-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -767,12 +869,12 @@ Pr(Loss \le -VaR)=1-\alpha
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
