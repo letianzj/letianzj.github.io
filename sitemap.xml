@@ -2,51 +2,107 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
+    <loc>https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</loc>
     
-    <lastmod>2020-07-11T11:25:43.116Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
-    
-    <lastmod>2020-07-10T00:31:04.549Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
-    
-    <lastmod>2020-07-05T19:50:20.208Z</lastmod>
+    <lastmod>2020-07-11T12:00:19.987Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/hidden-markov-chain.html</loc>
     
-    <lastmod>2020-07-05T19:48:22.439Z</lastmod>
+    <lastmod>2020-07-11T12:00:13.970Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
     
-    <lastmod>2020-07-05T19:47:50.934Z</lastmod>
+    <lastmod>2020-07-11T12:00:07.136Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
+    
+    <lastmod>2020-07-11T12:00:00.654Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
+    
+    <lastmod>2020-07-11T11:59:54.537Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/mean-reversion.html</loc>
     
-    <lastmod>2020-07-05T19:47:22.606Z</lastmod>
+    <lastmod>2020-07-11T11:59:48.633Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
+    
+    <lastmod>2020-07-11T11:59:40.748Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
+    
+    <lastmod>2020-07-11T11:59:32.690Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
     
-    <lastmod>2020-07-05T19:46:38.145Z</lastmod>
+    <lastmod>2020-07-11T11:59:27.130Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
+    
+    <lastmod>2020-07-11T11:59:19.801Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/value-at-risk-one.html</loc>
+    
+    <lastmod>2020-07-11T11:59:14.736Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/bayesian-linear-regression.html</loc>
+    
+    <lastmod>2020-07-11T11:58:55.775Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/classical-linear-regression.html</loc>
+    
+    <lastmod>2020-07-11T11:58:49.310Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    
+    <lastmod>2020-07-11T11:58:41.858Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
+    
+    <lastmod>2020-07-11T11:57:31.370Z</lastmod>
     
   </url>
   
@@ -54,62 +110,6 @@
     <loc>https://letianzj.github.io/arima-garch-model.html</loc>
     
     <lastmod>2020-07-03T00:31:51.348Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</loc>
-    
-    <lastmod>2020-07-01T23:57:04.587Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
-    
-    <lastmod>2020-06-30T03:46:19.557Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
-    
-    <lastmod>2019-01-06T01:32:27.962Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/classical-linear-regression.html</loc>
-    
-    <lastmod>2018-10-16T03:15:29.034Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/bayesian-linear-regression.html</loc>
-    
-    <lastmod>2018-10-16T03:15:03.621Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/value-at-risk-one.html</loc>
-    
-    <lastmod>2018-10-16T03:14:34.900Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
-    
-    <lastmod>2018-10-16T00:31:23.106Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
-    
-    <lastmod>2018-10-16T00:27:16.336Z</lastmod>
     
   </url>
   

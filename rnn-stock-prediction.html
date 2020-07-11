@@ -29,7 +29,7 @@
 <meta property="og:description" content="Introduction Finanical time series are time stamped sequential data where traditional feed-forward neural network doesn&#39;t handle well. Recurrent neural network (RNN) solves this issue by feeding outp">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-11-25T03:30:00.000Z">
-<meta property="article:modified_time" content="2020-07-05T19:46:38.145Z">
+<meta property="article:modified_time" content="2020-07-11T11:59:27.130Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="TensorFlow">
 <meta property="article:tag" content="Machine Learning">
@@ -204,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-05 15:46:38" itemprop="dateModified" datetime="2020-07-05T15:46:38-04:00">2020-07-05</time>
+                <time title="Modified: 2020-07-11 07:59:27" itemprop="dateModified" datetime="2020-07-11T07:59:27-04:00">2020-07-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,6 +265,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">y_train_actual = spx[<span class="string">'Close'</span>].iloc[n_window_size:n_train_set_size+n_window_size]             <span class="comment"># (2736,)</span></span><br><span class="line">y_test_actual = spx[<span class="string">'Close'</span>].iloc[n_train_set_size+n_window_size:]                           <span class="comment"># (304, )</span></span><br><span class="line"></span><br><span class="line">y_train_pred_price = pd.DataFrame(y_train_pred, index=y_train_actual.index)</span><br><span class="line">y_train_pred_price.columns = [<span class="string">'Close'</span>]</span><br><span class="line">y_train_pred_price = spx[[<span class="string">'Close'</span>]].shift(<span class="number">1</span>).iloc[n_window_size:n_train_set_size+n_window_size] * (y_train_pred_price/<span class="number">100.0</span> + <span class="number">1.0</span>)</span><br><span class="line">y_test_pred_price = pd.DataFrame(y_test_pred, index=y_test_actual.index)</span><br><span class="line">y_test_pred_price.columns = [<span class="string">'Close'</span>]</span><br><span class="line">y_test_pred_price = spx[[<span class="string">'Close'</span>]].shift(<span class="number">1</span>).iloc[n_train_set_size+n_window_size:] * (y_test_pred_price/<span class="number">100.0</span> + <span class="number">1.0</span>)</span><br></pre></td></tr></table></figure>
 <p>By now the RNN model is trained and ready to predict. The next step would be to put this forecasting signal into backtesting. Stay tuned.</p>
 <p><strong>Reference</strong> * Géron, Aurélien. Hands-on machine learning with Scikit-Learn and TensorFlow: concepts, tools, and techniques to build intelligent systems. &quot; O'Reilly Media, Inc.&quot;, 2017. * Lilian Weng, <a href="https://lilianweng.github.io/lil-log/2017/07/08/predict-stock-prices-using-RNN-part-1.html" target="_blank" rel="noopener">Predict Stock Prices Using RNN</a> * Raoul Malm, <a href="https://www.kaggle.com/raoulma/ny-stock-price-prediction-rnn-lstm-gru/notebook" target="_blank" rel="noopener">NY Stock Price Prediction RNN LSTM GRU</a></p>
+<p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
     </div>
 
