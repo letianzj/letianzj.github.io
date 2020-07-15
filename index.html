@@ -1119,7 +1119,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-11 07:59:19" itemprop="dateModified" datetime="2020-07-11T07:59:19-04:00">2020-07-11</time>
+                <time title="Modified: 2020-07-15 07:17:36" itemprop="dateModified" datetime="2020-07-15T07:17:36-04:00">2020-07-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1161,8 +1161,9 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
 
       
           <h2 id="introduction">Introduction</h2>
-<p>After four posts on linear regression, we are finally at the door of <a href="https://en.wikipedia.org/wiki/Deep_learning" target="_blank" rel="noopener">deep learning</a>. Today we will build a simple <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network" target="_blank" rel="noopener">feed-forward neural network</a> (but not deep) with the help of <a href="https://en.wikipedia.org/wiki/TensorFlow" target="_blank" rel="noopener">Tensorflow</a> to solve the linear regression problem. Tensorflow is a popular open-source deep learning library, especially after the retirement of <a href="">Theano</a>. To learn more about installing and using Tensorflow, their <a href="https://www.tensorflow.org/">official website</a> offers a lot of interesting materials.</p>
-<p>Tensorflow structure consists of two phases -- <a href="https://www.tensorflow.org/guide/graphs" target="_blank" rel="noopener">Graphs and Sessions</a>. Usually you start with building a graph and then let the data (in the format of multidimensional array or tensor) flow through the graph, hence the name Tensorflow.</p>
+<p>After four posts on linear regression, we are finally at the door of <a href="https://en.wikipedia.org/wiki/Deep_learning" target="_blank" rel="noopener">deep learning</a>. Today we will build a simple <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network" target="_blank" rel="noopener">feed-forward neural network</a> (but not deep) with the help of <a href="https://en.wikipedia.org/wiki/TensorFlow" target="_blank" rel="noopener">Tensorflow</a> to solve the linear regression problem. <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a> is a popular open-source deep learning library; the other popular choice is <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> .</p>
+<p>Instead of defining graph and then executing in a session, Tensorflow 2.0 offers dynamic graph through eager execution. The code structure is completely different from 1.0, so we updated code <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/tensorflow_linear_regression.ipynb" target="_blank" rel="noopener">here on Github</a>.</p>
+<p>We will try two implementations, one with low-level Tensorflow API and the other with high-level Keras API.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/tensorflow-linear-regression.html#more" rel="contents">

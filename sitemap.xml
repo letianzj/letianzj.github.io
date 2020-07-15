@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
+    
+    <lastmod>2020-07-15T11:17:36.100Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</loc>
     
     <lastmod>2020-07-11T12:00:19.987Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
     
     <lastmod>2020-07-11T11:59:27.130Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
-    
-    <lastmod>2020-07-11T11:59:19.801Z</lastmod>
     
   </url>
   
