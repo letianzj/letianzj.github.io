@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    <lastmod>2020-08-09</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
+    <lastmod>2020-08-09</lastmod>
+  </url>  <url>
     <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
+    <lastmod>2020-08-09</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
+    <lastmod>2020-08-09</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
+    <lastmod>2020-08-06</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/bayesian-linear-regression.html</loc>
     <lastmod>2020-08-03</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
@@ -14,9 +29,6 @@
     <lastmod>2020-07-11</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
-    <lastmod>2020-07-11</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
     <lastmod>2020-07-11</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
@@ -37,19 +49,7 @@
     <loc>https://letianzj.github.io/value-at-risk-one.html</loc>
     <lastmod>2020-07-11</lastmod>
   </url>  <url>
-    <loc>https://letianzj.github.io/bayesian-linear-regression.html</loc>
-    <lastmod>2020-07-11</lastmod>
-  </url>  <url>
     <loc>https://letianzj.github.io/classical-linear-regression.html</loc>
     <lastmod>2020-07-11</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
-    <lastmod>2020-07-11</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
-    <lastmod>2020-07-11</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
-    <lastmod>2020-07-03</lastmod>
   </url>
 </urlset>
