@@ -21,21 +21,21 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles introducing this concept. There">
+  <meta name="description" content="Introduction This post demonstrates how to use reinforcement learning to price an American Option. An option is a derivative contract that gives its owner the right but not the obligation to buy or s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Exponential Moving Average (EWA)">
-<meta property="og:url" content="https://letianzj.github.io/exponential-moving-average.html">
+<meta property="og:title" content="Option Pricing using Reinforcement Learning">
+<meta property="og:url" content="https://letianzj.github.io/option-pricing-using-reinforcement-learning.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles introducing this concept. There">
+<meta property="og:description" content="Introduction This post demonstrates how to use reinforcement learning to price an American Option. An option is a derivative contract that gives its owner the right but not the obligation to buy or s">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-12-29T00:50:00.000Z">
-<meta property="article:modified_time" content="2020-08-16T19:47:03.195Z">
+<meta property="article:published_time" content="2020-02-23T17:30:00.000Z">
+<meta property="article:modified_time" content="2020-08-17T10:53:42.652Z">
 <meta property="article:author" content="Letian Wang">
-<meta property="article:tag" content="Time Series">
-<meta property="article:tag" content="Quantitative Trading">
+<meta property="article:tag" content="TensorFlow">
+<meta property="article:tag" content="Machine Learning - Deep Learning - Reinforcement Learning">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://letianzj.github.io/exponential-moving-average.html">
+<link rel="canonical" href="https://letianzj.github.io/option-pricing-using-reinforcement-learning.html">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Exponential Moving Average (EWA) | Quantitative Investing</title>
+  <title>Option Pricing using Reinforcement Learning | Quantitative Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -168,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/exponential-moving-average.html">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/option-pricing-using-reinforcement-learning.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -181,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Exponential Moving Average (EWA)
+          Option Pricing using Reinforcement Learning
         </h1>
 
         <div class="post-meta">
@@ -191,14 +191,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-12-28 19:50:00" itemprop="dateCreated datePublished" datetime="2019-12-28T19:50:00-05:00">2019-12-28</time>
+              <time title="Created: 2020-02-23 12:30:00" itemprop="dateCreated datePublished" datetime="2020-02-23T12:30:00-05:00">2020-02-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-16 15:47:03" itemprop="dateModified" datetime="2020-08-16T15:47:03-04:00">2020-08-16</time>
+                <time title="Modified: 2020-08-17 06:53:42" itemprop="dateModified" datetime="2020-08-17T06:53:42-04:00">2020-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -206,11 +206,15 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Time-Series/" itemprop="url" rel="index"><span itemprop="name">Time Series</span></a>
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Time-Series/Quantitative-Trading/" itemprop="url" rel="index"><span itemprop="name">Quantitative Trading</span></a>
+                  <a href="/categories/Machine-Learning/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/Reinforcement-Learning/" itemprop="url" rel="index"><span itemprop="name">Reinforcement Learning</span></a>
                 </span>
             </span>
 
@@ -223,8 +227,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/exponential-moving-average.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="exponential-moving-average.html" itemprop="commentCount"></span>
+    <a title="disqus" href="/option-pricing-using-reinforcement-learning.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="option-pricing-using-reinforcement-learning.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,51 +244,10 @@
 
       
         <h2 id="introduction">Introduction</h2>
-<p>Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles introducing this concept. There are some articles explaining the situation under varying or irregular intervals. I write this note in order to apply it in intra-day trading.</p>
+<p>This post demonstrates how to use reinforcement learning to price an American Option. An option is a derivative contract that gives its owner the right but not the obligation to buy or sell an underlying asset. Unlike its European-style counterpart, American-style option may exercise at any time before expiry.</p>
+<p>American Option is known to be an optimal control MDP (Markov Decision Process) problem where the underlying process is Geometric Brownian motion ([1]). The Markovian state is a price-time tuple and the control is a binary action that decides on each day whether to exercise the option or not.</p>
 <a id="more"></a>
-<h2 id="expoenntial-moving-average-ewa">Expoenntial Moving Average (EWA)</h2>
-<p>EWA is a smoothing technique for both <a href="https://www.investopedia.com/terms/e/ema.asp" target="_blank" rel="noopener">prices</a> and <a href="https://www.investopedia.com/articles/07/ewma.asp" target="_blank" rel="noopener">volatilities</a>. Generally, let <span class="math inline">\(Y\)</span> be EWA,</p>
-<p><span class="math display">\[
-\begin{aligned}
-{Y}_n &amp;= \alpha * X_n + (1-\alpha) *{Y}_{n-1} = Y_{n-1}+\alpha*(X_n-Y_{n-1})  \\
-\alpha &amp;= \frac{2}{1+days}=\frac{1}{(1+days)/2}=\frac{1}{G}
-\end{aligned}
-\]</span></p>
-<p>The deonominator <span class="math inline">\(G\)</span> is related to the concept of half-life as described <a href="https://quant.stackexchange.com/questions/35837/online-algorithm-for-calculating-ewma-at-irregular-intervals" target="_blank" rel="noopener">here</a>.</p>
-<p>Specifically, consider any time scale, e.g., minutes or seconds instead of days,</p>
-<p><span class="math display">\[
-\begin{aligned}
-Y_n &amp;= \alpha X_n+(1-\alpha) Y_{n-1} \\
-&amp;= \alpha X_n+\alpha(1-\alpha)X_{n-1}+(1-\alpha)^2Y_{n-2}=... \\
-&amp;=\alpha \left[ X_n + (1-\alpha) X_{n-1} + (1-\alpha)^2X_{n-2} + ... \right]
-\end{aligned}
-\]</span></p>
-<p>Neglecting first coefficient, assume each step is <span class="math inline">\(\Delta t\)</span>, half life is <span class="math inline">\(H\)</span> in unit of time or <span class="math inline">\(H/{\Delta t}\)</span> in steps,</p>
-<p><span class="math display">\[
-\begin{aligned}
-(1-\alpha)^{H / \Delta t} &amp;= 0.5 \rightarrow \alpha = 1-e^{ln0.5\frac{\Delta t}{H}} \\
-&amp;\approx -ln0.5\frac{\Delta t}{H}
-\end{aligned}
-\]</span></p>
-<p>It is obvious to see that in daily case <span class="math display">\[
-G = \frac{H}{-ln0.5}=1.4427H
-\]</span></p>
-<p>Now consider an <strong>irregular tick arrival</strong>. For example, <span class="math inline">\(G=10s\)</span> and current <span class="math inline">\(EWA\)</span> is <span class="math inline">\(100\)</span>, next tick comes in <span class="math inline">\(1\)</span> seconds with price <span class="math inline">\(101\)</span>, then new EWA is</p>
-<p><span class="math display">\[
-\begin{aligned}
-\alpha &amp;= 1-e^{-1/10}=0.09516\\
-Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.095
-\end{aligned}
-\]</span></p>
-<p>If rather the next trade comes in <span class="math inline">\(500\)</span>ms,</p>
-<p><span class="math display">\[
-\begin{aligned}
-\alpha &amp;= 1-e^{-1/20}=0.04877\\
-Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
-\end{aligned}
-\]</span></p>
-<p>The previous EMA <span class="math inline">\(100\)</span> is more relevant in this case.</p>
-<p>This idea is implemented in the <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/moving_average_cross_strategy.py" target="_blank" rel="noopener">intraday moving average strategy</a>.</p>
+<p>This post is published on <a href="https://medium.com/@letian.zj/option-pricing-using-reinforcement-learning-ad2ddca7735b" target="_blank" rel="noopener">medium here</a>. The accompanying Jupyter notebook is located <a href="https://github.com/letianzj/QuantResearch/blob/master/ml/american_option.ipynb" target="_blank" rel="noopener">here on Github</a>.</p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
     </div>
@@ -301,7 +264,7 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/exponential-moving-average.html" title="Exponential Moving Average (EWA)">https://letianzj.github.io/exponential-moving-average.html</a>
+    <a href="https://letianzj.github.io/option-pricing-using-reinforcement-learning.html" title="Option Pricing using Reinforcement Learning">https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -312,8 +275,7 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Time-Series/" rel="tag"># Time Series</a>
-              <a href="/tags/Quantitative-Trading/" rel="tag"># Quantitative Trading</a>
+              <a href="/tags/Machine-Learning-Deep-Learning-Reinforcement-Learning/" rel="tag"># Machine Learning - Deep Learning - Reinforcement Learning</a>
           </div>
 
         
@@ -322,13 +284,10 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/portfolio-management-two.html" rel="prev" title="Portfolio Management Two -- Backtest Monthly Rebalance">
-      <i class="fa fa-chevron-left"></i> Portfolio Management Two -- Backtest Monthly Rebalance
+    <a href="/exponential-moving-average.html" rel="prev" title="Exponential Moving Average (EWA)">
+      <i class="fa fa-chevron-left"></i> Exponential Moving Average (EWA)
     </a></div>
-      <div class="post-nav-item">
-    <a href="/option-pricing-using-reinforcement-learning.html" rel="next" title="Option Pricing using Reinforcement Learning">
-      Option Pricing using Reinforcement Learning <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -394,7 +353,7 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expoenntial-moving-average-ewa"><span class="nav-number">2.</span> <span class="nav-text">Expoenntial Moving Average (EWA)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -584,9 +543,9 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://letianzj.github.io/exponential-moving-average.html";
-    this.page.identifier = "exponential-moving-average.html";
-    this.page.title = "Exponential Moving Average (EWA)";
+    this.page.url = "https://letianzj.github.io/option-pricing-using-reinforcement-learning.html";
+    this.page.identifier = "option-pricing-using-reinforcement-learning.html";
+    this.page.title = "Option Pricing using Reinforcement Learning";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
