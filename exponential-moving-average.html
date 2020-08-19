@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles introducing this concept. There">
+  <meta name="description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles about this concept. There are so">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Exponential Moving Average (EWA)">
 <meta property="og:url" content="https://letianzj.github.io/exponential-moving-average.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles introducing this concept. There">
+<meta property="og:description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles about this concept. There are so">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-12-29T00:50:00.000Z">
-<meta property="article:modified_time" content="2020-08-16T19:47:03.195Z">
+<meta property="article:modified_time" content="2020-08-19T02:58:31.425Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Time Series">
 <meta property="article:tag" content="Quantitative Trading">
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-16 15:47:03" itemprop="dateModified" datetime="2020-08-16T15:47:03-04:00">2020-08-16</time>
+                <time title="Modified: 2020-08-18 22:58:31" itemprop="dateModified" datetime="2020-08-18T22:58:31-04:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,7 +240,7 @@
 
       
         <h2 id="introduction">Introduction</h2>
-<p>Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles introducing this concept. There are some articles explaining the situation under varying or irregular intervals. I write this note in order to apply it in intra-day trading.</p>
+<p>Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles about this concept. There are some articles explaining the situation under varying or irregular intervals. I write this note in order to apply it to intra-day trading.</p>
 <a id="more"></a>
 <h2 id="expoenntial-moving-average-ewa">Expoenntial Moving Average (EWA)</h2>
 <p>EWA is a smoothing technique for both <a href="https://www.investopedia.com/terms/e/ema.asp" target="_blank" rel="noopener">prices</a> and <a href="https://www.investopedia.com/articles/07/ewma.asp" target="_blank" rel="noopener">volatilities</a>. Generally, let <span class="math inline">\(Y\)</span> be EWA,</p>
@@ -269,22 +269,27 @@ Y_n &amp;= \alpha X_n+(1-\alpha) Y_{n-1} \\
 <p>It is obvious to see that in daily case <span class="math display">\[
 G = \frac{H}{-ln0.5}=1.4427H
 \]</span></p>
-<p>Now consider an <strong>irregular tick arrival</strong>. For example, <span class="math inline">\(G=10s\)</span> and current <span class="math inline">\(EWA\)</span> is <span class="math inline">\(100\)</span>, next tick comes in <span class="math inline">\(1\)</span> seconds with price <span class="math inline">\(101\)</span>, then new EWA is</p>
+<p>Now consider an <strong>irregular tick arrival</strong>. For example, <span class="math inline">\(G=10s\)</span> and current EWA is <span class="math inline">\(100\)</span>.</p>
+<p><strong>Case One</strong>: next tick comes in <span class="math inline">\(1\)</span> seconds with price <span class="math inline">\(101\)</span>, then new EWA is</p>
 <p><span class="math display">\[
 \begin{aligned}
 \alpha &amp;= 1-e^{-1/10}=0.09516\\
 Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.095
 \end{aligned}
 \]</span></p>
-<p>If rather the next trade comes in <span class="math inline">\(500\)</span>ms,</p>
+<p><strong>Case Two</strong>: If rather the next tick comes in <span class="math inline">\(500\)</span>ms,</p>
 <p><span class="math display">\[
 \begin{aligned}
 \alpha &amp;= 1-e^{-1/20}=0.04877\\
 Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
 \end{aligned}
 \]</span></p>
-<p>The previous EMA <span class="math inline">\(100\)</span> is more relevant in this case.</p>
-<p>This idea is implemented in the <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/moving_average_cross_strategy.py" target="_blank" rel="noopener">intraday moving average strategy</a>.</p>
+<p>Therefore current EMA <span class="math inline">\(100\)</span> is more relevant in case two.</p>
+<p>Furthermore, in <strong>case two</strong>, if after 500ms another tick comes in, then <span class="math display">\[
+Y_2 = \alpha X_2 + \alpha(1-\alpha)X_1 + (1-\alpha)^2Y_0
+\]</span></p>
+<p>where the weight of <span class="math inline">\(Y_0\)</span> or current EWA <span class="math inline">\(100\)</span> is <span class="math inline">\((1-\alpha)^2=e^{-1/10}\)</span>, which is exactly the weight on <span class="math inline">\(Y_0\)</span> in <strong>case one</strong>. In other words, current EWA decays at the same rate regardless which path it takes, e.g., 1sec or 500ms+500ms, or any other route.</p>
+<p>In sum, for irregular arrivals, the EWA weight follows <a href="https://en.wikipedia.org/wiki/Exponential_distribution" target="_blank" rel="noopener">expnential distribution</a>. This idea is implemented in the <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/moving_average_cross_strategy.py" target="_blank" rel="noopener">intraday moving average strategy</a>.</p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
     </div>
@@ -312,8 +317,8 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Time-Series/" rel="tag"># Time Series</a>
               <a href="/tags/Quantitative-Trading/" rel="tag"># Quantitative Trading</a>
+              <a href="/tags/Time-Series/" rel="tag"># Time Series</a>
           </div>
 
         
@@ -410,7 +415,7 @@ Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

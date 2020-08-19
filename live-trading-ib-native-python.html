@@ -21,27 +21,25 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction quanttrading2 is a low latency event driven backtest and live trading system in Python. This post goes over its backtesting module. A few years ago I wrote a QuantTrading system in C#. S">
+  <meta name="description" content="Introduction This post domonstrates how to use quanttrading2 to connect to Interactive Brokers and live trade. Quantrrading2 is pure Python and the brokerage API is also native Python so in total the">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QuantTrading Backtest">
-<meta property="og:url" content="https://letianzj.github.io/quanttrading-backtest.html">
+<meta property="og:title" content="Live Trading with Interactive Brokers Native Python API">
+<meta property="og:url" content="https://letianzj.github.io/live-trading-ib-native-python.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction quanttrading2 is a low latency event driven backtest and live trading system in Python. This post goes over its backtesting module. A few years ago I wrote a QuantTrading system in C#. S">
+<meta property="og:description" content="Introduction This post domonstrates how to use quanttrading2 to connect to Interactive Brokers and live trade. Quantrrading2 is pure Python and the brokerage API is also native Python so in total the">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://letianzj.github.io/backtest_structure.png">
-<meta property="og:image" content="https://letianzj.github.io/quanttrading-backtest/backtest_structure.png">
 <meta property="og:image" content="https://letianzj.github.io/moving_average_cross.png">
-<meta property="og:image" content="https://letianzj.github.io/quanttrading-backtest/moving_average_cross.png">
+<meta property="og:image" content="https://letianzj.github.io/live-trading-ib-native-python/moving_average_cross.png">
 <meta property="article:published_time" content="2018-01-29T00:20:00.000Z">
-<meta property="article:modified_time" content="2020-08-09T13:14:24.433Z">
+<meta property="article:modified_time" content="2020-08-18T02:56:45.627Z">
 <meta property="article:author" content="Letian Wang">
-<meta property="article:tag" content="Backtest">
+<meta property="article:tag" content="Trading Ssytem">
 <meta property="article:tag" content="Trading Ssytem">
 <meta property="article:tag" content="Quantitative Trading">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://letianzj.github.io/backtest_structure.png">
+<meta name="twitter:image" content="https://letianzj.github.io/moving_average_cross.png">
 
-<link rel="canonical" href="https://letianzj.github.io/quanttrading-backtest.html">
+<link rel="canonical" href="https://letianzj.github.io/live-trading-ib-native-python.html">
 
 
 <script id="page-configurations">
@@ -54,7 +52,7 @@
   };
 </script>
 
-  <title>QuantTrading Backtest | Quantitative Investing</title>
+  <title>Live Trading with Interactive Brokers Native Python API | Quantitative Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -174,7 +172,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/quanttrading-backtest.html">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/live-trading-ib-native-python.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -187,7 +185,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          QuantTrading Backtest
+          Live Trading with Interactive Brokers Native Python API
         </h1>
 
         <div class="post-meta">
@@ -204,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 09:14:24" itemprop="dateModified" datetime="2020-08-09T09:14:24-04:00">2020-08-09</time>
+                <time title="Modified: 2020-08-17 22:56:45" itemprop="dateModified" datetime="2020-08-17T22:56:45-04:00">2020-08-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,8 +227,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/quanttrading-backtest.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="quanttrading-backtest.html" itemprop="commentCount"></span>
+    <a title="disqus" href="/live-trading-ib-native-python.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="live-trading-ib-native-python.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,47 +244,29 @@
 
       
         <h2 id="introduction">Introduction</h2>
-<p><a href="https://github.com/letianzj/quanttrading2" target="_blank" rel="noopener">quanttrading2</a> is a low latency event driven backtest and live trading system in Python. This post goes over its backtesting module. A few years ago I wrote a <a href="https://github.com/letianzj/QuantTrading" target="_blank" rel="noopener">QuantTrading system in C#</a>. So this one gets suffix two. There are other Python based open-source platforms available such as <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a>, <a href="https://www.backtrader.com/" target="_blank" rel="noopener">Backtrader</a>, and <a href="https://gbeced.github.io/pyalgotrade/" target="_blank" rel="noopener">PyAlgoTrade</a>. This one tries to be structurely simple. Data loading and strategy evaluations are moved out of the module and what is left is essentially an event engine surrounded by a few supporting functions. Some <a href="https://github.com/letianzj/QuantResearch/tree/master/backtest" target="_blank" rel="noopener">backtest examples can be found here</a>.</p>
+<p>This post domonstrates how to use <a href="https://github.com/letianzj/quanttrading2" target="_blank" rel="noopener">quanttrading2</a> to connect to Interactive Brokers and live trade. Quantrrading2 is pure Python and the brokerage API is also native Python so in total the solution is 100% Python. Interactive Brokers is a popular brokerage among quant traders thanks to its powerful and robust Application Programming Interface (API). A few years ago, I open sourced a <a href="https://github.com/letianzj/QuantTrading" target="_blank" rel="noopener">trading system</a> with connection to IB C# API. Now with IB's new Native Python API library, it is a good idea to build strategies in Python in order to leverage Python's machine learning toolkits.</p>
+<p>For quanttrading2 backtest, check out.</p>
 <a id="more"></a>
-<p>Event driven system treats every market quotes, every tranactions, every tweeter tweets as an event, and your trading strategy is expected to react to these event streams. <a href="https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I" target="_blank" rel="noopener">QuantStart</a> gives a good summary about the advantages of event-driven system over traditional vectorised approach, so I'll just add two comments.</p>
-<ol type="1">
-<li>This code structure is natural to traders in how they react to market prices and news, and how they interact with risk managers, performance managers, and order execution brokers.</li>
-<li>The code can be easily extended to live trading environment. In fact, <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a> allows you turn-key switch on to live trading. In my opinion, this is the key advantage because writing your strategy again for live trading will introduce more bugs. You are able to unit test all corner cases and fix bugs to eliminate surprises before playing with real money. You can also replay yesterday's market by feed yesterday's tick data stream into the system and further observe the strategy's reaction.</li>
-</ol>
-<h2 id="backtest-structure">Backtest Structure</h2>
-<p>Below is the structure of quanttrading2 backtesting module. It neglects those files for live trading.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">+-- brokerage</span><br><span class="line">|   +-- backtest_brokerage.py</span><br><span class="line">+-- data</span><br><span class="line">|   +-- bar_event.py</span><br><span class="line">|   +-- data_board.py</span><br><span class="line">|   +-- tick_event.py</span><br><span class="line">+-- event</span><br><span class="line">|   +-- backtest_event_engine.py</span><br><span class="line">|   +-- event.py</span><br><span class="line">+-- order</span><br><span class="line">|   +-- fill_event.py</span><br><span class="line">|   +-- order_event.py</span><br><span class="line">|   +-- order_manager.py</span><br><span class="line">|   +-- order_status.py</span><br><span class="line">|   +-- order_type.py</span><br><span class="line">+-- performance</span><br><span class="line">|   +-- performace_manager.py</span><br><span class="line">+-- position</span><br><span class="line">|   +-- position_manager.py</span><br><span class="line">|   +-- position.py</span><br><span class="line">+-- strategy</span><br><span class="line">|   +-- __init__.py</span><br><span class="line">|   +-- strategy</span><br><span class="line">|   +-- strategy_manager.py</span><br><span class="line">+-- backtest_engine.py</span><br></pre></td></tr></table></figure>
-<!--<img src="backtest_structure.png" align="center" width="80%" height="80%">-->
-<img src="/quanttrading-backtest/backtest_structure.png" class="" title="Backtest Structure">
-<p>In the figure event engine is positioned as the driving force of the system; and traders or your strategies are supported (surrounded) by people such as order managers and performance managers. all these components are wired up in the file backtest_engine.py.</p>
-<h3 id="data-feed">Data Feed</h3>
+<h2 id="code-structure">Code Structure</h2>
+<p>Below is the structure of quanttrading2 livet trading module. The entry point is live_engine.py in examples folder.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">+-- brokerage</span><br><span class="line">|   +-- ib_brokerage.py</span><br><span class="line">+-- data</span><br><span class="line">|   +-- bar_event.py</span><br><span class="line">|   +-- data_board.py</span><br><span class="line">|   +-- tick_event.py</span><br><span class="line">+-- event</span><br><span class="line">|   +-- live_event_engine.py</span><br><span class="line">|   +-- event.py</span><br><span class="line">+-- order</span><br><span class="line">|   +-- fill_event.py</span><br><span class="line">|   +-- order_event.py</span><br><span class="line">|   +-- order_manager.py</span><br><span class="line">|   +-- order_status.py</span><br><span class="line">|   +-- order_type.py</span><br><span class="line">+-- performance</span><br><span class="line">|   +-- performace_manager.py</span><br><span class="line">+-- position</span><br><span class="line">|   +-- position_manager.py</span><br><span class="line">|   +-- position.py</span><br><span class="line">+-- strategy</span><br><span class="line">|   +-- __init__.py</span><br><span class="line">|   +-- strategy</span><br><span class="line">|   +-- strategy_manager.py</span><br><span class="line">+-- examples</span><br><span class="line">|   +-- live_engine.py</span><br><span class="line">|   +-- config_live.yaml</span><br><span class="line">|   +-- download_historical_data_from_ib.py</span><br></pre></td></tr></table></figure>
+<h3 id="installation">Installation</h3>
 <p>Data feed feeds the data into the system. It is loaded from outside and added into backtest engine.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = qt.util.read_ohlcv_csv(datapath)</span><br><span class="line">backtest_engine.add_data(<span class="string">'TTT'</span>, data)</span><br></pre></td></tr></table></figure>
-<h3 id="event">Event</h3>
+<h2 id="example-strategies">Example Strategies</h2>
+<h3 id="configuration">Configuration</h3>
 <p>The Event, representing information, is a fundamental base class in event-driven system. Example of its child classes are BarEvent, TickEvent, and OrderEvent that dispatched by EventEngine and handled by other EventHandlers.</p>
-<h3 id="event-engine">Event Engine</h3>
+<h3 id="execution">Execution</h3>
 <p>EventEngine is located at the center of Backtest engine. It has a while loop to dispatch event information to subscribed event handlers based on event types.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    run backtest</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    print(<span class="string">"Running Backtest..."</span>)</span><br><span class="line">    <span class="keyword">while</span> (self._active):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            event = self._queue.get(<span class="literal">False</span>)</span><br><span class="line">        <span class="keyword">except</span> Empty:   <span class="comment"># throw good exception</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                event = self._datafeed.stream_next()</span><br><span class="line">                self._queue.put(event)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="comment"># stop if not able to retrieve next event</span></span><br><span class="line">                self._active = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:  <span class="comment"># not empty</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># call event handlers</span></span><br><span class="line">                <span class="keyword">if</span> event.event_type <span class="keyword">in</span> self._handlers:</span><br><span class="line">                    [handler(event) <span class="keyword">for</span> handler <span class="keyword">in</span> self._handlers[event.event_type]]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> self._generalHandlers:</span><br><span class="line">                    [handler(event) <span class="keyword">for</span> handler <span class="keyword">in</span> self._generalHandlers]</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(<span class="string">"Error &#123;0&#125;"</span>.format(str(e.args[<span class="number">0</span>])).encode(<span class="string">"utf-8"</span>))</span><br></pre></td></tr></table></figure>
-<h3 id="backtest-brokerage">Backtest Brokerage</h3>
-<p>BacktestBrokerage simulates order-execution brokers in real world, for example <a href="https://www.interactivebrokers.com/" target="_blank" rel="noopener">Interactive Brokers</a> or <a href="https://us.etrade.com/a/home3" target="_blank" rel="noopener">ETrade</a> in retail space.</p>
-<p>Currently the brokerage receives an order and fills it with market order <strong>immediately</strong> with 1bps commission fee and slippage cost, which can be customized. Immediate execution means for example in the case of daily bar, the order is filled at daily close price, which I found better than tomorrow's open price as used in other backtest systems. Nowadays it's feasible to react on a quote at 15:59:59 and then send out an order to be filled at market close, as opposed to waiting overnight to participate in the next day's open auction.</p>
-<h3 id="portfolio-manager">Portfolio Manager</h3>
-<p>PortfolioManager class helps you maintain the book and mark-to-market (MTM).</p>
-<h3 id="performance-manager">Performance Manager</h3>
-<p>PerformanceManager keeps daily trades and evaluates the performances. It produces an output compatible with <a href="https://quantopian.github.io/pyfolio/" target="_blank" rel="noopener">pyfolio tearsheet</a>. For the consideration of live trading, quanttrading2 itself doesn't have dependency on pyfolio.</p>
-<p>There is also a RiskManager but she currently just gives green light to every trade with no risk control.</p>
-<h3 id="order-manager">Order Manager</h3>
-<p>OrderManager is the core class of so-called <a href="https://en.wikipedia.org/wiki/Order_management_system" target="_blank" rel="noopener">Order Management System (OMS)</a>. it keeps and traces ordes placed, filled, or cancelled.</p>
-<h3 id="data-board">Data Board</h3>
-<p>DataBoard is a help class that record most recent price and volume for all symbols. To keep it simple, backtest data feed doesn't directly feed tick data to strategies; instead strategies are expect to query historical data from data board proactively.</p>
-<h2 id="backtest-practice">Backtest Practice</h2>
+<h2 id="historical-data-download">Historical Data Download</h2>
 <p>With all the components in place, <strong>all you need to do</strong> is to write your own strategy class. An example is <a href="https://github.com/letianzj/QuantResearch/blob/master/backtest/ma_double_cross.py" target="_blank" rel="noopener">MADoubleCross</a>. This simple strategy buys on <a href="https://www.investopedia.com/terms/g/goldencross.asp" target="_blank" rel="noopener">golden cross</a> when short-term moving average crosses long-term moving average from below, and sells on <a href="https://www.investopedia.com/terms/d/deathcross.asp" target="_blank" rel="noopener">death cross</a> when the former crosses the later from above.</p>
 <p><strong>To optimize</strong> for example the short-term and long-term parameters, toggle do_optimize flag to True. To keep quanttrading2 nimble, the parameter_search is also moved out of the package, because of its dependency on pyfolio.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parameter_search</span><span class="params">(engine, tag, target_name, return_dict)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This function should be the same for all strategies.</span></span><br><span class="line"><span class="string">    The only reason not included in quanttrading2 is because of its dependency on pyfolio (to get perf_stats)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    ds_equity, _, _ = engine.run()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        strat_ret = ds_equity.pct_change().dropna()</span><br><span class="line">        perf_stats_strat = pf.timeseries.perf_stats(strat_ret)</span><br><span class="line">        target_value = perf_stats_strat.loc[target_name]  <span class="comment"># first table in tuple</span></span><br><span class="line">    <span class="keyword">except</span> KeyError:</span><br><span class="line">        target_value = <span class="number">0</span></span><br><span class="line">    return_dict[tag] = target_value</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Params：&#123;'short_window': 50, 'long_window': 100&#125;，Sharpe ratio：0.7771284386050981</span><br><span class="line">Params：&#123;'short_window': 10, 'long_window': 20&#125;，Sharpe ratio：0.7374670421689613</span><br><span class="line">Params：&#123;'short_window': 20, 'long_window': 40&#125;，Sharpe ratio：0.5593737983561646</span><br></pre></td></tr></table></figure>
 <p>To take a closer look, below is the details from one particular parameter.</p>
 <!--<img src="moving_average_cross.png" align="center" width="80%" height="80%">-->
-<img src="/quanttrading-backtest/moving_average_cross.png" class="" title="Backtest Results">
+<img src="/live-trading-ib-native-python/moving_average_cross.png" class="" title="Backtest Results">
 <p>Happy trading!</p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
@@ -304,7 +284,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/quanttrading-backtest.html" title="QuantTrading Backtest">https://letianzj.github.io/quanttrading-backtest.html</a>
+    <a href="https://letianzj.github.io/live-trading-ib-native-python.html" title="Live Trading with Interactive Brokers Native Python API">https://letianzj.github.io/live-trading-ib-native-python.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -325,12 +305,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/tensorflow-linear-regression.html" rel="prev" title="Tensorflow Linear Regression">
-      <i class="fa fa-chevron-left"></i> Tensorflow Linear Regression
+    <a href="/quanttrading-backtest.html" rel="prev" title="QuantTrading Backtest">
+      <i class="fa fa-chevron-left"></i> QuantTrading Backtest
     </a></div>
       <div class="post-nav-item">
-    <a href="/live-trading-ib-native-python.html" rel="next" title="Live Trading with Interactive Brokers Native Python API">
-      Live Trading with Interactive Brokers Native Python API <i class="fa fa-chevron-right"></i>
+    <a href="/mean-reversion.html" rel="next" title="Mean Reversion">
+      Mean Reversion <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -397,7 +377,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#backtest-structure"><span class="nav-number">2.</span> <span class="nav-text">Backtest Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#data-feed"><span class="nav-number">2.1.</span> <span class="nav-text">Data Feed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event"><span class="nav-number">2.2.</span> <span class="nav-text">Event</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event-engine"><span class="nav-number">2.3.</span> <span class="nav-text">Event Engine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backtest-brokerage"><span class="nav-number">2.4.</span> <span class="nav-text">Backtest Brokerage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#portfolio-manager"><span class="nav-number">2.5.</span> <span class="nav-text">Portfolio Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#performance-manager"><span class="nav-number">2.6.</span> <span class="nav-text">Performance Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order-manager"><span class="nav-number">2.7.</span> <span class="nav-text">Order Manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data-board"><span class="nav-number">2.8.</span> <span class="nav-text">Data Board</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#backtest-practice"><span class="nav-number">3.</span> <span class="nav-text">Backtest Practice</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code-structure"><span class="nav-number">2.</span> <span class="nav-text">Code Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#installation"><span class="nav-number">2.1.</span> <span class="nav-text">Installation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#example-strategies"><span class="nav-number">3.</span> <span class="nav-text">Example Strategies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#configuration"><span class="nav-number">3.1.</span> <span class="nav-text">Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#execution"><span class="nav-number">3.2.</span> <span class="nav-text">Execution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#historical-data-download"><span class="nav-number">4.</span> <span class="nav-text">Historical Data Download</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -587,9 +567,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://letianzj.github.io/quanttrading-backtest.html";
-    this.page.identifier = "quanttrading-backtest.html";
-    this.page.title = "QuantTrading Backtest";
+    this.page.url = "https://letianzj.github.io/live-trading-ib-native-python.html";
+    this.page.identifier = "live-trading-ib-native-python.html";
+    this.page.title = "Live Trading with Interactive Brokers Native Python API";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

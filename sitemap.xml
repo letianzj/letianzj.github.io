@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
+    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
     
-    <lastmod>2020-08-17T10:53:42.652Z</lastmod>
+    <lastmod>2020-08-19T02:58:31.425Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
+    <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
     
-    <lastmod>2020-08-16T19:47:03.195Z</lastmod>
+    <lastmod>2020-08-18T02:56:45.627Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
+    
+    <lastmod>2020-08-17T10:53:42.652Z</lastmod>
     
   </url>
   
