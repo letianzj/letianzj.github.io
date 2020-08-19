@@ -29,7 +29,7 @@
 <meta property="og:description" content="Introduction Exponentially Weighted Moving Average (EWMA or EWA) is a simple and powerful tool in quantitative trading. There are a lot of technical analysis articles about this concept. There are so">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-12-29T00:50:00.000Z">
-<meta property="article:modified_time" content="2020-08-19T10:49:37.998Z">
+<meta property="article:modified_time" content="2020-08-19T10:59:43.490Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Time Series">
 <meta property="article:tag" content="Quantitative Trading">
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-19 06:49:37" itemprop="dateModified" datetime="2020-08-19T06:49:37-04:00">2020-08-19</time>
+                <time title="Modified: 2020-08-19 06:59:43" itemprop="dateModified" datetime="2020-08-19T06:59:43-04:00">2020-08-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,25 +271,28 @@ G = \frac{H}{-ln0.5}=1.4427H
 \]</span></p>
 <h2 id="irregular-intervals">Irregular Intervals</h2>
 <p>Now consider an <strong>irregular tick arrival</strong>. For example, <span class="math inline">\(G=10s\)</span> and current EWA is <span class="math inline">\(100\)</span>.</p>
-<p><strong>Case One</strong>: next tick comes in <span class="math inline">\(1\)</span> seconds with price <span class="math inline">\(101\)</span>, then new EWA is</p>
+<p><strong>Case One</strong>: next tick comes in <span class="math inline">\(1\)</span> second with price <span class="math inline">\(101\)</span>, then new EWA is</p>
 <p><span class="math display">\[
 \begin{aligned}
 \alpha &amp;= 1-e^{-1/10}=0.09516\\
 Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.095
 \end{aligned}
 \]</span></p>
-<p><strong>Case Two</strong>: If rather the next tick comes in <span class="math inline">\(500\)</span>ms,</p>
+<p><strong>Case Two</strong>: If rather the next tick comes in <span class="math inline">\(400\)</span>ms,</p>
 <p><span class="math display">\[
 \begin{aligned}
-\alpha &amp;= 1-e^{-1/20}=0.04877\\
-Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.049
+\alpha &amp;= 1-e^{-1/20}=0.0392\\
+Y_1 &amp;= Y_0 + \alpha (X_1-Y_0) = 100.039
 \end{aligned}
 \]</span></p>
 <p>Therefore current EMA <span class="math inline">\(100\)</span> is more relevant in case two.</p>
-<p>Furthermore, in <strong>case two</strong>, if after 500ms another tick comes in, then <span class="math display">\[
-Y_2 = \alpha X_2 + \alpha(1-\alpha)X_1 + (1-\alpha)^2Y_0
+<p>Furthermore, in <strong>case two</strong>, if after 600ms another tick comes in, then <span class="math display">\[
+\begin{aligned}
+Y_2 &amp;= \alpha_2 X_2 + (1-\alpha_2)Y_1 \\
+&amp;=\alpha_2 X_2 + (1-\alpha_2)\alpha_1 X_1 + (1-\alpha_2)(1-\alpha_1)Y_0
+\end{aligned}
 \]</span></p>
-<p>where the weight of <span class="math inline">\(Y_0\)</span> or current EWA <span class="math inline">\(100\)</span> is <span class="math inline">\((1-\alpha)^2=e^{-1/10}\)</span>, which is exactly the weight on <span class="math inline">\(Y_0\)</span> in <strong>case one</strong>. In other words, current EWA decays at the same rate regardless which path it takes, e.g., 1sec or 500ms+500ms, or any other route.</p>
+<p>where the weight of <span class="math inline">\(Y_0\)</span> or current EWA at <span class="math inline">\(100\)</span> is <span class="math inline">\((1-\alpha_2)(1-\alpha_1)=e^{-0.6/10}e^{-0.4/10}=e^{-1/10}\)</span>, which is exactly the weight on <span class="math inline">\(Y_0\)</span> in <strong>case one</strong>. In other words, current EWA decays at the same rate regardless which path it takes, e.g., either 1sec or 400ms+600ms, or any other route.</p>
 <p>In sum, for irregular arrivals, the EWA weight follows <a href="https://en.wikipedia.org/wiki/Exponential_distribution" target="_blank" rel="noopener">expnential distribution</a>. This idea is implemented in the <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/moving_average_cross_strategy.py" target="_blank" rel="noopener">intraday moving average strategy</a>.</p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
