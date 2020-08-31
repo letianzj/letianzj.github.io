@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html</loc>
+    
+    <lastmod>2020-08-31T02:38:54.303Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
     
     <lastmod>2020-08-29T13:16:23.786Z</lastmod>

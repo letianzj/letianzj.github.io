@@ -21,25 +21,20 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction After four posts on linear regression, we are finally at the door of deep learning. Today we will build a simple feed-forward neural network (but not deep) with the help of Tensorflow to">
+  <meta name="description" content="Introduction I decided to write a story discussing some machine learning practices I see online. There are a lot of articles and books about this topic. This post is different in that the concepts de">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tensorflow Linear Regression">
-<meta property="og:url" content="https://letianzj.github.io/tensorflow-linear-regression.html">
+<meta property="og:title" content="Machine Learning in Finance -- Some Models and Examples">
+<meta property="og:url" content="https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction After four posts on linear regression, we are finally at the door of deep learning. Today we will build a simple feed-forward neural network (but not deep) with the help of Tensorflow to">
+<meta property="og:description" content="Introduction I decided to write a story discussing some machine learning practices I see online. There are a lot of articles and books about this topic. This post is different in that the concepts de">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://letianzj.github.io/tensorflow-linear-regression/parameter_evolution.png">
-<meta property="article:published_time" content="2018-01-21T03:50:00.000Z">
-<meta property="article:modified_time" content="2020-07-15T13:29:01.618Z">
+<meta property="article:published_time" content="2020-07-04T12:10:00.000Z">
+<meta property="article:modified_time" content="2020-08-31T02:38:54.303Z">
 <meta property="article:author" content="Letian Wang">
-<meta property="article:tag" content="TensorFlow">
-<meta property="article:tag" content="Machine Learning">
-<meta property="article:tag" content="Deep Learning">
-<meta property="article:tag" content="Linear Regression">
+<meta property="article:tag" content="Machine Learning - Deep Learning - Reinforcement Learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://letianzj.github.io/tensorflow-linear-regression/parameter_evolution.png">
 
-<link rel="canonical" href="https://letianzj.github.io/tensorflow-linear-regression.html">
+<link rel="canonical" href="https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html">
 
 
 <script id="page-configurations">
@@ -52,7 +47,7 @@
   };
 </script>
 
-  <title>Tensorflow Linear Regression | Quantitative Investing</title>
+  <title>Machine Learning in Finance -- Some Models and Examples | Quantitative Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -172,7 +167,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/tensorflow-linear-regression.html">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -185,7 +180,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Tensorflow Linear Regression
+          Machine Learning in Finance -- Some Models and Examples
         </h1>
 
         <div class="post-meta">
@@ -195,14 +190,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-01-20 22:50:00" itemprop="dateCreated datePublished" datetime="2018-01-20T22:50:00-05:00">2018-01-20</time>
+              <time title="Created: 2020-07-04 08:10:00" itemprop="dateCreated datePublished" datetime="2020-07-04T08:10:00-04:00">2020-07-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-15 09:29:01" itemprop="dateModified" datetime="2020-07-15T09:29:01-04:00">2020-07-15</time>
+                <time title="Modified: 2020-08-30 22:38:54" itemprop="dateModified" datetime="2020-08-30T22:38:54-04:00">2020-08-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,6 +211,10 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Machine-Learning/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a>
                 </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Deep-Learning/Reinforcement-Learning/" itemprop="url" rel="index"><span itemprop="name">Reinforcement Learning</span></a>
+                </span>
             </span>
 
           
@@ -227,8 +226,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/tensorflow-linear-regression.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="tensorflow-linear-regression.html" itemprop="commentCount"></span>
+    <a title="disqus" href="/machine-learning-in-finance-some-models-and-examples.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="machine-learning-in-finance-some-models-and-examples.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -244,28 +243,9 @@
 
       
         <h2 id="introduction">Introduction</h2>
-<p>After four posts on linear regression, we are finally at the door of <a href="https://en.wikipedia.org/wiki/Deep_learning" target="_blank" rel="noopener">deep learning</a>. Today we will build a simple <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network" target="_blank" rel="noopener">feed-forward neural network</a> (but not deep) with the help of <a href="https://en.wikipedia.org/wiki/TensorFlow" target="_blank" rel="noopener">Tensorflow</a> to solve the linear regression problem. <a href="https://www.tensorflow.org/" target="_blank" rel="noopener">Tensorflow</a> is a popular open-source deep learning library; the other popular choice is <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a> .</p>
-<p>Instead of defining graph and then executing in a session, Tensorflow 2.0 offers dynamic graph through eager execution. The code structure is completely different from 1.0, so we updated code <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/tensorflow_linear_regression.ipynb" target="_blank" rel="noopener">here on Github</a>.</p>
-<p>We will try two implementations, one with low-level Tensorflow API and the other with high-level Keras API.</p>
+<p>I decided to write a story discussing some machine learning practices I see online. There are a lot of articles and books about this topic. This post is different in that the concepts described here may not be completely correct or mathematically tight. It is just my current understanding of machine learning and data science, and I’m prepared to come back updating some concepts based on feedback and new developments.</p>
+<p>The full post is on <a href="https://medium.com/@letian.zj/machine-learning-in-finance-overview-of-some-models-and-examples-7a935d6fce7f?source=friends_link&amp;sk=777bbe5747bba3a19f5bccc54c8309e6" target="_blank" rel="noopener">medium now</a>.</p>
 <a id="more"></a>
-<h2 id="low-level-api">Low-Level API</h2>
-<p>Intuitively, Low-level API is more powerful and flexible, yet less efficient to develop. Here we set up a dataset pipeline with batch size 10. Then find gradient to this batch using automatic differentiation tape, and update slope and intercept with <a href="https://en.wikipedia.org/wiki/Gradient_descent" target="_blank" rel="noopener">gradient descent</a>. The code is as below.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">w = tf.Variable(tf.random.normal(shape=[<span class="number">1</span>], dtype=tf.float64))      <span class="comment"># scaler, shape=[] or shape=[1,]</span></span><br><span class="line">b = tf.Variable(<span class="number">0</span>,  dtype = tf.float64)          <span class="comment"># scaler</span></span><br><span class="line"></span><br><span class="line">epochs = <span class="number">100</span></span><br><span class="line">learning_rate = <span class="number">0.0001</span></span><br><span class="line">ws = []</span><br><span class="line">bs = []</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> tf.range(<span class="number">1</span>,epochs+<span class="number">1</span>):      <span class="comment"># for each epoch</span></span><br><span class="line">  <span class="keyword">for</span> x, y <span class="keyword">in</span> ds:           <span class="comment"># for each batch</span></span><br><span class="line">    <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">      y_bar = x*w + b                    <span class="comment"># broadcasting</span></span><br><span class="line">      loss = tf.reduce_mean( (y-y_bar)**<span class="number">2</span> )</span><br><span class="line">    <span class="comment"># Back propagation to calculate gradient</span></span><br><span class="line">    dloss_dw, dloss_db = tape.gradient(loss, [w, b])</span><br><span class="line">    <span class="comment"># apply_gradients</span></span><br><span class="line">    w.assign(w - learning_rate * dloss_dw)         <span class="comment"># assign, keeps tf.Variable; operator ==&gt; tf.Tensor</span></span><br><span class="line">    b.assign(b - learning_rate * dloss_db)</span><br><span class="line">    ws.append(w.numpy())</span><br><span class="line">    bs.append(b.numpy())</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> epoch%<span class="number">20</span>==<span class="number">0</span>:</span><br><span class="line">    tf.print(<span class="string">'w='</span>, w, <span class="string">' ,b='</span>, b, <span class="string">' ,mse='</span>, loss)</span><br></pre></td></tr></table></figure>
-<p>The results are 0.2377 and 2.0000 respectively. It's interesting to see that the slope quickly reaches 2.0 and stays there, while intercept gradually reaches 0.2377 at the end of training, and shows room for further improvements. This simple model is a good starting point for neural networks. It shows that the convergence depends on a lot of moving parts, including batch size, learning rate, initial values, etc. Rerun the notebook with modified settings will yield different results under limited epoch numbers. Although it shows the tendency of heading toward (1.0, 2.0) true values.</p>
-<img src="/tensorflow-linear-regression/parameter_evolution.png" class="" title="Training Over Time">
-<h2 id="high-level-api">High-Level API</h2>
-<p>THe high-level API of Tensorflow is Keras, which now becomes part of Tensorflow. It has a couple of elements, a model, a loss function as objective, and an optimizer to reach that objective.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = tf.keras.losses.mean_squared_error</span><br><span class="line">optimizer = tf.keras.optimizers.Adam(learning_rate=<span class="number">0.001</span>)</span><br><span class="line">model.compile(optimizer=optimizer, loss=loss_fn, metrics=[<span class="string">"mae"</span>])</span><br></pre></td></tr></table></figure>
-<p>We can manually use AutoDiff tape as before to train the model as,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">epochs = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> tf.range(<span class="number">1</span>,epochs+<span class="number">1</span>):      <span class="comment"># for each epoch</span></span><br><span class="line">  loss = tf.constant(<span class="number">0.0</span>)</span><br><span class="line">  <span class="keyword">for</span> x, y <span class="keyword">in</span> ds:           <span class="comment"># for each batch</span></span><br><span class="line">    <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:</span><br><span class="line">      y_bar = model(y)                <span class="comment"># __call__</span></span><br><span class="line">      loss = loss_fn(tf.reshape(y, [<span class="number">-1</span>]), tf.reshape(y_bar, [<span class="number">-1</span>]))</span><br><span class="line">    <span class="comment"># Back propagation to calculate gradient</span></span><br><span class="line">    grads = tape.gradient(loss, model.variables)</span><br><span class="line">    <span class="comment"># apply_gradients</span></span><br><span class="line">    model.optimizer.apply_gradients(zip(grads, model.variables))</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> epoch%<span class="number">20</span>==<span class="number">0</span>:</span><br><span class="line">    tf.print(<span class="string">'w='</span>, w, <span class="string">' ,b='</span>, b, <span class="string">' ,mse='</span>, loss)</span><br></pre></td></tr></table></figure>
-<p>On the other hand, as a high-level API, Keras model can be trained in one line,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tf.keras.backend.clear_session()</span><br><span class="line">model.reset_states()</span><br><span class="line"></span><br><span class="line">model.fit(tf.convert_to_tensor(xs), tf.convert_to_tensor(ys), batch_size = <span class="number">10</span>, epochs = <span class="number">200</span>, verbose=<span class="number">0</span>) </span><br><span class="line">tf.print(<span class="string">'w='</span>, model.layers[<span class="number">0</span>].kernel, <span class="string">' b='</span>, model.layers[<span class="number">0</span>].bias)</span><br></pre></td></tr></table></figure>
-<p>The results are 0.9672 and 1.9953, respectively. It suggests that we should use high-level APIs whenever possible; it is internally optimized to give better performance.</p>
-<p>This code snippet scratched the surface of Tensorflow. Next step we are going to investigate a real deep neutral network called Long Short Term Memory (LSTM), which suits very well in financial time series analysis such as stock market forecast.</p>
-<p><strong>Reference</strong> * Géron, Aurélien. Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow: Concepts, tools, and techniques to build intelligent systems. O'Reilly Media, 2019.</p>
-<ul>
-<li><a href="https://github.com/dragen1860/Deep-Learning-with-TensorFlow-book" target="_blank" rel="noopener">Deep-Learning-with-TensorFlow</a></li>
-</ul>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
     </div>
@@ -282,7 +262,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/tensorflow-linear-regression.html" title="Tensorflow Linear Regression">https://letianzj.github.io/tensorflow-linear-regression.html</a>
+    <a href="https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html" title="Machine Learning in Finance -- Some Models and Examples">https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -293,8 +273,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-              <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+              <a href="/tags/Machine-Learning-Deep-Learning-Reinforcement-Learning/" rel="tag"># Machine Learning - Deep Learning - Reinforcement Learning</a>
           </div>
 
         
@@ -303,13 +282,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/kalman-filter-linear-regression.html" rel="prev" title="Kalman Filter Linear Regression">
-      <i class="fa fa-chevron-left"></i> Kalman Filter Linear Regression
+    <a href="/live-trading-ib-native-python.html" rel="prev" title="Live Trading with Interactive Brokers Native Python API">
+      <i class="fa fa-chevron-left"></i> Live Trading with Interactive Brokers Native Python API
     </a></div>
-      <div class="post-nav-item">
-    <a href="/quanttrading-backtest.html" rel="next" title="QuantTrading Backtest">
-      QuantTrading Backtest <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -375,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#low-level-api"><span class="nav-number">2.</span> <span class="nav-text">Low-Level API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#high-level-api"><span class="nav-number">3.</span> <span class="nav-text">High-Level API</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -568,9 +544,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://letianzj.github.io/tensorflow-linear-regression.html";
-    this.page.identifier = "tensorflow-linear-regression.html";
-    this.page.title = "Tensorflow Linear Regression";
+    this.page.url = "https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html";
+    this.page.identifier = "machine-learning-in-finance-some-models-and-examples.html";
+    this.page.title = "Machine Learning in Finance -- Some Models and Examples";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
