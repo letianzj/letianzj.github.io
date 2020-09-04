@@ -4,105 +4,140 @@
   <url>
     <loc>https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html</loc>
     
-    <lastmod>2020-08-31T02:38:54.303Z</lastmod>
+    <lastmod>2020-09-04T21:44:11.743Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
     
-    <lastmod>2020-08-29T13:16:23.786Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
-    
-    <lastmod>2020-08-28T10:33:08.080Z</lastmod>
+    <lastmod>2020-09-04T21:40:21.608Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
     
-    <lastmod>2020-08-17T10:53:42.652Z</lastmod>
+    <lastmod>2020-09-04T21:39:27.720Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
     
-    <lastmod>2020-08-09T13:17:47.718Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
-    
-    <lastmod>2020-08-09T13:16:03.616Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
-    
-    <lastmod>2020-08-09T13:14:24.433Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
-    
-    <lastmod>2020-08-09T13:13:26.212Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
-    
-    <lastmod>2020-08-06T12:52:42.895Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/bayesian-linear-regression.html</loc>
-    
-    <lastmod>2020-08-03T20:34:26.158Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
-    
-    <lastmod>2020-07-15T13:29:01.618Z</lastmod>
+    <lastmod>2020-09-04T21:37:46.554Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</loc>
     
-    <lastmod>2020-07-11T12:00:19.987Z</lastmod>
+    <lastmod>2020-09-04T21:34:16.929Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/portfolio-management-two.html</loc>
+    
+    <lastmod>2020-09-04T21:32:43.585Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
+    
+    <lastmod>2020-09-04T21:31:45.994Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/arima-garch-model.html</loc>
+    
+    <lastmod>2020-09-04T21:21:04.457Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
+    
+    <lastmod>2020-09-04T21:15:44.283Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
+    
+    <lastmod>2020-09-04T21:11:10.206Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/hidden-markov-chain.html</loc>
     
-    <lastmod>2020-07-11T12:00:13.970Z</lastmod>
+    <lastmod>2020-09-04T21:03:57.765Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/kalman-filter-pairs-trading.html</loc>
+    
+    <lastmod>2020-09-04T20:57:20.037Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    
+    <lastmod>2020-09-04T20:52:32.021Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
     
-    <lastmod>2020-07-11T12:00:07.136Z</lastmod>
+    <lastmod>2020-09-04T20:40:38.389Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
+    
+    <lastmod>2020-09-04T20:25:12.066Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
     
-    <lastmod>2020-07-11T11:59:54.537Z</lastmod>
+    <lastmod>2020-09-04T20:21:14.040Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/bayesian-linear-regression.html</loc>
+    
+    <lastmod>2020-09-04T20:20:44.546Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/classical-linear-regression.html</loc>
+    
+    <lastmod>2020-09-04T20:19:42.891Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/value-at-risk-one.html</loc>
+    
+    <lastmod>2020-09-04T19:45:59.912Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
+    
+    <lastmod>2020-09-04T19:10:00.937Z</lastmod>
     
   </url>
   
@@ -110,41 +145,6 @@
     <loc>https://letianzj.github.io/mean-reversion.html</loc>
     
     <lastmod>2020-07-11T11:59:48.633Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/portfolio-management-one.html</loc>
-    
-    <lastmod>2020-07-11T11:59:40.748Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/principal-component-analysis.html</loc>
-    
-    <lastmod>2020-07-11T11:59:32.690Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/rnn-stock-prediction.html</loc>
-    
-    <lastmod>2020-07-11T11:59:27.130Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/value-at-risk-one.html</loc>
-    
-    <lastmod>2020-07-11T11:59:14.736Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/classical-linear-regression.html</loc>
-    
-    <lastmod>2020-07-11T11:58:49.310Z</lastmod>
     
   </url>
   

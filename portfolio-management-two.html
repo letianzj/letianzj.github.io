@@ -21,22 +21,26 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction In previous post we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular prac">
+  <meta name="description" content="This post discusses the risk parity framework and maximum diversification portfolio. Then backtest the monthly portfolio rebalance strategy across five portfolios: minimum-variance, maximum-Sharpe, mo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Portfolio Management Two -- Backtest Monthly Rebalance">
+<meta property="og:title" content="Portfolio Management | Backtest Monthly Rebalance Strategy">
 <meta property="og:url" content="https://letianzj.github.io/portfolio-management-two.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction In previous post we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular prac">
+<meta property="og:description" content="This post discusses the risk parity framework and maximum diversification portfolio. Then backtest the monthly portfolio rebalance strategy across five portfolios: minimum-variance, maximum-Sharpe, mo">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/portfolio-management-two/portfolio_value.png">
 <meta property="og:image" content="https://letianzj.github.io/portfolio-management-two/monthly_return.png">
 <meta property="og:image" content="https://letianzj.github.io/portfolio-management-two/holdings.png">
 <meta property="article:published_time" content="2019-12-23T23:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-06T12:52:42.895Z">
+<meta property="article:modified_time" content="2020-09-04T21:32:43.585Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Portfolio Management">
 <meta property="article:tag" content="Portfolio Optimization">
+<meta property="article:tag" content="risk parity">
+<meta property="article:tag" content="maximum diversification portfolio">
+<meta property="article:tag" content="Monthly Rebalance Strategy">
 <meta property="article:tag" content="Risk Allocation">
+<meta property="article:tag" content="Asset Allocation">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://letianzj.github.io/portfolio-management-two/portfolio_value.png">
 
@@ -53,7 +57,7 @@
   };
 </script>
 
-  <title>Portfolio Management Two -- Backtest Monthly Rebalance | Quantitative Investing</title>
+  <title>Portfolio Management | Backtest Monthly Rebalance Strategy | Quantitative Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -186,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Portfolio Management Two -- Backtest Monthly Rebalance
+          Portfolio Management | Backtest Monthly Rebalance Strategy
         </h1>
 
         <div class="post-meta">
@@ -203,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-06 08:52:42" itemprop="dateModified" datetime="2020-08-06T08:52:42-04:00">2020-08-06</time>
+                <time title="Modified: 2020-09-04 17:32:43" itemprop="dateModified" datetime="2020-09-04T17:32:43-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,7 +252,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="introduction">Introduction</h2>
+        <p>This post discusses the risk parity framework and maximum diversification portfolio. Then backtest the monthly portfolio rebalance strategy across five portfolios: minimum-variance, maximum-Sharpe, most-diversified, risk-parity, and equal-weights.</p>
+<h2 id="introduction">Introduction</h2>
 <p>In <a href="/portfolio-management-one.html" title="previous post">previous post</a> we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular practices in asset allocation, namely risk parity and maximum diversification. Then we evaluate these allocation strategies using historical market data.</p>
 <p>It is known that all these portfolios are special cases of MVO under some conditions. For example, MVO becomes minimum variance if expected reutrns are equal; it coincides with maximum diversification if return-risk ratios are the same across assets ([2]). The portfolio selection depends on our information and knowledge about the market. If expected return and risks are known with certainty, a maximum sharpe ratio is good choice. If expected return is hard to measure, covariance knowledge can be leveraged to construct minimum variance or risk parity portfolios. If we have no knowledge at all about the market, a naive equal-weighting portfolio will be a default option, which is also served as benchmark in our backtest.</p>
 <a id="more"></a>
@@ -303,7 +308,7 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/portfolio-management-two.html" title="Portfolio Management Two -- Backtest Monthly Rebalance">https://letianzj.github.io/portfolio-management-two.html</a>
+    <a href="https://letianzj.github.io/portfolio-management-two.html" title="Portfolio Management | Backtest Monthly Rebalance Strategy">https://letianzj.github.io/portfolio-management-two.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -324,12 +329,12 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/gaussian-mixture-markov-regime-switching.html" rel="prev" title="Gaussian Mixture and Regime Switching Model">
-      <i class="fa fa-chevron-left"></i> Gaussian Mixture and Regime Switching Model
+    <a href="/gaussian-mixture-markov-regime-switching.html" rel="prev" title="Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes">
+      <i class="fa fa-chevron-left"></i> Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes
     </a></div>
       <div class="post-nav-item">
-    <a href="/exponential-moving-average.html" rel="next" title="Exponential Moving Average (EWA)">
-      Exponential Moving Average (EWA) <i class="fa fa-chevron-right"></i>
+    <a href="/exponential-moving-average.html" rel="next" title="Exponential Moving Average (EWA) and Irregular Tick Data Intervals">
+      Exponential Moving Average (EWA) and Irregular Tick Data Intervals <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -417,11 +422,11 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -432,6 +437,9 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
       </span>
       <span class="links-of-author-item">
         <a href="mailto:letian.zj@gmail.com" title="E-Mail → mailto:letian.zj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/letian781" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;letian781" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://youtu.be/CrsrTxqiXNY" title="YouTube → https:&#x2F;&#x2F;youtu.be&#x2F;CrsrTxqiXNY" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
@@ -591,7 +599,7 @@ f(x)=\sum_{i=1}^{n}\sum_{j=1}^{n}\left( w_i (\Sigma \cdot w)_i - w_j(\Sigma \cdo
   var disqus_config = function() {
     this.page.url = "https://letianzj.github.io/portfolio-management-two.html";
     this.page.identifier = "portfolio-management-two.html";
-    this.page.title = "Portfolio Management Two -- Backtest Monthly Rebalance";
+    this.page.title = "Portfolio Management | Backtest Monthly Rebalance Strategy";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

@@ -21,20 +21,25 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction An ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below \[ \begin{aligned} X_t &amp;&#x3D; c + \epsilon_t+\sum_{i&#x3D;1}^p\varphi_iX_{t-i}+\sum">
+  <meta name="description" content="This post discusses the AutoRegressive Integrated Moving Average model (ARIMA) and the Autoregressive conditional heteroskedasticity model (GARCH) and their applications in stock market prediction. I">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ARIMA GARCH Model">
+<meta property="og:title" content="ARIMA GARCH Model and Stock Market Prediction">
 <meta property="og:url" content="https://letianzj.github.io/arima-garch-model.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction An ARMA (AutoRegressive-Moving Average) has two parts, the AR(p) part and MA(q) part, expressed as below \[ \begin{aligned} X_t &amp;&#x3D; c + \epsilon_t+\sum_{i&#x3D;1}^p\varphi_iX_{t-i}+\sum">
+<meta property="og:description" content="This post discusses the AutoRegressive Integrated Moving Average model (ARIMA) and the Autoregressive conditional heteroskedasticity model (GARCH) and their applications in stock market prediction. I">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/return_acf_pacf.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/arima_forecast.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/garch_fit.png">
 <meta property="og:image" content="https://letianzj.github.io/arima-garch-model/garch_forecast.png">
 <meta property="article:published_time" content="2019-02-18T02:00:00.000Z">
-<meta property="article:modified_time" content="2020-08-09T13:13:26.212Z">
+<meta property="article:modified_time" content="2020-09-04T21:21:04.457Z">
 <meta property="article:author" content="Letian Wang">
+<meta property="article:tag" content="AutoRegressive Model">
+<meta property="article:tag" content="Moving Average Model">
+<meta property="article:tag" content="AutoRegressive Moving Average">
+<meta property="article:tag" content="ARIMA model">
+<meta property="article:tag" content="GARCH model">
 <meta property="article:tag" content="Time Series">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://letianzj.github.io/arima-garch-model/return_acf_pacf.png">
@@ -52,7 +57,7 @@
   };
 </script>
 
-  <title>ARIMA GARCH Model | Quantitative Investing</title>
+  <title>ARIMA GARCH Model and Stock Market Prediction | Quantitative Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -185,7 +190,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ARIMA GARCH Model
+          ARIMA GARCH Model and Stock Market Prediction
         </h1>
 
         <div class="post-meta">
@@ -202,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 09:13:26" itemprop="dateModified" datetime="2020-08-09T09:13:26-04:00">2020-08-09</time>
+                <time title="Modified: 2020-09-04 17:21:04" itemprop="dateModified" datetime="2020-09-04T17:21:04-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +244,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="introduction">Introduction</h2>
+        <p>This post discusses the AutoRegressive Integrated Moving Average model (ARIMA) and the Autoregressive conditional heteroskedasticity model (GARCH) and their applications in stock market prediction.</p>
+<h2 id="introduction">Introduction</h2>
 <p>An <a href="https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model" target="_blank" rel="noopener">ARMA (AutoRegressive-Moving Average)</a> has two parts, the AR(p) part and MA(q) part, expressed as below</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -303,7 +309,7 @@ x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/arima-garch-model.html" title="ARIMA GARCH Model">https://letianzj.github.io/arima-garch-model.html</a>
+    <a href="https://letianzj.github.io/arima-garch-model.html" title="ARIMA GARCH Model and Stock Market Prediction">https://letianzj.github.io/arima-garch-model.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -323,12 +329,12 @@ x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/principal-component-analysis.html" rel="prev" title="Principal Component Analysis">
-      <i class="fa fa-chevron-left"></i> Principal Component Analysis
+    <a href="/principal-component-analysis.html" rel="prev" title="Principal Component Analysis and Yield Curves">
+      <i class="fa fa-chevron-left"></i> Principal Component Analysis and Yield Curves
     </a></div>
       <div class="post-nav-item">
-    <a href="/gaussian-mixture-markov-regime-switching.html" rel="next" title="Gaussian Mixture and Regime Switching Model">
-      Gaussian Mixture and Regime Switching Model <i class="fa fa-chevron-right"></i>
+    <a href="/gaussian-mixture-markov-regime-switching.html" rel="next" title="Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes">
+      Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -416,11 +422,11 @@ x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -431,6 +437,9 @@ x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t
       </span>
       <span class="links-of-author-item">
         <a href="mailto:letian.zj@gmail.com" title="E-Mail → mailto:letian.zj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/letian781" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;letian781" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://youtu.be/CrsrTxqiXNY" title="YouTube → https:&#x2F;&#x2F;youtu.be&#x2F;CrsrTxqiXNY" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
@@ -590,7 +599,7 @@ x_t=at+(u_{t-1}+\epsilon_t)=a+x_{t-1}+\epsilon_t
   var disqus_config = function() {
     this.page.url = "https://letianzj.github.io/arima-garch-model.html";
     this.page.identifier = "arima-garch-model.html";
-    this.page.title = "ARIMA GARCH Model";
+    this.page.title = "ARIMA GARCH Model and Stock Market Prediction";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

@@ -21,23 +21,24 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction In last post we examined the Bayesian approach for linear regression. It relies on the conjugate prior assumption, which nicely sets posterior to Gaussian distribution. In reality, most">
+  <meta name="description" content="This post discusses the Markov Chain Monte Carlo (MCMC) model in general and the linear regression representation in specific. MCMC is used to simulate posterior distribution when closed-form conjugat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MCMC Linear Regression">
+<meta property="og:title" content="Markov Chain Monte Carlo Linear Regression">
 <meta property="og:url" content="https://letianzj.github.io/mcmc-linear-regression.html">
 <meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction In last post we examined the Bayesian approach for linear regression. It relies on the conjugate prior assumption, which nicely sets posterior to Gaussian distribution. In reality, most">
+<meta property="og:description" content="This post discusses the Markov Chain Monte Carlo (MCMC) model in general and the linear regression representation in specific. MCMC is used to simulate posterior distribution when closed-form conjugat">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/posterior_distribution.png">
 <meta property="og:image" content="https://letianzj.github.io/mcmc-linear-regression/posterior_distribution.png">
 <meta property="article:published_time" content="2017-12-31T02:30:00.000Z">
-<meta property="article:modified_time" content="2020-07-11T11:59:54.537Z">
+<meta property="article:modified_time" content="2020-09-04T20:21:14.040Z">
 <meta property="article:author" content="Letian Wang">
-<meta property="article:tag" content="MCMC">
+<meta property="article:tag" content="MCMC Linear Regression">
+<meta property="article:tag" content="Markov Chain Monte Carlo Linear Regression">
 <meta property="article:tag" content="Machine Learning">
 <meta property="article:tag" content="Linear Regression">
 <meta property="article:tag" content="Markov Chain Monte Carlo">
-<meta property="article:tag" content="Bayesian Inference">
+<meta property="article:tag" content="Bayesian Linear Regression">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://letianzj.github.io/posterior_distribution.png">
 
@@ -54,7 +55,7 @@
   };
 </script>
 
-  <title>MCMC Linear Regression | Quantitative Investing</title>
+  <title>Markov Chain Monte Carlo Linear Regression | Quantitative Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -187,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          MCMC Linear Regression
+          Markov Chain Monte Carlo Linear Regression
         </h1>
 
         <div class="post-meta">
@@ -204,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-11 07:59:54" itemprop="dateModified" datetime="2020-07-11T07:59:54-04:00">2020-07-11</time>
+                <time title="Modified: 2020-09-04 16:21:14" itemprop="dateModified" datetime="2020-09-04T16:21:14-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +217,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                  <a href="/categories/Machine-Learning/Markov-Chain-Monte-Carlo/" itemprop="url" rel="index"><span itemprop="name">Markov Chain Monte Carlo</span></a>
                 </span>
             </span>
 
@@ -245,7 +246,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="introduction">Introduction</h2>
+        <p>This post discusses the Markov Chain Monte Carlo (MCMC) model in general and the linear regression representation in specific. MCMC is used to simulate posterior distribution when closed-form conjugate distribution such as the one in the previous Bayesian linear regression post is not available.</p>
+<h2 id="introduction">Introduction</h2>
 <p>In <a href="/bayesian-linear-regression.html" title="last post">last post</a> we examined the Bayesian approach for linear regression. It relies on the <a href="https://en.wikipedia.org/wiki/Conjugate_prior" target="_blank" rel="noopener">conjugate prior</a> assumption, which nicely sets posterior to Gaussian distribution. In reality, most times we don't have this luxury, so we rely instead on a technique called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo" target="_blank" rel="noopener">Markov Chain Monte Carlo (MCMC)</a>. One popular algorithm in this family is <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis–Hastings</a> and this is what we are looking at today. Before we proceed, I want to point out that this post is inpsired by <a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">this article in R</a>.</p>
 <p>MCMC answers to this question: if we don't know what the posterior distribution looks like, and we don't have the closed form solution as given in equation (2.5) of <a href="/bayesian-linear-regression.html" title="last post">last post</a> for <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\Sigma_{\beta,1}\)</span>, how do we obtain the posterior distrubtion of <span class="math inline">\(\beta\)</span>? Can we at least approximate it? Metropolis–Hastings provides a numerical Monte Carlo simulation method to magically draw a sample out of the posterior distribution. The magic is to construct a Markov Chain that converges to the given distribution as its stationary equilibrium distribution. Hence the name Markov Chain Monte Carlo (MCMC).</p>
 <a id="more"></a>
@@ -275,7 +277,7 @@ f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
 <p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scipy.stats</span><br><span class="line"><span class="comment"># don't forget to generate the 500 random samples as in the previous post</span></span><br><span class="line">sigma_e = <span class="number">3.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Similar to last post, let's initially believe that a, b follow Normal distribution with mean 0.5 and stadndard deviation 0.5</span></span><br><span class="line"><span class="comment"># it returns the probability of seeing beta under this belief</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">prior_probability</span><span class="params">(beta)</span>:</span></span><br><span class="line">    a = beta[<span class="number">0</span>]     <span class="comment"># intercept</span></span><br><span class="line">    b = beta[<span class="number">1</span>]     <span class="comment"># slope</span></span><br><span class="line">    a_prior = scipy.stats.norm(<span class="number">0.5</span>, <span class="number">0.5</span>).pdf(a)</span><br><span class="line">    b_prior = scipy.stats.norm(<span class="number">0.5</span>, <span class="number">0.5</span>).pdf(b)</span><br><span class="line">    <span class="comment"># log probability transforms multiplication to summation</span></span><br><span class="line">    <span class="keyword">return</span> np.log(a) + np.log(b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Given beta, the likehood of seeing x and y</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">likelihood_probability</span><span class="params">(beta)</span>:</span></span><br><span class="line">    a = beta[<span class="number">0</span>]     <span class="comment"># intercept</span></span><br><span class="line">    b = beta[<span class="number">1</span>]     <span class="comment"># slope</span></span><br><span class="line">    y_predict = a  + b * x</span><br><span class="line">    single_likelihoods = scipy.stats.norm(y_predict, sigma_e).pdf(y)        <span class="comment"># we know sigma_e is 3.0</span></span><br><span class="line">    <span class="keyword">return</span> np.sum(np.log(single_likelihoods))</span><br><span class="line"></span><br><span class="line"><span class="comment"># We don't need to know the denominator of support f(y)</span></span><br><span class="line"><span class="comment"># as it will be canceled out in the acceptance ratio</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">posterior_probability</span><span class="params">(beta)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> likelihood_probability(beta) + prior_probability(beta)</span><br><span class="line"></span><br><span class="line"><span class="comment"># jump from beta to new beta</span></span><br><span class="line"><span class="comment"># proposal function is Gaussian centered at beta</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">proposal_function</span><span class="params">(beta)</span>:</span></span><br><span class="line">    a = beta[<span class="number">0</span>]</span><br><span class="line">    b = beta[<span class="number">1</span>]</span><br><span class="line">    a_new = np.random.normal(a, <span class="number">0.5</span>)</span><br><span class="line">    b_new = np.random.normal(b, <span class="number">0.5</span>)</span><br><span class="line">    beta_new = [a_new, b_new]</span><br><span class="line">    <span class="keyword">return</span> beta_new</span><br><span class="line"></span><br><span class="line"><span class="comment"># run the Monte Carlo</span></span><br><span class="line">beta_0 = [<span class="number">0.5</span>, <span class="number">0.5</span>]        <span class="comment"># start value</span></span><br><span class="line">results = np.zeros([<span class="number">50000</span>,<span class="number">2</span>])            <span class="comment"># record the results</span></span><br><span class="line">results[<span class="number">0</span>,<span class="number">0</span>] = beta_0[<span class="number">0</span>]</span><br><span class="line">results[<span class="number">0</span>, <span class="number">1</span>] = beta_0[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> step <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">50000</span>):               <span class="comment"># loop 50,000 times</span></span><br><span class="line">    print(<span class="string">'step: &#123;&#125;'</span>.format(step))</span><br><span class="line"></span><br><span class="line">    beta_old = results[step<span class="number">-1</span>, :]</span><br><span class="line">    beta_proposal = proposal_function(beta_old)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Use np.exp to restore from log numbers</span></span><br><span class="line">    prob = np.exp(posterior_probability(beta_proposal) - posterior_probability(beta_old))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> np.random.uniform(<span class="number">0</span>,<span class="number">1</span>) &lt; prob:</span><br><span class="line">        results[step, :] = beta_proposal    <span class="comment"># jump</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        results[step, :] = beta_old         <span class="comment"># stay</span></span><br><span class="line"></span><br><span class="line">burn_in = <span class="number">10000</span></span><br><span class="line">beta_posterior = results[burn_in:, :]</span><br><span class="line">print(beta_posterior.mean(axis=<span class="number">0</span>))        <span class="comment"># use average as point estimates</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># present the results</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">121</span>)</span><br><span class="line">ax1.hist(beta_posterior[:,<span class="number">0</span>], bins=<span class="number">20</span>, color=<span class="string">'blue'</span>)</span><br><span class="line">ax1.axvline(beta_posterior.mean(axis=<span class="number">0</span>)[<span class="number">0</span>], color=<span class="string">'red'</span>, linestyle=<span class="string">'dashed'</span>, linewidth=<span class="number">2</span>)</span><br><span class="line">ax1.title.set_text(<span class="string">'Posterior -- Intercept'</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">122</span>)</span><br><span class="line">ax2.hist(beta_posterior[:,<span class="number">1</span>], bins=<span class="number">20</span>, color=<span class="string">'blue'</span>)</span><br><span class="line">ax2.axvline(beta_posterior.mean(axis=<span class="number">0</span>)[<span class="number">1</span>], color=<span class="string">'red'</span>, linestyle=<span class="string">'dashed'</span>, linewidth=<span class="number">2</span>)</span><br><span class="line">ax2.title.set_text(<span class="string">'Posterior -- Slope'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
 <p>Here is the posterior distribution of <span class="math inline">\(\beta\)</span>. The intercept converges to 0.75 (linear regress gives 0.6565181) and the slope converges to 2 (linear regression gives 2.0086851). MCMC does the job.</p>
 <!--<img src="posterior_distribution.png" align="left" width="100%" height="100%">-->
-<img src="/mcmc-linear-regression/posterior_distribution.png" class="" title="Posterior Distribution">
+<img src="/mcmc-linear-regression/posterior_distribution.png" class="" title="Monte Carlo Linear Regression Posterior Distribution">
 <p><strong>Reference</strong> * <a href="https://theoreticalecology.wordpress.com/2010/09/17/metropolis-hastings-mcmc-in-r/" target="_blank" rel="noopener">Metropolis Hastings MCMC in R, 2010</a> * <a href="https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm" target="_blank" rel="noopener">Metropolis Hastings Algorithm, Wikipedia</a></p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
@@ -293,7 +295,7 @@ f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/mcmc-linear-regression.html" title="MCMC Linear Regression">https://letianzj.github.io/mcmc-linear-regression.html</a>
+    <a href="https://letianzj.github.io/mcmc-linear-regression.html" title="Markov Chain Monte Carlo Linear Regression">https://letianzj.github.io/mcmc-linear-regression.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -305,6 +307,7 @@ f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+              <a href="/tags/Markov-Chain-Monte-Carlo/" rel="tag"># Markov Chain Monte Carlo</a>
           </div>
 
         
@@ -406,11 +409,11 @@ f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -421,6 +424,9 @@ f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
       </span>
       <span class="links-of-author-item">
         <a href="mailto:letian.zj@gmail.com" title="E-Mail → mailto:letian.zj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/letian781" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;letian781" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://youtu.be/CrsrTxqiXNY" title="YouTube → https:&#x2F;&#x2F;youtu.be&#x2F;CrsrTxqiXNY" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
@@ -580,7 +586,7 @@ f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
   var disqus_config = function() {
     this.page.url = "https://letianzj.github.io/mcmc-linear-regression.html";
     this.page.identifier = "mcmc-linear-regression.html";
-    this.page.title = "MCMC Linear Regression";
+    this.page.title = "Markov Chain Monte Carlo Linear Regression";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

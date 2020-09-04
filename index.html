@@ -201,7 +201,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-30 22:38:54" itemprop="dateModified" datetime="2020-08-30T22:38:54-04:00">2020-08-30</time>
+                <time title="Modified: 2020-09-04 17:44:11" itemprop="dateModified" datetime="2020-09-04T17:44:11-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,7 +247,7 @@
 
       
           <h2 id="introduction">Introduction</h2>
-<p>I decided to write a story discussing some machine learning practices I see online. There are a lot of articles and books about this topic. This post is different in that the concepts described here may not be completely correct or mathematically tight. It is just my current understanding of machine learning and data science, and I’m prepared to come back updating some concepts based on feedback and new developments.</p>
+<p>I decided to write a story discussing some machine learning in finance practices I see online. There are a lot of articles and books about this topic. This post is different in that the concepts described here may not be completely correct or mathematically tight. It is just my current understanding of machine learning and data science, and I’m prepared to come back updating some concepts based on feedback and new developments.</p>
 <p>The full post is on <a href="https://medium.com/@letian.zj/machine-learning-in-finance-overview-of-some-models-and-examples-7a935d6fce7f?source=friends_link&amp;sk=777bbe5747bba3a19f5bccc54c8309e6" target="_blank" rel="noopener">medium now</a>.</p>
           <!--noindex-->
             <div class="post-button">
@@ -306,7 +306,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-29 09:16:23" itemprop="dateModified" datetime="2020-08-29T09:16:23-04:00">2020-08-29</time>
+                <time title="Modified: 2020-09-04 17:40:21" itemprop="dateModified" datetime="2020-09-04T17:40:21-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -408,7 +408,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-17 06:53:42" itemprop="dateModified" datetime="2020-08-17T06:53:42-04:00">2020-08-17</time>
+                <time title="Modified: 2020-09-04 17:39:27" itemprop="dateModified" datetime="2020-09-04T17:39:27-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -496,7 +496,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/exponential-moving-average.html" class="post-title-link" itemprop="url">Exponential Moving Average (EWA)</a>
+            <a href="/exponential-moving-average.html" class="post-title-link" itemprop="url">Exponential Moving Average (EWA) and Irregular Tick Data Intervals</a>
         </h2>
 
         <div class="post-meta">
@@ -513,7 +513,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-28 06:33:08" itemprop="dateModified" datetime="2020-08-28T06:33:08-04:00">2020-08-28</time>
+                <time title="Modified: 2020-09-04 17:37:46" itemprop="dateModified" datetime="2020-09-04T17:37:46-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -596,7 +596,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/portfolio-management-two.html" class="post-title-link" itemprop="url">Portfolio Management Two -- Backtest Monthly Rebalance</a>
+            <a href="/portfolio-management-two.html" class="post-title-link" itemprop="url">Portfolio Management | Backtest Monthly Rebalance Strategy</a>
         </h2>
 
         <div class="post-meta">
@@ -613,7 +613,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-06 08:52:42" itemprop="dateModified" datetime="2020-08-06T08:52:42-04:00">2020-08-06</time>
+                <time title="Modified: 2020-09-04 17:32:43" itemprop="dateModified" datetime="2020-09-04T17:32:43-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -658,7 +658,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="introduction">Introduction</h2>
+          <p>This post discusses the risk parity framework and maximum diversification portfolio. Then backtest the monthly portfolio rebalance strategy across five portfolios: minimum-variance, maximum-Sharpe, most-diversified, risk-parity, and equal-weights.</p>
+<h2 id="introduction">Introduction</h2>
 <p>In <a href="/portfolio-management-one.html" title="previous post">previous post</a> we reviewed the basics of mean-variance optimization (MVO), and portfolios such as minimum variance and maximmum sharpe. This post continues to discuss some popular practices in asset allocation, namely risk parity and maximum diversification. Then we evaluate these allocation strategies using historical market data.</p>
 <p>It is known that all these portfolios are special cases of MVO under some conditions. For example, MVO becomes minimum variance if expected reutrns are equal; it coincides with maximum diversification if return-risk ratios are the same across assets ([2]). The portfolio selection depends on our information and knowledge about the market. If expected return and risks are known with certainty, a maximum sharpe ratio is good choice. If expected return is hard to measure, covariance knowledge can be leveraged to construct minimum variance or risk parity portfolios. If we have no knowledge at all about the market, a naive equal-weighting portfolio will be a default option, which is also served as benchmark in our backtest.</p>
           <!--noindex-->
@@ -701,7 +702,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/gaussian-mixture-markov-regime-switching.html" class="post-title-link" itemprop="url">Gaussian Mixture and Regime Switching Model</a>
+            <a href="/gaussian-mixture-markov-regime-switching.html" class="post-title-link" itemprop="url">Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes</a>
         </h2>
 
         <div class="post-meta">
@@ -718,7 +719,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-11 08:00:19" itemprop="dateModified" datetime="2020-07-11T08:00:19-04:00">2020-07-11</time>
+                <time title="Modified: 2020-09-04 17:34:16" itemprop="dateModified" datetime="2020-09-04T17:34:16-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -759,7 +760,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="introduction">Introduction</h2>
+          <p>This post demonstrates how to use Expecation-Maximization (EM) Algorithm, Gaussian Mixture Model (GMM) and Markov Regime Switching Model (MRSM) to detect the latent stock market regime switches.</p>
+<h2 id="introduction">Introduction</h2>
 <p>It's been a while since the post of Hidden Markov Chain (HMM), this time let's continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov Regime Switching model (MRSM). Similar to HMM, the market regime is served as hidden states so they are all approached by some sort of Expectation-Maximization (EM) machine learning techniques. It's in place to have a brief discussion on EM algorithm first.</p>
 <p>The accompanying notebook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/gaussian_mixture_markov_switching.ipynb" target="_blank" rel="noopener">here</a>.</p>
           <!--noindex-->
@@ -802,7 +804,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/arima-garch-model.html" class="post-title-link" itemprop="url">ARIMA GARCH Model</a>
+            <a href="/arima-garch-model.html" class="post-title-link" itemprop="url">ARIMA GARCH Model and Stock Market Prediction</a>
         </h2>
 
         <div class="post-meta">
@@ -819,7 +821,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 09:13:26" itemprop="dateModified" datetime="2020-08-09T09:13:26-04:00">2020-08-09</time>
+                <time title="Modified: 2020-09-04 17:21:04" itemprop="dateModified" datetime="2020-09-04T17:21:04-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -856,7 +858,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="introduction">Introduction</h2>
+          <p>This post discusses the AutoRegressive Integrated Moving Average model (ARIMA) and the Autoregressive conditional heteroskedasticity model (GARCH) and their applications in stock market prediction.</p>
+<h2 id="introduction">Introduction</h2>
 <p>An <a href="https://en.wikipedia.org/wiki/Autoregressive%E2%80%93moving-average_model" target="_blank" rel="noopener">ARMA (AutoRegressive-Moving Average)</a> has two parts, the AR(p) part and MA(q) part, expressed as below</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -907,7 +910,7 @@ X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsi
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/principal-component-analysis.html" class="post-title-link" itemprop="url">Principal Component Analysis</a>
+            <a href="/principal-component-analysis.html" class="post-title-link" itemprop="url">Principal Component Analysis and Yield Curves</a>
         </h2>
 
         <div class="post-meta">
@@ -924,7 +927,7 @@ X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsi
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-11 07:59:32" itemprop="dateModified" datetime="2020-07-11T07:59:32-04:00">2020-07-11</time>
+                <time title="Modified: 2020-09-04 17:15:44" itemprop="dateModified" datetime="2020-09-04T17:15:44-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -965,7 +968,8 @@ X_t &amp;= c + \epsilon_t+\sum_{i=1}^p\varphi_iX_{t-i}+\sum_{i=1}^q\theta_i\epsi
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="introduction">Introduction</h2>
+          <p>This post discusses the Principal component analysis (PCA) dimension reduction technique and demonstrates its application in treasury yield curve analysis.</p>
+<h2 id="introduction">Introduction</h2>
 <p><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" target="_blank" rel="noopener">Principal component analysis (PCA)</a> rotates original dataset in such a way that the rotated dateaset is orthogonal and best represents the data variations. Then it becomes a dimension reduction technique by taking first few variables in the rotated dataset. That is, denote <span class="math inline">\(X \in R^{n \times p}\)</span> be the original dataset, and let <span class="math inline">\(W \in R^{p \times p}\)</span> be the rotation operator, then the new dataset is</p>
 <p><span class="math display">\[
 T=XW \;\; or \;\; T_L= XW_L
@@ -1015,7 +1019,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/rnn-stock-prediction.html" class="post-title-link" itemprop="url">RNN Stock Prediction</a>
+            <a href="/rnn-stock-prediction.html" class="post-title-link" itemprop="url">Stock Market Prediction using Recurrent Neural Network</a>
         </h2>
 
         <div class="post-meta">
@@ -1032,7 +1036,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-11 07:59:27" itemprop="dateModified" datetime="2020-07-11T07:59:27-04:00">2020-07-11</time>
+                <time title="Modified: 2020-09-04 17:11:10" itemprop="dateModified" datetime="2020-09-04T17:11:10-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1073,7 +1077,8 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="introduction">Introduction</h2>
+          <p>This post demonstrates how to predict the stock market using the recurrent neural network (RNN) technique, specifically the Long short-term memory (LSTM) network. The implementation is in Tensorflow.</p>
+<h2 id="introduction">Introduction</h2>
 <p>Finanical time series are time stamped sequential data where traditional <a href="https://en.wikipedia.org/wiki/Feedforward_neural_network" target="_blank" rel="noopener">feed-forward neural network</a> doesn't handle well. <a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" target="_blank" rel="noopener">Recurrent neural network (RNN)</a> solves this issue by feeding output neurons back into the input to provide memories of previous states. This turns out to be a huge success, especially in Natural Language Processing. Later on, <a href="https://en.wikipedia.org/wiki/Long_short-term_memory" target="_blank" rel="noopener">Long short-term memory (LSTM)</a> and <a href="https://en.wikipedia.org/wiki/Gated_recurrent_unit" target="_blank" rel="noopener">Gated Recurrent Unit(GRU)</a> are designed to alleviate the so-called vanishing/exploding gradients issues in the back-propagation phase of RNNs.</p>
 <p>In this post, I will build an RNN model with LSTM or GRU cell to predict the prices of S&amp;P 500. To be specific, a <a href="https://en.wikipedia.org/wiki/Supervised_learning" target="_blank" rel="noopener">supervised machine learning</a> model will be calibrated to predict tomorrow's S&amp;P 500 close price based on the prices from the previous 20 business days. This is a regression problem; yet the codes can be easily adapted to handle classification problem such as simply predicting tomorrow's market direction. The code is located on <a href="https://github.com/letianzj/QuantResearch/tree/master/notebooks" target="_blank" rel="noopener">Github</a>.</p>
           <!--noindex-->
@@ -1116,7 +1121,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/hidden-markov-chain.html" class="post-title-link" itemprop="url">Hidden Markov Chain</a>
+            <a href="/hidden-markov-chain.html" class="post-title-link" itemprop="url">Hidden Markov Chain and Stock Market Regimes</a>
         </h2>
 
         <div class="post-meta">
@@ -1133,7 +1138,7 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-11 08:00:13" itemprop="dateModified" datetime="2020-07-11T08:00:13-04:00">2020-07-11</time>
+                <time title="Modified: 2020-09-04 17:03:57" itemprop="dateModified" datetime="2020-09-04T17:03:57-04:00">2020-09-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1174,7 +1179,8 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="introduction">Introduction</h2>
+          <p>This post discusses Hidden Markov Chain and how to use it to detect stock market regimes. The Markov chain transition matrix suggests the probability of staying in the bull market trend or heading for a correction.</p>
+<h2 id="introduction">Introduction</h2>
 <p><a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" target="_blank" rel="noopener">Hidden Markov Model (HMM)</a> is a <a href="https://en.wikipedia.org/wiki/Markov_model" target="_blank" rel="noopener">Markov Model</a> with latent <a href="https://en.wikipedia.org/wiki/State_space" target="_blank" rel="noopener">state space</a>. It is the discrete version of Dynamic Linear Model, commonly seen in speech recognition. In quantitative trading, it has been applied to detecting latent market regimes ([2], [3]). I'll relegate technical details to appendix and present the intuitions by an example.</p>
           <!--noindex-->
             <div class="post-button">
@@ -1274,11 +1280,11 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
@@ -1289,6 +1295,9 @@ X=U\Sigma W^T \Rightarrow X^TX=W\Sigma^2W^T
       </span>
       <span class="links-of-author-item">
         <a href="mailto:letian.zj@gmail.com" title="E-Mail → mailto:letian.zj@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/letian781" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;letian781" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
       </span>
       <span class="links-of-author-item">
         <a href="https://youtu.be/CrsrTxqiXNY" title="YouTube → https:&#x2F;&#x2F;youtu.be&#x2F;CrsrTxqiXNY" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
