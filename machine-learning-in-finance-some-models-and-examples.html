@@ -25,7 +25,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Machine Learning in Finance -- Some Models and Examples">
 <meta property="og:url" content="https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html">
-<meta property="og:site_name" content="Quantitative Investing">
+<meta property="og:site_name" content="Quantitative Trading and Systematic Investing">
 <meta property="og:description" content="Introduction I decided to write a story discussing some machine learning in finance practices I see online. There are a lot of articles and books about this topic. This post is different in that the">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-07-04T12:10:00.000Z">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>Machine Learning in Finance -- Some Models and Examples | Quantitative Investing</title>
+  <title>Machine Learning in Finance -- Some Models and Examples | Quantitative Trading and Systematic Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -112,7 +112,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Quantitative Investing</h1>
+      <h1 class="site-title">Quantitative Trading and Systematic Investing</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Letian Wang Blog on Quant Trading and Portfolio Management</p>
@@ -181,7 +181,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Quantitative Investing">
+      <meta itemprop="name" content="Quantitative Trading and Systematic Investing">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -466,6 +466,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

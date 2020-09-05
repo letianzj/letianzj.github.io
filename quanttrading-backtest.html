@@ -21,19 +21,19 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="This post shows how to backtest trading strategies in quanttrading2 python package. It discusses the event-driven backtest framework in general and the code structure of the quanttrading2 package in s">
+  <meta name="description" content="This post shows how to backtest trading strategies in quanttrader python package. It discusses the event-driven backtest framework in general and the code structure of the quanttrader package in speci">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Backtest Trading Strategies using QuantTrading2">
+<meta property="og:title" content="Backtest Trading Strategies using quanttrader">
 <meta property="og:url" content="https://letianzj.github.io/quanttrading-backtest.html">
-<meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="This post shows how to backtest trading strategies in quanttrading2 python package. It discusses the event-driven backtest framework in general and the code structure of the quanttrading2 package in s">
+<meta property="og:site_name" content="Quantitative Trading and Systematic Investing">
+<meta property="og:description" content="This post shows how to backtest trading strategies in quanttrader python package. It discusses the event-driven backtest framework in general and the code structure of the quanttrader package in speci">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://letianzj.github.io/backtest_structure.png">
 <meta property="og:image" content="https://letianzj.github.io/quanttrading-backtest/backtest_structure.png">
 <meta property="og:image" content="https://letianzj.github.io/moving_average_cross.png">
 <meta property="og:image" content="https://letianzj.github.io/quanttrading-backtest/moving_average_cross.png">
 <meta property="article:published_time" content="2018-01-29T00:20:00.000Z">
-<meta property="article:modified_time" content="2020-09-04T20:25:12.066Z">
+<meta property="article:modified_time" content="2020-09-05T17:33:31.572Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Backtest">
 <meta property="article:tag" content="Trading Strategies">
@@ -56,7 +56,7 @@
   };
 </script>
 
-  <title>Backtest Trading Strategies using QuantTrading2 | Quantitative Investing</title>
+  <title>Backtest Trading Strategies using quanttrader | Quantitative Trading and Systematic Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -116,7 +116,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Quantitative Investing</h1>
+      <h1 class="site-title">Quantitative Trading and Systematic Investing</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Letian Wang Blog on Quant Trading and Portfolio Management</p>
@@ -185,11 +185,11 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Quantitative Investing">
+      <meta itemprop="name" content="Quantitative Trading and Systematic Investing">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Backtest Trading Strategies using QuantTrading2
+          Backtest Trading Strategies using quanttrader
         </h1>
 
         <div class="post-meta">
@@ -206,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-04 16:25:12" itemprop="dateModified" datetime="2020-09-04T16:25:12-04:00">2020-09-04</time>
+                <time title="Modified: 2020-09-05 13:33:31" itemprop="dateModified" datetime="2020-09-05T13:33:31-04:00">2020-09-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,9 +247,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>This post shows how to backtest trading strategies in quanttrading2 python package. It discusses the event-driven backtest framework in general and the code structure of the quanttrading2 package in specific. It also shows how to do the grid-based parameter search in parallel.</p>
+        <p>This post shows how to backtest trading strategies in quanttrader python package. It discusses the event-driven backtest framework in general and the code structure of the quanttrader package in specific. It also shows how to do the grid-based parameter search in parallel.</p>
 <h2 id="introduction">Introduction</h2>
-<p><a href="https://github.com/letianzj/quanttrading2" target="_blank" rel="noopener">quanttrading2</a> is a low latency event driven backtest and live trading system in Python. This post goes over its backtesting module. A few years ago I wrote a <a href="https://github.com/letianzj/QuantTrading" target="_blank" rel="noopener">QuantTrading system in C#</a>. So this one gets suffix two. There are other Python based open-source platforms available such as <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a>, <a href="https://www.backtrader.com/" target="_blank" rel="noopener">Backtrader</a>, and <a href="https://gbeced.github.io/pyalgotrade/" target="_blank" rel="noopener">PyAlgoTrade</a>. This one tries to be structurely simple. Data loading and strategy evaluations are moved out of the module and what is left is essentially an event engine surrounded by a few supporting functions. Some <a href="https://github.com/letianzj/QuantResearch/tree/master/backtest" target="_blank" rel="noopener">backtest examples can be found here</a>.</p>
+<p><a href="https://github.com/letianzj/quanttrader" target="_blank" rel="noopener">quanttrader</a> is a low latency event driven backtest and live trading system in Python. This post goes over its backtesting module. A few years ago I wrote a <a href="https://github.com/letianzj/QuantTrading" target="_blank" rel="noopener">QuantTrading system in C#</a>. So this one gets suffix two. There are other Python based open-source platforms available such as <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a>, <a href="https://www.backtrader.com/" target="_blank" rel="noopener">Backtrader</a>, and <a href="https://gbeced.github.io/pyalgotrade/" target="_blank" rel="noopener">PyAlgoTrade</a>. This one tries to be structurely simple. Data loading and strategy evaluations are moved out of the module and what is left is essentially an event engine surrounded by a few supporting functions. Some <a href="https://github.com/letianzj/QuantResearch/tree/master/backtest" target="_blank" rel="noopener">backtest examples can be found here</a>.</p>
 <a id="more"></a>
 <p>Event driven system treats every market quotes, every tranactions, every tweeter tweets as an event, and your trading strategy is expected to react to these event streams. <a href="https://www.quantstart.com/articles/Event-Driven-Backtesting-with-Python-Part-I" target="_blank" rel="noopener">QuantStart</a> gives a good summary about the advantages of event-driven system over traditional vectorised approach, so I'll just add two comments.</p>
 <ol type="1">
@@ -257,7 +257,7 @@
 <li>The code can be easily extended to live trading environment. In fact, <a href="https://www.quantopian.com/" target="_blank" rel="noopener">Quantopian</a> allows you turn-key switch on to live trading. In my opinion, this is the key advantage because writing your strategy again for live trading will introduce more bugs. You are able to unit test all corner cases and fix bugs to eliminate surprises before playing with real money. You can also replay yesterday's market by feed yesterday's tick data stream into the system and further observe the strategy's reaction.</li>
 </ol>
 <h2 id="backtest-structure">Backtest Structure</h2>
-<p>Below is the structure of quanttrading2 backtesting module. It neglects those files for live trading.</p>
+<p>Below is the structure of quanttrader backtesting module. It neglects those files for live trading.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">+-- brokerage</span><br><span class="line">|   +-- backtest_brokerage.py</span><br><span class="line">+-- data</span><br><span class="line">|   +-- bar_event.py</span><br><span class="line">|   +-- data_board.py</span><br><span class="line">|   +-- tick_event.py</span><br><span class="line">+-- event</span><br><span class="line">|   +-- backtest_event_engine.py</span><br><span class="line">|   +-- event.py</span><br><span class="line">+-- order</span><br><span class="line">|   +-- fill_event.py</span><br><span class="line">|   +-- order_event.py</span><br><span class="line">|   +-- order_manager.py</span><br><span class="line">|   +-- order_status.py</span><br><span class="line">|   +-- order_type.py</span><br><span class="line">+-- performance</span><br><span class="line">|   +-- performace_manager.py</span><br><span class="line">+-- position</span><br><span class="line">|   +-- position_manager.py</span><br><span class="line">|   +-- position.py</span><br><span class="line">+-- strategy</span><br><span class="line">|   +-- __init__.py</span><br><span class="line">|   +-- strategy</span><br><span class="line">|   +-- strategy_manager.py</span><br><span class="line">+-- backtest_engine.py</span><br></pre></td></tr></table></figure>
 <!--<img src="backtest_structure.png" align="center" width="80%" height="80%">-->
 <img src="/quanttrading-backtest/backtest_structure.png" class="" title="QuantTrading Backtest Code Structure">
@@ -276,7 +276,7 @@
 <h3 id="portfolio-manager">Portfolio Manager</h3>
 <p>PortfolioManager class helps you maintain the book and mark-to-market (MTM).</p>
 <h3 id="performance-manager">Performance Manager</h3>
-<p>PerformanceManager keeps daily trades and evaluates the performances. It produces an output compatible with <a href="https://quantopian.github.io/pyfolio/" target="_blank" rel="noopener">pyfolio tearsheet</a>. For the consideration of live trading, quanttrading2 itself doesn't have dependency on pyfolio.</p>
+<p>PerformanceManager keeps daily trades and evaluates the performances. It produces an output compatible with <a href="https://quantopian.github.io/pyfolio/" target="_blank" rel="noopener">pyfolio tearsheet</a>. For the consideration of live trading, quanttrader itself doesn't have dependency on pyfolio.</p>
 <p>There is also a RiskManager but she currently just gives green light to every trade with no risk control.</p>
 <h3 id="order-manager">Order Manager</h3>
 <p>OrderManager is the core class of so-called <a href="https://en.wikipedia.org/wiki/Order_management_system" target="_blank" rel="noopener">Order Management System (OMS)</a>. it keeps and traces ordes placed, filled, or cancelled.</p>
@@ -284,8 +284,8 @@
 <p>DataBoard is a help class that record most recent price and volume for all symbols. To keep it simple, backtest data feed doesn't directly feed tick data to strategies; instead strategies are expect to query historical data from data board proactively.</p>
 <h2 id="backtest-practice">Backtest Practice</h2>
 <p>With all the components in place, <strong>all you need to do</strong> is to write your own strategy class. An example is <a href="https://github.com/letianzj/QuantResearch/blob/master/backtest/ma_double_cross.py" target="_blank" rel="noopener">MADoubleCross</a>. This simple strategy buys on <a href="https://www.investopedia.com/terms/g/goldencross.asp" target="_blank" rel="noopener">golden cross</a> when short-term moving average crosses long-term moving average from below, and sells on <a href="https://www.investopedia.com/terms/d/deathcross.asp" target="_blank" rel="noopener">death cross</a> when the former crosses the later from above.</p>
-<p><strong>To optimize</strong> for example the short-term and long-term parameters, toggle do_optimize flag to True. To keep quanttrading2 nimble, the parameter_search is also moved out of the package, because of its dependency on pyfolio.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parameter_search</span><span class="params">(engine, tag, target_name, return_dict)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This function should be the same for all strategies.</span></span><br><span class="line"><span class="string">    The only reason not included in quanttrading2 is because of its dependency on pyfolio (to get perf_stats)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    ds_equity, _, _ = engine.run()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        strat_ret = ds_equity.pct_change().dropna()</span><br><span class="line">        perf_stats_strat = pf.timeseries.perf_stats(strat_ret)</span><br><span class="line">        target_value = perf_stats_strat.loc[target_name]  <span class="comment"># first table in tuple</span></span><br><span class="line">    <span class="keyword">except</span> KeyError:</span><br><span class="line">        target_value = <span class="number">0</span></span><br><span class="line">    return_dict[tag] = target_value</span><br></pre></td></tr></table></figure>
+<p><strong>To optimize</strong> for example the short-term and long-term parameters, toggle do_optimize flag to True. To keep quanttrader nimble, the parameter_search is also moved out of the package, because of its dependency on pyfolio.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parameter_search</span><span class="params">(engine, tag, target_name, return_dict)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This function should be the same for all strategies.</span></span><br><span class="line"><span class="string">    The only reason not included in quanttrader is because of its dependency on pyfolio (to get perf_stats)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    ds_equity, _, _ = engine.run()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        strat_ret = ds_equity.pct_change().dropna()</span><br><span class="line">        perf_stats_strat = pf.timeseries.perf_stats(strat_ret)</span><br><span class="line">        target_value = perf_stats_strat.loc[target_name]  <span class="comment"># first table in tuple</span></span><br><span class="line">    <span class="keyword">except</span> KeyError:</span><br><span class="line">        target_value = <span class="number">0</span></span><br><span class="line">    return_dict[tag] = target_value</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Params：&#123;'short_window': 50, 'long_window': 100&#125;，Sharpe ratio：0.7771284386050981</span><br><span class="line">Params：&#123;'short_window': 10, 'long_window': 20&#125;，Sharpe ratio：0.7374670421689613</span><br><span class="line">Params：&#123;'short_window': 20, 'long_window': 40&#125;，Sharpe ratio：0.5593737983561646</span><br></pre></td></tr></table></figure>
 <p>To take a closer look, below is the details from one particular parameter.</p>
 <!--<img src="moving_average_cross.png" align="center" width="80%" height="80%">-->
@@ -307,7 +307,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/quanttrading-backtest.html" title="Backtest Trading Strategies using QuantTrading2">https://letianzj.github.io/quanttrading-backtest.html</a>
+    <a href="https://letianzj.github.io/quanttrading-backtest.html" title="Backtest Trading Strategies using quanttrader">https://letianzj.github.io/quanttrading-backtest.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -510,6 +510,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 
@@ -598,7 +623,7 @@
   var disqus_config = function() {
     this.page.url = "https://letianzj.github.io/quanttrading-backtest.html";
     this.page.identifier = "quanttrading-backtest.html";
-    this.page.title = "Backtest Trading Strategies using QuantTrading2";
+    this.page.title = "Backtest Trading Strategies using quanttrader";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

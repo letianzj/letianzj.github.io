@@ -23,9 +23,9 @@
 
   <meta name="description" content="Letian Wang blog to discuss quantitative trading strategies, portfolio management, risk premia, risk management, systematic trading, and machine learning, deep learning applications in Finance.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Quantitative Investing">
+<meta property="og:title" content="Quantitative Trading and Systematic Investing">
 <meta property="og:url" content="https://letianzj.github.io/archives/2018/01/index.html">
-<meta property="og:site_name" content="Quantitative Investing">
+<meta property="og:site_name" content="Quantitative Trading and Systematic Investing">
 <meta property="og:description" content="Letian Wang blog to discuss quantitative trading strategies, portfolio management, risk premia, risk management, systematic trading, and machine learning, deep learning applications in Finance.">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Letian Wang">
@@ -51,7 +51,7 @@
   };
 </script>
 
-  <title>Archive | Quantitative Investing</title>
+  <title>Archive | Quantitative Trading and Systematic Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -111,7 +111,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Quantitative Investing</h1>
+      <h1 class="site-title">Quantitative Trading and Systematic Investing</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Letian Wang Blog on Quant Trading and Portfolio Management</p>
@@ -194,7 +194,7 @@
 
       <div class="post-title">
           <a class="post-title-link" href="/quanttrading-backtest.html" itemprop="url">
-            <span itemprop="name">Backtest Trading Strategies using QuantTrading2</span>
+            <span itemprop="name">Backtest Trading Strategies using quanttrader</span>
           </a>
       </div>
 
@@ -409,6 +409,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

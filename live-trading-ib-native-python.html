@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction This post domonstrates how to use quanttrading2 to connect to Interactive Brokers and do live algorithmic trade. Quantrrading2 is pure Python and the brokerage API is also native Python">
+  <meta name="description" content="Introduction This post domonstrates how to use quanttrader to connect to Interactive Brokers and do live algorithmic trade. Quantrrading2 is pure Python and the brokerage API is also native Python so">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Live Trading with Interactive Brokers Native Python API">
 <meta property="og:url" content="https://letianzj.github.io/live-trading-ib-native-python.html">
-<meta property="og:site_name" content="Quantitative Investing">
-<meta property="og:description" content="Introduction This post domonstrates how to use quanttrading2 to connect to Interactive Brokers and do live algorithmic trade. Quantrrading2 is pure Python and the brokerage API is also native Python">
+<meta property="og:site_name" content="Quantitative Trading and Systematic Investing">
+<meta property="og:description" content="Introduction This post domonstrates how to use quanttrader to connect to Interactive Brokers and do live algorithmic trade. Quantrrading2 is pure Python and the brokerage API is also native Python so">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-25T03:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-04T21:40:21.608Z">
+<meta property="article:modified_time" content="2020-09-05T17:33:31.569Z">
 <meta property="article:author" content="Letian Wang">
 <meta property="article:tag" content="Trading Ssytem - Trading Platform - Live Trading - Python Trading API - Algorithmic Trading">
 <meta property="article:tag" content="Quantitative Trading">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>Live Trading with Interactive Brokers Native Python API | Quantitative Investing</title>
+  <title>Live Trading with Interactive Brokers Native Python API | Quantitative Trading and Systematic Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -108,7 +108,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Quantitative Investing</h1>
+      <h1 class="site-title">Quantitative Trading and Systematic Investing</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">Letian Wang Blog on Quant Trading and Portfolio Management</p>
@@ -177,7 +177,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Quantitative Investing">
+      <meta itemprop="name" content="Quantitative Trading and Systematic Investing">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -198,7 +198,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-04 17:40:21" itemprop="dateModified" datetime="2020-09-04T17:40:21-04:00">2020-09-04</time>
+                <time title="Modified: 2020-09-05 13:33:31" itemprop="dateModified" datetime="2020-09-05T13:33:31-04:00">2020-09-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,26 +240,26 @@
 
       
         <h2 id="introduction">Introduction</h2>
-<p>This post domonstrates how to use <a href="https://github.com/letianzj/quanttrading2" target="_blank" rel="noopener">quanttrading2</a> to connect to Interactive Brokers and do live algorithmic trade. Quantrrading2 is pure Python and the brokerage API is also native Python so in total the solution is 100% Python. Interactive Brokers is a popular brokerage among quant traders thanks to its powerful and robust Application Programming Interface (API). A few years ago, I open sourced a <a href="https://github.com/letianzj/QuantTrading" target="_blank" rel="noopener">trading system</a> with connection to IB C# API. Now with IB's new Native Python API library, it is a good idea to build strategies in Python in order to leverage Python's machine learning toolkits.</p>
+<p>This post domonstrates how to use <a href="https://github.com/letianzj/quanttrader" target="_blank" rel="noopener">quanttrader</a> to connect to Interactive Brokers and do live algorithmic trade. Quantrrading2 is pure Python and the brokerage API is also native Python so in total the solution is 100% Python. Interactive Brokers is a popular brokerage among quant traders thanks to its powerful and robust Application Programming Interface (API). A few years ago, I open sourced a <a href="https://github.com/letianzj/QuantTrading" target="_blank" rel="noopener">trading system</a> with connection to IB C# API. Now with IB's new Native Python API library, it is a good idea to build strategies in Python in order to leverage Python's machine learning toolkits.</p>
 <p>The demo video is located here on <a href="https://youtu.be/CrsrTxqiXNY" target="_blank" rel="noopener">Youtube</a>.</p>
-<p>For quanttrading2 backtest, check out <a href="/quanttrading-backtest.html" title="this post">this post</a>.</p>
+<p>For quanttrader backtest, check out <a href="/quanttrading-backtest.html" title="this post">this post</a>.</p>
 <a id="more"></a>
 <h2 id="code-structure">Code Structure</h2>
-<p>Below is the structure of quanttrading2 live trading module. The entry point is live_engine.py in examples folder.</p>
+<p>Below is the structure of quanttrader live trading module. The entry point is live_engine.py in examples folder.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+-- brokerage</span><br><span class="line">|   +-- ib_brokerage.py</span><br><span class="line">+-- data</span><br><span class="line">|   +-- tick_event.py</span><br><span class="line">+-- event</span><br><span class="line">|   +-- live_event_engine.py</span><br><span class="line">+-- gui</span><br><span class="line">|   +-- ui_main_window.py</span><br><span class="line">+-- order</span><br><span class="line">|   +-- fill_event.py</span><br><span class="line">|   +-- order_event.py</span><br><span class="line">|   +-- order_manager.py</span><br><span class="line">+-- strategy</span><br><span class="line">|   +-- strategy_manager.py</span><br><span class="line">+-- examples</span><br><span class="line">|   +-- live_engine.py</span><br><span class="line">|   +-- config_live.yaml</span><br><span class="line">|   +-- download_historical_data_from_ib.py</span><br></pre></td></tr></table></figure>
 <h3 id="installation">Installation</h3>
-<p>To install <a href="https://github.com/letianzj/quanttrading2" target="_blank" rel="noopener">quanttrading2</a>.</p>
+<p>To install <a href="https://github.com/letianzj/quanttrader" target="_blank" rel="noopener">quanttrader</a>.</p>
 <p><strong>Step one</strong>: pip install</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install quanttrading2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install quanttrader</span><br></pre></td></tr></table></figure>
 <p>Or alternatively, download source code or checkout using git, then include the downloaded path in PYTHONPATH.</p>
 <p><strong>Step two</strong>: copy two files</p>
-<p>download/copy two files from examples folder, namely <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/live_engine.py" target="_blank" rel="noopener">live_engine.py</a> and <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/config_live.yaml" target="_blank" rel="noopener">config_live.yaml</a>. After that, just execute the python file,</p>
+<p>download/copy two files from examples folder, namely <a href="https://github.com/letianzj/quanttrader/blob/master/examples/live_engine.py" target="_blank" rel="noopener">live_engine.py</a> and <a href="https://github.com/letianzj/quanttrader/blob/master/examples/config_live.yaml" target="_blank" rel="noopener">config_live.yaml</a>. After that, just execute the python file,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python live_engine.py</span><br></pre></td></tr></table></figure>
 <p>Executing live_engine.py without example strategies, the strategy control tab will be empty.</p>
 <p><strong>Step three</strong>. copy or create two examples files as described in the next section</p>
-<p>The files used in step 2 and 3 are zipped in <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/starter_kit.zip" target="_blank" rel="noopener">starter_kit</a> for convenience. Alternatively, after pip install, just download and unzip <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/starter_kit.zip" target="_blank" rel="noopener">starter_kit</a>.</p>
+<p>The files used in step 2 and 3 are zipped in <a href="https://github.com/letianzj/quanttrader/blob/master/examples/starter_kit.zip" target="_blank" rel="noopener">starter_kit</a> for convenience. Alternatively, after pip install, just download and unzip <a href="https://github.com/letianzj/quanttrader/blob/master/examples/starter_kit.zip" target="_blank" rel="noopener">starter_kit</a>.</p>
 <h2 id="example-strategies">Example Strategies</h2>
-<p>In examples/strategy folder there are two naive strategies, <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/strategy/order_per_interval_strategy.py" target="_blank" rel="noopener">order_per_interval_strategy.py</a> and <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/strategy/moving_average_cross_strategy.py" target="_blank" rel="noopener">moving_average_cross_strategy.py</a>. The former simply sends out a market order every n-tick bar where n can be configured in <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/config_live.yaml" target="_blank" rel="noopener">config_live.yaml</a>.</p>
+<p>In examples/strategy folder there are two naive strategies, <a href="https://github.com/letianzj/quanttrader/blob/master/examples/strategy/order_per_interval_strategy.py" target="_blank" rel="noopener">order_per_interval_strategy.py</a> and <a href="https://github.com/letianzj/quanttrader/blob/master/examples/strategy/moving_average_cross_strategy.py" target="_blank" rel="noopener">moving_average_cross_strategy.py</a>. The former simply sends out a market order every n-tick bar where n can be configured in <a href="https://github.com/letianzj/quanttrader/blob/master/examples/config_live.yaml" target="_blank" rel="noopener">config_live.yaml</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (k.full_symbol == self.symbols[<span class="number">0</span>]) &amp; (self.ticks &gt; self.tick_trigger_threshold):</span><br><span class="line">    o = OrderEvent()</span><br><span class="line">    self.place_order(o)</span><br><span class="line">    self.ticks = <span class="number">0</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    self.ticks += <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>The latter is a simple EMA strategy that sends out buy order when price crosses moving average from below and sell order when price crosses moving average from above. Irregular interval EMA is explained <a href="/exponential-moving-average.html" title="in this post">in this post</a>.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> k.price &gt; self.ema:    <span class="comment"># buy at bid</span></span><br><span class="line">    current_pos = int(self._position_manager.get_position_size(symbol))</span><br><span class="line">    o = OrderEvent()</span><br><span class="line">    self.place_order(o)</span><br><span class="line"><span class="keyword">else</span>:   <span class="comment"># flip to short</span></span><br><span class="line">    current_pos = int(self._position_manager.get_position_size(symbol))</span><br><span class="line">    o = OrderEvent()</span><br><span class="line">    self.place_order(o)</span><br></pre></td></tr></table></figure>
@@ -268,7 +268,7 @@
 <p>When you run live_engine.py, it creates two folders, log and tick, if they do not exist. Log files tells all the important things happened during trading sesssion; while tick data enables session replay as well as strategy backtest.</p>
 <p>Intraday data is important to quant trading. Sometimes commercial data vendors are too expensive to retail traders. On the other hand, I would argue that recorded data might be better in the sense that it may not be the most acurate one, but it is <strong>more pertinent</strong> to your trading strategies because it is what you actually observe or reeceive under your trading constraints. After all, why pay a premium to premium data vendors if you don't collocate your strategies with direct market access.</p>
 <h2 id="historical-data-download">Historical Data Download</h2>
-<p>IB also nicely provides down to 1 second historical bar data up to 180 days. To download historical bar data from IB, use <a href="https://github.com/letianzj/quanttrading2/blob/master/examples/download_historical_data_from_ib.py" target="_blank" rel="noopener">download_historical_data_from_ib.py</a> in example folder,</p>
+<p>IB also nicely provides down to 1 second historical bar data up to 180 days. To download historical bar data from IB, use <a href="https://github.com/letianzj/quanttrader/blob/master/examples/download_historical_data_from_ib.py" target="_blank" rel="noopener">download_historical_data_from_ib.py</a> in example folder,</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python download_historical_data_from_ib.py</span><br></pre></td></tr></table></figure>
 <p>Happy trading!</p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
@@ -490,6 +490,31 @@
 
 
   
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
 
 
 

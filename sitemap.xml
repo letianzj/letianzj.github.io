@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
+    
+    <lastmod>2020-09-05T17:33:31.632Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
+    
+    <lastmod>2020-09-05T17:33:31.572Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
+    
+    <lastmod>2020-09-05T17:33:31.569Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html</loc>
     
     <lastmod>2020-09-04T21:44:11.743Z</lastmod>
@@ -9,23 +30,9 @@
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
-    
-    <lastmod>2020-09-04T21:40:21.608Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
     
     <lastmod>2020-09-04T21:39:27.720Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
-    
-    <lastmod>2020-09-04T21:37:46.554Z</lastmod>
     
   </url>
   
@@ -96,13 +103,6 @@
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
     
     <lastmod>2020-09-04T20:40:38.389Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
-    
-    <lastmod>2020-09-04T20:25:12.066Z</lastmod>
     
   </url>
   

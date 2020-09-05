@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
+    <lastmod>2020-09-05</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
+    <lastmod>2020-09-05</lastmod>
+  </url>  <url>
+    <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
+    <lastmod>2020-09-05</lastmod>
+  </url>  <url>
     <loc>https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html</loc>
     <lastmod>2020-09-04</lastmod>
   </url>  <url>
-    <loc>https://letianzj.github.io/live-trading-ib-native-python.html</loc>
-    <lastmod>2020-09-04</lastmod>
-  </url>  <url>
     <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
-    <lastmod>2020-09-04</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/exponential-moving-average.html</loc>
     <lastmod>2020-09-04</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</loc>
@@ -41,9 +44,6 @@
     <lastmod>2020-09-04</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
-    <lastmod>2020-09-04</lastmod>
-  </url>  <url>
-    <loc>https://letianzj.github.io/quanttrading-backtest.html</loc>
     <lastmod>2020-09-04</lastmod>
   </url>  <url>
     <loc>https://letianzj.github.io/mcmc-linear-regression.html</loc>
