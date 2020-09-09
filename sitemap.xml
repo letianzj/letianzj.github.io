@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
+    
+    <lastmod>2020-09-09T02:40:32.147Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/mean-reversion.html</loc>
+    
+    <lastmod>2020-09-08T21:52:33.787Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/free-historical-market-data-download-in-python.html</loc>
     
     <lastmod>2020-09-06T21:37:24.094Z</lastmod>
@@ -107,13 +121,6 @@
   </url>
   
   <url>
-    <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
-    
-    <lastmod>2020-09-04T20:52:32.021Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://letianzj.github.io/kalman-filter-linear-regression.html</loc>
     
     <lastmod>2020-09-04T20:40:38.389Z</lastmod>
@@ -152,13 +159,6 @@
     <loc>https://letianzj.github.io/tensorflow-linear-regression.html</loc>
     
     <lastmod>2020-09-04T19:10:00.937Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/mean-reversion.html</loc>
-    
-    <lastmod>2020-07-11T11:59:48.633Z</lastmod>
     
   </url>
   
