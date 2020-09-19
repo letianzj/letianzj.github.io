@@ -170,6 +170,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/bayesian-linear-regression.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Letian Wang">
+      <meta itemprop="description" content="Letian Wang blog to discuss quantitative trading strategies, portfolio management, risk premia, risk management, systematic trading, and machine learning, deep learning applications in Finance.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Quantitative Trading and Systematic Investing">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/bayesian-linear-regression.html" class="post-title-link" itemprop="url">Bayesian Linear Regression</a>
+        </h2>
+
+        <div class="post-meta">
+
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-12-26 22:35:00" itemprop="dateCreated datePublished" datetime="2017-12-26T22:35:00-05:00">2017-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-04 16:20:44" itemprop="dateModified" datetime="2020-09-04T16:20:44-04:00">2020-09-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/Linear-Regression/" itemprop="url" rel="index"><span itemprop="name">Linear Regression</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/bayesian-linear-regression.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bayesian-linear-regression.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>This post demonstrates how to perform a Bayesian linear regression, including the intuitions behind Bayesian statistics, linear regression Bayesian representation, conjugate Bayesian model, and Python implementation.</p>
+<h2 id="introduction">Introduction</h2>
+<p>In <a href="/classical-linear-regression.html" title="last post">last post</a> we reviewed the classical linear regression and now let's look from Bayesian perspective. There is well-known philosophical difference between <a href="https://en.wikipedia.org/wiki/Frequentist_inference" target="_blank" rel="noopener">frequentist</a> and <a href="https://en.wikipedia.org/wiki/Bayesian_inference" target="_blank" rel="noopener">Bayesian</a>. Interested readers can read further this debate online such as <a href="https://en.wikipedia.org/wiki/Probability_interpretations" target="_blank" rel="noopener">this one on Wiki</a>. In my opinion, one advantage of Bayesian is its ability to perform <a href="https://en.wikipedia.org/wiki/Recursive_Bayesian_estimation" target="_blank" rel="noopener">online machine learning</a> recursivelly as new information comes in incrementally.</p>
+<p>In terms of the linear regression, <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem" target="_blank" rel="noopener">Bayes's Theorem</a> can be written as</p>
+<p><span class="math display">\[
+f(\beta|y,X)=\frac{f(y|\beta,X)f(\beta|X)}{f(y|X)}
+\tag{1.1}
+\]</span></p>
+<p>where <span class="math inline">\(f(\beta|X)\)</span> is the <strong>prior</strong> belief of parameter <span class="math inline">\(\beta\)</span>; <span class="math inline">\(f(y|\beta,X)\)</span> is the <strong>likelihood</strong> of observing <span class="math inline">\(y\)</span> given our <strong>prior</strong>; and <span class="math inline">\(f(y|X)\)</span> is called <strong>evidence</strong>. Finally, <span class="math inline">\(f(\beta|y,X)\)</span> is the <strong>posterior</strong> belief of pararmeter <span class="math inline">\(\beta\)</span> once the evidence <span class="math inline">\(y\)</span> has been taken into account. This posterior then becomes new prior and the circle continues recursively.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/bayesian-linear-regression.html#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/classical-linear-regression.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -553,16 +662,16 @@ Pr(Loss \le -VaR)=1-\alpha
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

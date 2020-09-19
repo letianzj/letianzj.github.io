@@ -21,28 +21,26 @@
     var CONFIG = {"hostname":"letianzj.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="This post demonstrates how to use Expecation-Maximization (EM) Algorithm, Gaussian Mixture Model (GMM) and Markov Regime Switching Model (MRSM) to detect the latent stock market regime switches. Intr">
+  <meta name="description" content="Introduction Market Profile and Volume Profile in Python -- Free yet powerful trade flow profiling tools for intraday stock market analysis is published here on medium. It illustrates how to combine">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes">
-<meta property="og:url" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html">
+<meta property="og:title" content="Market Profile and Volume Profile">
+<meta property="og:url" content="https://letianzj.github.io/market-profile-and-volume-profile.html">
 <meta property="og:site_name" content="Quantitative Trading and Systematic Investing">
-<meta property="og:description" content="This post demonstrates how to use Expecation-Maximization (EM) Algorithm, Gaussian Mixture Model (GMM) and Markov Regime Switching Model (MRSM) to detect the latent stock market regime switches. Intr">
+<meta property="og:description" content="Introduction Market Profile and Volume Profile in Python -- Free yet powerful trade flow profiling tools for intraday stock market analysis is published here on medium. It illustrates how to combine">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png">
-<meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png">
-<meta property="og:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/markov_regime_vix.png">
-<meta property="article:published_time" content="2019-11-30T22:00:00.000Z">
-<meta property="article:modified_time" content="2020-09-04T21:34:16.929Z">
+<meta property="article:published_time" content="2020-09-19T16:45:00.000Z">
+<meta property="article:modified_time" content="2020-09-19T10:30:36.648Z">
 <meta property="article:author" content="Letian Wang">
-<meta property="article:tag" content="Gaussian Mixture Model">
-<meta property="article:tag" content="Regime Shift Model">
-<meta property="article:tag" content="Markov Switching Model">
-<meta property="article:tag" content="Stock Market Regimes">
-<meta property="article:tag" content="Expectation-Maximization Algorithm">
+<meta property="article:tag" content="Market Profile">
+<meta property="article:tag" content="Volume Profile">
+<meta property="article:tag" content="Order Flow">
+<meta property="article:tag" content="Trade Flow">
+<meta property="article:tag" content="Trading Strategy">
+<meta property="article:tag" content="Plotly">
+<meta property="article:tag" content="Dash WebApp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://letianzj.github.io/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png">
 
-<link rel="canonical" href="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html">
+<link rel="canonical" href="https://letianzj.github.io/market-profile-and-volume-profile.html">
 
 
 <script id="page-configurations">
@@ -55,7 +53,7 @@
   };
 </script>
 
-  <title>Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes | Quantitative Trading and Systematic Investing</title>
+  <title>Market Profile and Volume Profile | Quantitative Trading and Systematic Investing</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109341958-2"></script>
     <script>
@@ -175,7 +173,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html">
+    <link itemprop="mainEntityOfPage" href="https://letianzj.github.io/market-profile-and-volume-profile.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -188,7 +186,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes
+          Market Profile and Volume Profile
         </h1>
 
         <div class="post-meta">
@@ -199,27 +197,21 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2019-11-30 17:00:00" itemprop="dateCreated datePublished" datetime="2019-11-30T17:00:00-05:00">2019-11-30</time>
+              <time title="Created: 2020-09-19 12:45:00 / Modified: 06:30:36" itemprop="dateCreated datePublished" datetime="2020-09-19T12:45:00-04:00">2020-09-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-04 17:34:16" itemprop="dateModified" datetime="2020-09-04T17:34:16-04:00">2020-09-04</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Time-Series/" itemprop="url" rel="index"><span itemprop="name">Time Series</span></a>
+                  <a href="/categories/Order-Flow/" itemprop="url" rel="index"><span itemprop="name">Order Flow</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Time-Series/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a>
+                  <a href="/categories/Order-Flow/Quantitative-Trading/" itemprop="url" rel="index"><span itemprop="name">Quantitative Trading</span></a>
                 </span>
             </span>
 
@@ -232,8 +224,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/gaussian-mixture-markov-regime-switching.html#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="gaussian-mixture-markov-regime-switching.html" itemprop="commentCount"></span>
+    <a title="disqus" href="/market-profile-and-volume-profile.html#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="market-profile-and-volume-profile.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -248,41 +240,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>This post demonstrates how to use Expecation-Maximization (EM) Algorithm, Gaussian Mixture Model (GMM) and Markov Regime Switching Model (MRSM) to detect the latent stock market regime switches.</p>
-<h2 id="introduction">Introduction</h2>
-<p>It's been a while since the post of Hidden Markov Chain (HMM), this time let's continue to explore some other popular regime switching models, including Gaussian Mixture model and Markov Regime Switching model (MRSM). Similar to HMM, the market regime is served as hidden states so they are all approached by some sort of Expectation-Maximization (EM) machine learning techniques. It's in place to have a brief discussion on EM algorithm first.</p>
-<p>The accompanying notebook can be found <a href="https://github.com/letianzj/QuantResearch/blob/master/notebooks/gaussian_mixture_markov_switching.ipynb" target="_blank" rel="noopener">here</a>.</p>
+        <h2 id="introduction">Introduction</h2>
+<p>Market Profile and Volume Profile in Python -- Free yet powerful trade flow profiling tools for intraday stock market analysis is published <a href="https://medium.com/@letian.zj/market-profile-and-volume-profile-in-python-139cb636ece?source=friends_link&amp;sk=fd883f5fefab725f14d6ddbb3d271fa7" target="_blank" rel="noopener">here on medium</a>. It illustrates how to combine Yahoo Finance, Google Colab, and Python Plotly to generate a free yet very powerful interactive charting tool for intraday market profiling analysis.</p>
+<p>Market profile, as its name suggests, is a tool to profile stock market intraday trade activities. It was introduced by CBOT trader J. Peter Steidlmayer. It shows how much time the trading session is spent on a particular price level. Similarly, the volume profile depicts how many shares have been transacted at a particular price.</p>
+<p>For details, see <a href="https://medium.com/@letian.zj/market-profile-and-volume-profile-in-python-139cb636ece?source=friends_link&amp;sk=fd883f5fefab725f14d6ddbb3d271fa7" target="_blank" rel="noopener">this post</a>.</p>
 <a id="more"></a>
-<h2 id="expectation-maximization">Expectation-Maximization</h2>
-<p>The simplest example on EM I can come up with has already been posted on <a href="https://stats.stackexchange.com/questions/72774/numerical-example-to-understand-expectation-maximization" target="_blank" rel="noopener">stackexchange and the paper cited there</a>. Here I will just make some comments on the coin-flipping example.</p>
-<p>Maximum Likelihood Estimation (MLE) is the most widely used method to estimate model parameters. Yet it is only effective when the data generation process is transparent and there are no hidden or latent variables. In the example there are two coins with probability of heads <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(\theta_B\)</span> respectively, and we know exactly which coin generates the toss set (identified by blue and red). Then MLE estimation is simply the percentage of heads in the red and blue group, respectively.</p>
-<p>If there exist latent variables, EM algorithm is used to find MLE estimation iteratively. In this case we don't know which coin is used to generate the toss set. The E-M two-step works as below. 1. E-step: make assumptions and complete the dataset Assume coin A gets head <span class="math inline">\(60\%\)</span> of time, coin B <span class="math inline">\(50\%\)</span> of time (or any other numbers you prefer). Had we picked coin A, the probability of seen first toss set (5H, 5T) is given by Binomial <span class="math display">\[
-\begin{pmatrix}
-10 \\
-5
-\end{pmatrix}
-(0.6)^5(0.4)^5=0.20
-\]</span></p>
-<p>simiarily the probability is <span class="math inline">\(0.246\)</span> had we chosen coin B. Based on the likihoods, the probability of coin <span class="math inline">\(A\)</span> behind the first toss set is <span class="math inline">\(0.20/(0.20+0.246)=0.45\)</span> and <span class="math inline">\(1-0.45=0.55\)</span> for coin <span class="math inline">\(B\)</span>, which makes sense because we would expect that it's more likely that coin <span class="math inline">\(B\)</span> produced the toss set. Then (5H, 5T) contributes <span class="math inline">\(5H*0.45=2.2H\)</span> to coin A, <span class="math inline">\(5H*0.55=2.8H\)</span> to coin B, and so on the table on the right side.</p>
-<ol start="2" type="1">
-<li>M-step: update the assumptions M-step is regular maximum likelihood estimation given the new probability table generated in the E-step.</li>
-</ol>
-<p>Iterate step 1 and 2 until <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(\theta_B\)</span> converge.</p>
-<h2 id="gaussian-mixture-model">Gaussian Mixture Model</h2>
-<p>In the above example, if we assume instead <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(\theta_B\)</span> come from two Gaussian distributions, respectively, then it becomes Gaussian Mixture model. A good illustration can be found <a href="https://www.kaggle.com/charel/learn-by-example-expectation-maximization" target="_blank" rel="noopener">here</a>.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.mixture <span class="keyword">import</span> GaussianMixture</span><br><span class="line"></span><br><span class="line">X = hist_ret.values.reshape(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">n_components = np.arange(<span class="number">1</span>, <span class="number">21</span>)</span><br><span class="line">models = [GaussianMixture(n, covariance_type=<span class="string">'full'</span>, random_state=<span class="number">0</span>).fit(X) <span class="keyword">for</span> n <span class="keyword">in</span> n_components]</span><br><span class="line"></span><br><span class="line">plt.plot(n_components, [m.bic(X) <span class="keyword">for</span> m <span class="keyword">in</span> models], label=<span class="string">'BIC'</span>)</span><br><span class="line">plt.plot(n_components, [m.aic(X) <span class="keyword">for</span> m <span class="keyword">in</span> models], label=<span class="string">'AIC'</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'best'</span>)</span><br><span class="line">plt.xlabel(<span class="string">'n_components'</span>);</span><br></pre></td></tr></table></figure>
-<img src="/gaussian-mixture-markov-regime-switching/gaussian_mixture_aic.png" class="" title="Gaussian Mixture AIC">
-<p>We may choose either two or three states based on the AIC graph. Two states could indicate high and low vol regimes; while three states hopefully can explain uptrend, downtrend and sideways. In this post we use two components. The result suggests first state is low vol (<span class="math inline">\(0.5\%\)</span>), second state is high vol (<span class="math inline">\(5.6/%\)</span>).</p>
-<h2 id="markov-regime-switching-model">Markov Regime Switching Model</h2>
-<p>It's known that stock return is not normally distributed, having negative skewness and high kurtosis. It can be better modeled as conditional normal distribution (e.g. GARCH), which may suggest that the market can have different regimes and returns are normally distributed within a regime.</p>
-<p>Here again we choose two regimes, and assuming return is centered around zero.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> statsmodels.tsa.regime_switching.markov_regression <span class="keyword">import</span> MarkovRegression</span><br><span class="line">model = MarkovRegression(hist_ret, k_regimes=<span class="number">2</span>, trend=<span class="string">'nc'</span>, switching_variance=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">res = model.fit()</span><br><span class="line">res.summary()</span><br></pre></td></tr></table></figure>
-<img src="/gaussian-mixture-markov-regime-switching/markov_regime_switching_fit.png" class="" title="Markov Switching Model Fit">
-<p>The result also suggests first state is low vol <span class="math inline">\(0.5\%\)</span>, while second state is high vol <span class="math inline">\(4.17\%\)</span>. By comparing the graphs, the regime switch model turns out to have better fit than Gaussian mixture; which is undertandable, because Gaussian mixture doesn't consider time sequence in time series. And comparing with VIX, Markov Regime Switching model captures major market downturns as shown below.</p>
-<img src="/gaussian-mixture-markov-regime-switching/markov_regime_vix.png" class="" title="Markov regime and VIX">
-<p>A straightforward way to use regime switching for trading is to assume regime doesn't change; or tomorrow is in the same regime as today.</p>
-<h2 id="reference">Reference</h2>
-<p>VanderPlas, Jake. Python data science handbook: Essential tools for working with data. " O'Reilly Media, Inc.", 2016.</p>
 <p><strong>DISCLAIMER: This post is for the purpose of research and backtest only. The author doesn't promise any future profits and doesn't take responsibility for any trading losses.</strong></p>
 
     </div>
@@ -299,7 +261,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html" title="Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes">https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html</a>
+    <a href="https://letianzj.github.io/market-profile-and-volume-profile.html" title="Market Profile and Volume Profile">https://letianzj.github.io/market-profile-and-volume-profile.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -310,9 +272,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Time-Series/" rel="tag"># Time Series</a>
-              <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
-              <a href="/tags/Statistics/" rel="tag"># Statistics</a>
+              <a href="/tags/Quantitative-Trading/" rel="tag"># Quantitative Trading</a>
+              <a href="/tags/Order-Flow/" rel="tag"># Order Flow</a>
           </div>
 
         
@@ -321,13 +282,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/arima-garch-model.html" rel="prev" title="ARIMA GARCH Model and Stock Market Prediction">
-      <i class="fa fa-chevron-left"></i> ARIMA GARCH Model and Stock Market Prediction
+    <a href="/letian-wang-quant-trading-blog.html" rel="prev" title="Welcome to my Blog on Quantitative Trading and Sysematic Investing">
+      <i class="fa fa-chevron-left"></i> Welcome to my Blog on Quantitative Trading and Sysematic Investing
     </a></div>
-      <div class="post-nav-item">
-    <a href="/portfolio-management-two.html" rel="next" title="Portfolio Management | Backtest Monthly Rebalance Strategy">
-      Portfolio Management | Backtest Monthly Rebalance Strategy <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -393,7 +351,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#expectation-maximization"><span class="nav-number">2.</span> <span class="nav-text">Expectation-Maximization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gaussian-mixture-model"><span class="nav-number">3.</span> <span class="nav-text">Gaussian Mixture Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markov-regime-switching-model"><span class="nav-number">4.</span> <span class="nav-text">Markov Regime Switching Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -614,9 +572,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://letianzj.github.io/gaussian-mixture-markov-regime-switching.html";
-    this.page.identifier = "gaussian-mixture-markov-regime-switching.html";
-    this.page.title = "Gaussian Mixture and Regime Switching Model to Capture Stock Market Regimes";
+    this.page.url = "https://letianzj.github.io/market-profile-and-volume-profile.html";
+    this.page.identifier = "market-profile-and-volume-profile.html";
+    this.page.title = "Market Profile and Volume Profile";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {

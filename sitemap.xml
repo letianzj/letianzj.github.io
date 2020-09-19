@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
+    
+    <lastmod>2020-09-19T10:33:09.381Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/market-profile-and-volume-profile.html</loc>
+    
+    <lastmod>2020-09-19T10:30:36.648Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://letianzj.github.io/letian-wang-quant-trading-blog.html</loc>
+    
+    <lastmod>2020-09-16T17:42:46.465Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://letianzj.github.io/free-historical-market-data-download-in-python.html</loc>
     
     <lastmod>2020-09-12T10:46:13.380Z</lastmod>
@@ -19,13 +40,6 @@
     <loc>https://letianzj.github.io/cointegration-pairs-trading.html</loc>
     
     <lastmod>2020-09-09T02:40:32.147Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/letian-wang-quant-trading-blog.html</loc>
-    
-    <lastmod>2020-09-06T21:27:58.124Z</lastmod>
     
   </url>
   
@@ -54,13 +68,6 @@
     <loc>https://letianzj.github.io/machine-learning-in-finance-some-models-and-examples.html</loc>
     
     <lastmod>2020-09-04T21:44:11.743Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://letianzj.github.io/option-pricing-using-reinforcement-learning.html</loc>
-    
-    <lastmod>2020-09-04T21:39:27.720Z</lastmod>
     
   </url>
   
